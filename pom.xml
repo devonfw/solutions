@@ -19,6 +19,8 @@
   <properties>
     <asciidoctor.templateDir/>
     <docgen.docsource>index.asciidoc</docgen.docsource>
+    <asciidoctor.templateDir>${basedir}/../asciidoctor-backend/erb/html5/</asciidoctor.templateDir>
+    <stylesheet.target.dir>${basedir}/../asciidoctor-stylesheet/target/stylesheets/</stylesheet.target.dir>
     <asciidoctor.attributes>toc=false</asciidoctor.attributes>
   </properties>
 
