@@ -1,0 +1,50 @@
+#content{
+  display: flex;
+  .filterspanel{
+    padding-right: 5px;
+    min-width: 180px;
+    .filterpanel{
+      padding-top: 2px;
+      margin-bottom: 5px;
+      .filterpanelhead{
+        background-color: #4cbdec;
+        color: white;
+        padding: 5px;
+        font-weight: bold;
+      }
+      .filterpanelbody{
+        .tag{
+          margin-top: 2px;
+          padding-top: 2px;
+          border: 1px solid white;
+        }
+        .selected{
+          //border: 1px solid #4cbdec;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .resultspanel{
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    .solution{
+      flex-basis: 50%;
+      padding: 2px;
+      min-width: 200px;
+      .solutionheadline{
+        background-color: #4cbdec;
+        padding: 5px;
+        .solutionheadlinelink{
+          color: white;
+          font-weight: bold;
+        }
+      }
+      .solutionimage{
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
