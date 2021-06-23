@@ -1,0 +1,60 @@
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+= Monitoring your microservices with openTelemetry
+
+== Where is the problem?
+_With the complexity and size of microservice systems, which include hundreds of small services, keeping an overview can be quite challenging. Usually one monolitic application can be scanned for potential errors as failures in the system directly reference this one application. With microservices the area to search in could be narrowed down but never to an extend adressing one specific service being the root cause. Therefore to keep track of runtime problems and the fullfillment of nonfunctional reqirements corresponding to specififc microservices advanced monitoring needs emerge._
+
+_There are different proposals for collecting this telemetry data consisting of logs, traces and metrics with each proposal having their own benefits and disadvantages leading to a heterogenous landscape of these solutions special for each microservice. As these are configured on their own and little to no replacability options without nudging big change efforts are given flexibility is limited blocking possibly better solutions. Concluding, overall and in the microservice teams there is not a central repository for looking up your microservices telemetry data but again a numerous amount of different hardly replacable solutions for different microservices making it difficult to gain a central overview e.g. via Grafana."_
+
+=== The value for the customer
+_Monitoring in microservice settings generally benefits nonfunctional requirements like performance, availability or security through transparent insights while making handling issues pro- but also reactively possible. By having all the telemetry data centrally stored and providing exchangeable solutions for the different types of data no restrictions to design decisions is made and the customer can gain a fast overview over a great amount of microservices._
+
+=== Introducing openTelemetry
+_OpenTelemetry forms the combination of openTracing and openCensus collecting different telemetry data (metrics, logs, traces) for understanding the applications behavior and performance. Because of the standardization for processing telemetry data openTelemetry acts as a central collector for whole application landscapes monitoring data, which is able to communicate with replacable logging-, tracing- or metrics-backends without changing configurations in the applications code._
+
+==== addressing your business
+_OpenTelemetry can be used in various use cases but is best suited in the microservice context. Therefore any business apllication relying on microservices would be a suited domain for applying an openTelemetry solution._
+
+==== addressing your architecture
+image::openTelemetry_architecture.svg[]
+_The above example shows a reference architecture of multiple hosts (environments/applications) with separate agents._
+[start=1]
+. _Traces and logs are automatically collected at each JAX-RS service. Other additionally defined metrics, traces or logs are also collected._
+. _These applications send data directly to a collector configured to use fewer resources, aka the agent._
+. _The agent then forwards the data to a collector that receives data from multiple agents. Collectors on this layer typically are allowed to use more resources and queue more data._
+. _The Collector then sends the data to the appropriate backend, in the solution provided by devon4j Jaeger, Zipkin, #and Victoria + Logging w/ SLF4j (not currently bc quarkus doesn't support this yet)#. The Victoria backend serves metrics while Jaeger and Zipkin are two alternatives for tracing._
+. _Additionally all the telemetry data can be visualized in a tool like Grafana._
+
+_The configuration provided in the reference project is based on one single agent. Pipelines are set up consisting of reveivers, processors and exporters in the collector/agent config file. A reveiver transfers the telemetry data into the collector, which then can be processed on a processor. Finally, an exporter can send the data to a corresponding backend/destination. Further information can be found https://opentelemetry.io/docs/collector/configuration/[*here*]_
+
+_Relevant components:_
+
+* _https://github.com/open-telemetry/opentelemetry-collector[*OpenTelemetry Collector*]_
+* _https://www.jaegertracing.io/[*Jaeger*]_
+* _https://zipkin.io/[*Zipkin*]_
+* _https://github.com/VictoriaMetrics/VictoriaMetrics[*VictoriaMetrics*]_
+* _https://grafana.com/[*Grafana*]_
+
+==== definitively needed if
+* _Running a system with microservices leveraging different solutions for monitoring._
+
+== How to solve your problem
+_#If the solution should only be covered in this it could get quite big, same as architecture now but with every part describing sth about opentelemetry# You could deploy each microservice with its own agent collecting different kinds of data with respect to the relevant backend. All this data is stored to a separately deployed collector, which reveives all this data making it ready to be viewed on other ressources._
+
+== Go beyond!
+_Additionally there are 3 extensions (https://github.com/open-telemetry/opentelemetry-collector/blob/main/extension/README.md[*Health Check, Performance Profiler, zPages*]) provided that can be added to the collector. These do not need direct access to telemetry data and enable additional functionalities outside the usual pipeline._
+
+=== Related Architectures and Alternatives
+* _https://opentracing.io/[*openTracing*]_
+* _https://opencensus.io/[*openCensus*]_
+
+=== Products & Services
+_List of available receivers, processors and exporters:_
+
+* _https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver[*reveivers*]_
+* _https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor[*processors*]_
+* _https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter[*exporters*]_
