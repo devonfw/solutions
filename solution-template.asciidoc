@@ -1,0 +1,47 @@
+//Category=coolCategory
+//Products=A cool product;Coolest product
+
+----
+
+* Template for creating architecture solutions!
+* copy this File and delete this explanation and adapt.
+
+----
+
+= _Give it a good name!_
+
+== You have the following problem to be solved
+_Explain the problem your solution solves. In specific try to be precise on the root cause of the problem to provide a convincing solution. For example a problem "We would need monitoring for our microservices application" is quite inspecific. Nonetheless, make it much more concrete you could address the problem domain of the applier of the pattern more easily if saying. "We need to be able to analyze at any time of timeframe in the past the process statistics of each of the containers running in a microservices application environment setup with Istio to be able to analyze resource leaks, system breaks, and resource consumption of the entire system."_
+
+=== The proposed solution enables the customer
+_Explain the business value to the customer, i.e. "would enable the customer to continously monitor the system resources and potentially even attach alerting on top of it for escalating critical system states eventually increasing system availability_
+
+=== The proposed solution is
+
+==== addressing your business
+_The business context, potentially also the application domain, i.e. "Most valuable in the commence domain as it clearly focuses on regluartory context of that domain when it comes to data monitoring"
+
+==== addressing your architecture
+_Explain the context the solution could be applied, i.e._
+
+* _Kubernetes needs to host all applications to be monitored_
+* _AWS needs to host all applications to be monitored in EKS_
+* _Istio needs to orchestrate all applications to be monitored_
+
+==== definitively needed if
+_Explain forces. Forces allow to rethinking the pattern writer *"What are the demands fostering this solution?"* / *"Why should I consider this solution?"*._
+
+== How to solve your problem
+_Solution description. Try to be concrete, clearly structure your solution description and build it on top of the previous sections._
+_Possibly relate to other online resources. We don't want to re-invent the wheel._
+_Be visual! Make use of diagrams to increase understandability!_
+
+== Go beyond!
+_Provide further references; good reads;_
+
+=== Related Architectures and Alternatives
+_Provide references to related architectures / architecture patterns of this catalog or even external catalogs_
+_Also think about alternatives and declare and link them like that in case they come for a different context or different forces_
+
+=== Products & Services
+_Provide potentially already available products to be used to replace sigle components of the solution or even provide managed services on top of products from different vendors_
