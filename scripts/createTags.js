@@ -6,8 +6,6 @@ function main(solutionsDir, outputFile) {
     var tags = {};
     var frequence = new Map();
     var tagsWithoutDup = [];
-    var max;
-    var finalTag;
     
     let dirContent = fs.readdirSync(solutionsDir);
     dirContent.forEach(function (dirItem) {
@@ -83,6 +81,8 @@ function addFrequence(duplicatePos, tag, frequenceArr, compareArr){
 }
 
 function selectTag(tags, tag, maxFrequence, frequenceArr){
+    var finalTag; 
+    
     for (k of frequenceArr.keys()){
         if(k.toLowerCase().replace(/\s+/g,"") == tag){
             if(maxFrequence < frequenceArr.get(k)){
