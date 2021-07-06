@@ -11,13 +11,15 @@ This part deals with the recommendations on authentication.
 In large IT landscapes it is a highly recommended best-practice to centralize your authentication. Implemeting the actual authentication into every application or service is therefore considered as an anti-pattern. Instead we suggest to use a central identity and access management (IAM) solution based on established products (e.g. https://www.keycloak.org/[Keycloak]).
 
 === Using a central IAM
-When using a central IAM solution, the incoming traffic goes through a gateway that acts as a reverse proxy to the actual service. The gateway is responsible to the authentication by integrating with the identity provider (e.g. using https://openid.net/connect/[OpenId Connect], https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html[SAMLv2], https://webauthn.io/[WebAuthn]). After successful authentication the gatway retrieves the roles/groups of the user and creates a https://jwt.io/[JSON Web Token] (JWT) that is signed with a strong asymmetric security algorithm. The original incoming request is forwarded to the actual service and the JWT is added as Bearer Token via HTTP header according to https://oauth.net/[OAuth] standard. In the application, the token can be validated according to the user's roles and groups.
+When using a central IAM, the user is redirected to the identity provider (IdP) when trying to access the application. The IdP returns a login page where the user can log in. After confirming that the user can access the application, the IdP returns a https://jwt.io/[JSON Web Token] (JWT) that the user can use to access the application. Participants integrate with the identity provider using protocols such as https://openid.net/connect/[OpenId Connect], https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html[SAMLv2] or https://webauthn.io/[WebAuthn]. The original incoming request is forwarded to the actual service and the JWT is added as a bearer token via HTTP header according to https://oauth.net/[OAuth] standard. In the application, the token can be validated according to the user's roles and groups.
+
+image::authentication_flow.png[Abstract authentication flow]
+
+To support multiple applications in the same way, you can put a gateway in front of the IdP and the applications. Incoming traffic goes through the gateway, which acts as a reverse proxy for the actual service. The gateway is then responsible for authentication by integrating with the identity provider.
 
 Services are implemented stateless and only accept requests with valid JWT from gateway. When one of your services invokes another service it simply passes on the JWT via HTTP header. This way all sub-sequent invocations happen within the context and with the permissions of the initial user.
 
 The gateway should also act as a portal that integrates the UIs of your microservices so that end users do not notice which UI comes from which service, but have the user experience (UX) of a single monolithic UI.
-
-image::authentication_flow.png[Abstract OAuth 2.0 flow]
 
 === Values for the customer
 * all services are independent and decoupled from the actual authentication and IAM
