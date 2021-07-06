@@ -17,7 +17,7 @@ Services are implemented stateless and only accept requests with valid JWT from 
 
 The gateway should also act as a portal that integrates the UIs of your microservices so that end users do not notice which UI comes from which service, but have the user experience (UX) of a single monolithic UI.
 
-image::oauth2_flow.png[Abstract OAuth 2.0 flow]
+image::authentication_flow.png[Abstract OAuth 2.0 flow]
 
 === Values for the customer
 * all services are independent and decoupled from the actual authentication and IAM
