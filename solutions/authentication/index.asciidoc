@@ -11,11 +11,13 @@ This part deals with the recommendations on authentication.
 In large IT landscapes it is a highly recommended best-practice to centralize your authentication. Implemeting the actual authentication into every application or service is therefore considered as an anti-pattern. Instead we suggest to use a central identity and access management (IAM) solution based on established products (e.g. https://www.keycloak.org/[Keycloak]).
 
 === Using a central IAM
-When using a central IAM solution, the incoming traffic goes through a gateway that acts as a reverse proxy to the actual service. The gateway is responsible to the authentication by integrating with the IAM (e.g. using WebAuthn, OpenId Connect, SAMLv2). After successful authentication the gatway retrieves the roles/groups of the user and creates a JSON Web Token (JWT) that is signed with a strong asymmetric security algorithm. The original incoming request is forwarded to the actual service and the JWT is added as Bearer Token via HTTP header according to OAuth standard. In the application, the token can be validated according to the user's roles and groups.
+When using a central IAM solution, the incoming traffic goes through a gateway that acts as a reverse proxy to the actual service. The gateway is responsible to the authentication by integrating with the identity provider (e.g. using https://openid.net/connect/[OpenId Connect], https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html[SAMLv2], https://webauthn.io/[WebAuthn]). After successful authentication the gatway retrieves the roles/groups of the user and creates a https://jwt.io/[JSON Web Token] (JWT) that is signed with a strong asymmetric security algorithm. The original incoming request is forwarded to the actual service and the JWT is added as Bearer Token via HTTP header according to https://oauth.net/[OAuth] standard. In the application, the token can be validated according to the user's roles and groups.
 
-Services are implemented stateless and only accept requests with valid JWT from gateway. Therefore they validate signature using the gateways public key and check validity (nbf, ext, iat). When one of your services invokes another service it simply passes on the JWT via HTTP header. This way all sub-sequent invocations happen within the context and with the permissions of the initial user.
+Services are implemented stateless and only accept requests with valid JWT from gateway. When one of your services invokes another service it simply passes on the JWT via HTTP header. This way all sub-sequent invocations happen within the context and with the permissions of the initial user.
 
 The gateway should also act as a portal that integrates the UIs of your microservices so that end users do not notice which UI comes from which service, but have the user experience (UX) of a single monolithic UI.
+
+image::oauth2_flow.png[Abstract OAuth 2.0 flow]
 
 === Values for the customer
 * all services are independent and decoupled from the actual authentication and IAM
@@ -26,8 +28,25 @@ The gateway should also act as a portal that integrates the UIs of your microser
 
 We recommend the following conventions:
 
-* define a short but meaningful unique alphanumeric identifier for each of your services (`"app-id"`).
-* establish a clear URL scheme for accessing your apps, e.g. https://gateway.company.con/"app-id"/...
-* use a cloud infrastructure platform that allows to manage an overlay network so you can configure loadbalancers or even https://platform9.com/blog/kubernetes-service-mesh-a-comparison-of-istio-linkerd-and-consul/[service-mesh] mapping your service entry points to a consistent URL schema such as https://«app-id»:8443/«app-id»/...
-* this way you do not need any configuration or business knowledge inside your gateway as the routing can be implemented fully generic.
-* use `«app-id».` as a prefix to all permission groups/roles specific to your service to avoid name clashing in your central IAM.
+* define a short but meaningful unique alphanumeric identifier for each of your services (`app-id`)
+* establish a clear URL scheme for accessing your apps, e.g. `https://gateway.company.com/«app-id»/`
+* use a cloud infrastructure platform that allows to manage an overlay network so you can configure loadbalancers or even a https://platform9.com/blog/kubernetes-service-mesh-a-comparison-of-istio-linkerd-and-consul/[service-mesh] mapping your service entry points to a consistent URL schema such as `https://«app-id»:8443/«app-id»/`
+* this way you do not need any configuration or business knowledge inside your gateway as the routing can be implemented fully generic
+* use `app-id.` as a prefix to all permission groups/roles specific to your service to avoid name clashing in your central IAM
+
+=== Related documentations
+
+* https://github.com/devonfw/devon4j/blob/master/documentation/guide-access-control.asciidoc#authentication[devon4j authentication guide]
+* https://github.com/devonfw/devon4j/blob/master/documentation/guide-jwt.asciidoc[devon4j JWT guide]
+* https://oauth.net/2/[OAuth 2.0]
+* https://openid.net/connect/[OpenID Connect]
+* https://www.keycloak.org/docs/latest/securing_apps/[Keycloak's securing apps guide]
+
+
+=== IAM solutions
+
+* https://www.keycloak.org/[Keycloak]
+* https://is.docs.wso2.com/en/latest/[WSO2]
+* https://gluu.org/[Gluu Server]
+* https://backstage.forgerock.com/docs/[ForgeRock]
+* ...
