@@ -15,7 +15,7 @@ When using a central IAM, the user is redirected to the identity provider (IdP) 
 
 image::authentication_flow.png[Abstract authentication flow]
 
-To support multiple applications in the same way, you can put a gateway in front of the IdP and the applications. Incoming traffic goes through the gateway, which acts as a reverse proxy for the actual service. The gateway is then responsible for authentication by integrating with the identity provider.
+Typically, a gateway is placed in front of the IdP and applications to act as a reverse proxy for the actual service. Incoming traffic goes through the gateway and the gateway is then responsible for authentication through integration with the identity provider. In this way, multiple applications and services can be deployed without implementing integration between the service itself and the IdP. The JWT can be validated only on the gateway side or additionally passed to the application for further validation.
 
 Services are implemented stateless and only accept requests with valid JWT from gateway. When one of your services invokes another service it simply passes on the JWT via HTTP header. This way all sub-sequent invocations happen within the context and with the permissions of the initial user.
 
