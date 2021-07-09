@@ -15,7 +15,7 @@ Cloudwatch alarms give you the ability to notify you in case an alarm is trigger
 ... to send out an customised e-mail template which looks more professional and has additional information compared to the standard cloudwatch alarm.
 
 === Related Architectures and Alternatives
-See code here: https://github.com/AlessandroVol23/cloudwatch-email-cdk
+See code here: https://github.com/AlessandroVol23/cloudwatch-custom-email-cdk
 
 === Products & Services
 1. Cloudwatch Alarm: Some cloudwatch alarm
