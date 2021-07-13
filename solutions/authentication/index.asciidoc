@@ -1,5 +1,5 @@
 //Category=Security;Authentication
-//Products=Keycloak;WSO2;Gluu;ForgeRock
+//Product=Keycloak;WSO2;Gluu;ForgeRock
 //Standards=OAuth;OIDC;JWT;SAML;WebAuthn
 
 = Authentication
