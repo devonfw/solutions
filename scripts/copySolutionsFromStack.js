@@ -4,10 +4,7 @@ const path = require('path');
 const fsEx = require('fs-extra');
 
 function main(repositoryDir) {
-    var prefix;
     let dirContent = fs.readdirSync(repositoryDir);
-    var subfolders;
-    var solutions;
     
     dirContent.forEach(function (dirItem){
         item = `${repositoryDir}/${dirItem}`;
@@ -15,14 +12,14 @@ function main(repositoryDir) {
 
         if(fileStats.isDirectory()){
             if(path.extname(item) == '.wiki'){
-                subfolders = fs.readdirSync(item);
-                prefix = path.basename(item,'.wiki') + '_';
+                let subfolders = fs.readdirSync(item);
+                let prefix = path.basename(item,'.wiki') + '_';
 
                 subfolders.forEach(function (subfolder){
                     if(path.basename(subfolder) == 'solutions' ){
                         let solutionFolder = `${item}/${subfolder}`;
                         let destPath = path.join(__dirname, '../solutions'); 
-                        solutions = fs.readdirSync(solutionFolder);
+                        let solutions = fs.readdirSync(solutionFolder);
                         solutions.forEach(function (solution){
                             let oldPathName = `${solutionFolder}/${solution}`;
                             let newPathName = path.join(oldPathName, '../'+prefix+path.basename(solution));
