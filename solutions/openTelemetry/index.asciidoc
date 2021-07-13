@@ -1,5 +1,5 @@
 //Product=OpenTelemetry;Zipkin;Jaeger;Victoria Metrics;Grafana
-//UseCase=Monitoring
+//Category=Monitoring
 
 :toc: macro
 toc::[]
