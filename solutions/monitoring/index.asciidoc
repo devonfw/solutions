@@ -1,3 +1,5 @@
+//Maturity_Level=Advanced
+
 == Context & Problem
 === Terminology
 
@@ -22,7 +24,7 @@ Monitoring should be implemented as feedback loop where lessons learnt are the s
 
 The use case defines what is the defined service and the perspectives and control level to be achieved. It also defines external dependencies/ preconditions that have to be considered. Deployment of monitored resources might also be part of it. The platform provides the technical capabilities on which the sue case is implemented. The picture below illustrates this:
 
-image::/Monitoring.png[First image]
+image::Monitoring.png[First image]
 
 === Standard Problems
 

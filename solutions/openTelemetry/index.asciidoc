@@ -1,5 +1,6 @@
 //Product=OpenTelemetry;Zipkin;Jaeger;Victoria Metrics;Grafana
 //Category=Monitoring
+//Maturity_Level=Complete
 
 == Monitoring your microservices with openTelemetry
 
@@ -18,7 +19,7 @@ https://opentelemetry.io/[OpenTelemetry] forms the combination of OpenTracing an
 OpenTelemetry can be used in various use cases, but is best suited in the microservice context. Therefore, any business apllication relying on microservices would be a suited domain for applying an OpenTelemetry solution.
 
 ==== OpenTelemetry architecture
-image::openTelemetry_architecture.svg[]
+image::openTelemetry_architecture.svg[OpenTelemetry architecture]
 The above example shows a reference architecture of multiple hosts (environments/applications).
 [start=1]
 . Traces and logs are automatically collected at each JAX-RS service. Other additionally defined metrics, traces or logs are also collected.
@@ -28,7 +29,7 @@ The above example shows a reference architecture of multiple hosts (environments
 . Additionally all the telemetry data can be visualized in a tool like Grafana.
 
 The OpenTelemetry collector is an instance that makes it possible to receive telemetry data, optionally transform it and send the data on. Receiving, transforming and sending data is done via pipelines. A pipeline consists of a set of receivers, a set of optional processors and a set of exporters.
-image::opel_collector_pipeline.png[]
+image::otel_collector_pipeline.png[OpenTelemetry collector pipeline]
 A reveiver transfers the telemetry data into the collector, which then can be processed on a processor. Finally, an exporter can send the data to a corresponding backend/destination. Further information can be found https://opentelemetry.io/docs/collector/configuration/[*here*]
 
 List of available receivers, processors and exporters:
