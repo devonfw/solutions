@@ -1,4 +1,4 @@
-//Maturity_Level=Advanced
+//Maturity level=Advanced
 
 == Context & Problem
 === Terminology

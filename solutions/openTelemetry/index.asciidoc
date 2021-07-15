@@ -1,6 +1,6 @@
 //Product=OpenTelemetry;Zipkin;Jaeger;Victoria Metrics;Grafana
 //Category=Monitoring
-//Maturity_Level=Complete
+//Maturity level=Complete
 
 == Monitoring your microservices with openTelemetry
 
