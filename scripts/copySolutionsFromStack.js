@@ -12,25 +12,22 @@ function main(repositoryDir) {
 
         if(fileStats.isDirectory()){
             if(path.extname(item) == '.wiki'){
-                let subfolders = fs.readdirSync(item);
                 let prefix = path.basename(item,'.wiki') + '_';
+                let solutionsFolder = `${item}/solutions`;
 
-                subfolders.forEach(function (subfolder){
-                    if(path.basename(subfolder) == 'solutions' ){
-                        let solutionFolder = `${item}/${subfolder}`;
+                    if(fs.existsSync(solutionsFolder)){
                         let destPath = path.join(__dirname, '../solutions'); 
-                        let solutions = fs.readdirSync(solutionFolder);
+                        let solutions = fs.readdirSync(solutionsFolder);
                         solutions.forEach(function (solution){
-                            let oldPathName = `${solutionFolder}/${solution}`;
+                            let oldPathName = `${solutionsFolder}/${solution}`;
                             let newPathName = path.join(oldPathName, '../'+prefix+path.basename(solution));
                             if(path.basename(solution).search(prefix) != -1){
                                 return;
                             }
                             fs.renameSync(oldPathName,newPathName);
                         });
-                        fsEx.copySync(solutionFolder,destPath);
+                        fsEx.copySync(solutionsFolder,destPath);
                     }
-                });
             }
         }
     });
