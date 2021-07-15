@@ -1,5 +1,6 @@
 //Category=Monitoring
 //Product=AWS;cloudwatch;lambda;ses
+//Maturity level=Initial
 
 :toc: macro
 toc::[]
