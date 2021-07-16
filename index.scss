@@ -20,8 +20,13 @@
           border: 1px solid white;
           .material-icons-sharp {
             vertical-align: sub;
+          }
+          &:not(.disabled) > .material-icons-sharp {
             color: #4cbdec;
           }
+        }
+        .disabled {
+          color: lightgrey;
         }
       }
     }
