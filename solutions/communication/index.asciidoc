@@ -4,16 +4,16 @@
 = Communication
 
 == Communication among services
-Communication is a very important aspect while building IT application, especially large and complex one or one with microservices architecture. Based on your analyse of your problems, considering the following basic questions to start with:
+Communication is a very important aspect while building IT application, especially large and complex one or one with microservices architecture. Based on your analysis of your problems, considering the following basic questions to start with:
 
 * Which services have to communicate with which services? to exchange which type of data?
 * How should the communication look like? in a synchronous way or asynchronous way?
 
 Once you have your answers, make your choices on concrete protocols, products and libraries. Using multiple of them in your application is fine.
 
-Unfortunately there is no silver bullet. Each communication type has its own advantages and disadvantages and target a different scenario and goals. With that said, do not always apply REST or always apply kafka just because you have heard some success stories about it.
+Unfortunately, there is no silver bullet. Each communication type has its own advantages and disadvantages and target a different scenario and goals. With that said, do not always apply REST or always apply kafka just because you have heard some success stories about it.
 
-Here we try to expose cross-cutting best practices for communication among services in larger IT application landscapes on a high level. Details how to implement this with specific libraries, or programming-languages are described in the individual stacks of devonfw.
+Here we try to expose cross-cutting best practices for communication among services in larger IT application landscapes on a high level. Details how to implement this with specific libraries or programming-languages are described in the individual stacks of devonfw.
 
 == Communication types
 Generally, types of communication can be classified in 2 axes.
@@ -51,13 +51,13 @@ Protocols like https://en.wikipedia.org/wiki/SOAP[SOAP] or even RMI, Corba, etc.
 
 We do not even try to distinguish between _messaging_ and _eventing_.
 A message can be seen as an event and an event as a message.
-The nature of this communication style is that it is entirely assynchronous and the sender of the event or message does not have to know about the receipient(s).
-There can even be many receipients for the same event or message.
+The nature of this communication style is that it is entirely asynchronous and the sender of the event or message does not have to know about the receipient(s).
+There can even be many recipients for the same event or message.
 Typically there is a central messaging system (event bus) that is all you need to know about to send and receive your events or messages.
 This leads to a very loose coupling of your services.
 While this adds flexibility it also can add quite some complexity to understand what is actually going on.
 Debugging and tracing the communication can get really hard.
-In the worst case you can loose control and end up with cyclic events triggering each other till eternity.
+In the worst case you can lose control and end up with cyclic events triggering each other till eternity.
 However, when properly applied, this communication style can make your architecture very powerful and extendable.
 
 One of the most common choices for such a messaging system is https://kafka.apache.org[kafka]. Other message brokers to be considered are https://www.rabbitmq.com/[RabbitMQ] and https://activemq.apache.org/[ActiveMQ]
@@ -66,12 +66,12 @@ One of the most common choices for such a messaging system is https://kafka.apac
 == Service mesh
 In the context of microservices, service mesh is a key to communication.
 Service-to-service communication is what makes microservices possible.
-But creating, routing and managing this communication, both within and across application clusters, becomes increasingly complex as the number of services grow.
+But creating, routing and managing this communication, both within and across application clusters, becomes increasingly complex as the number of services grows.
 Service mesh solves this problem. It takes the logic governing service-to-service communication out of individual services and abstracts it to a layer of infrastructure.
-It also captures every aspects of the communication as performance metrics which can be used to monitor the cluster as well as identify and analyse system failures if occurs.
+It also captures every aspect of the communication as performance metrics which can be used to monitor the cluster as well as identify and analyze system failures if occurs.
 
 One of the most common and best choices for service mesh is https://istio.io/latest/about/service-mesh/[istio].
-Istio is an open source service mesh with powerful features enable developers to easily configure 1. the traffic flow 2. the authentication and authorization among internal and to external services and 3. monitoring tools such as kiali, prometheus and grafana.
+Istio is an open-source service mesh with powerful features that enable developers to easily configure 1. the traffic flow 2. the authentication and authorization among internal and to external services and 3. monitoring tools such as kiali, prometheus and grafana.
 
 == Communication contracts
 
