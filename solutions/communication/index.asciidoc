@@ -1,5 +1,6 @@
 //Category=Communication
 //Products=Kafka; Istio
+//Maturity level=Initial
 
 = Communication
 
