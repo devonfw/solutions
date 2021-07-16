@@ -1,5 +1,6 @@
 //Maturity level=Advanced
 
+= Azure Monitoring
 == Context & Problem
 === Terminology
 
