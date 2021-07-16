@@ -1,8 +1,8 @@
 //Maturity level=Advanced
 
-= Azure Monitoring
-== Context & Problem
-=== Terminology
+== Azure Monitoring
+=== Context & Problem
+==== Terminology
 
 _Used definition: A monitoring solution helps the monitoring consumer achieve the satisfactory level of control of a defined service_. footnote:[https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/manage/monitor/observability]
 
@@ -27,7 +27,7 @@ The use case defines what is the defined service and the perspectives and contro
 
 image::Monitoring.png[First image]
 
-=== Standard Problems
+==== Standard Problems
 
 A general solution for all potential problems is not possible due to the multitude of different requirements. The idea is therefore to address certain standard features which are as follows:
 
@@ -38,7 +38,7 @@ A general solution for all potential problems is not possible due to the multitu
 * Correlation of telemetry entries
 * Archiving Telemetry Data
 
-== Azure as Platform
+=== Azure as Platform
 
 The possibilities depend heavily on the perspective and the resources you want to monitor. A major tool to implement the monitoring plane is Azure Monitor with its features Application Insights and Log Analytics. The subsequent chapters focus on these major services. However, other services depending on your perspective might be relevant too. The following services relevant by category:
 
@@ -103,15 +103,15 @@ Azure Monitor pricing comes with the following:
 * *Storage:* Data stored within Azure Monitor costs => Long term Archiving solution must be therefore found
 * *Alerts:* Are charged as well => strategy for minimizing them is required
 
-== Solution
-=== Overview
+=== Solution
+==== Overview
 
 The solution is to use Azure Monitor and its features. The subsequent detail variations that can be used for solving the problems outlined above.
 
 [arabic, start=2]
-=== Variations
+==== Variations
 [arabic]
-==== Visualization
+===== Visualization
 
 Visualization requires the following points:
 
@@ -148,7 +148,7 @@ Can be inside Azure Monitor or external. External stores can avoid high Azure Mo
 *NOTE* Referencing an external data source requires authentication e.g. by using a shared access signature for a blob. Updating a saved query is only possible for log analytics.
 --
 
-==== Measuring
+===== Measuring
 
 The table below shows possible options:
 
@@ -168,10 +168,10 @@ Comments:
 * Option “Push via resource API” => A scheduled script that reads periodically telemetry and pushes it to monitoring plane using the Rest API
 * „Telemetry always captured“ => Some resources allow multiple ways to run something e.g. via UI or programmatically. If the telemetry is always captured the way does not matter.
 
-==== Archiving
+===== Archiving
 
 A good archiving store is blob storage. Lifecycle policies can be used to drop the blob after a predefined amount of time.
 
-== When to use
+=== When to use
 
 This solution assumes that your control plane is in Azure and that your monitored resources are located in Azure.
