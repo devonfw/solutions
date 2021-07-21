@@ -1,6 +1,7 @@
 //Category=Security;Authorization
 //Product=Keycloak;WSO2;Gluu;ForgeRock
 //Standard=OAuth;OIDC;JWT;SAML;WebAuthn
+//Maturity level=Initial
 
 = Authorization
 
@@ -25,6 +26,7 @@ For clarification we also want to give a common understanding of related terms t
 [options="header", cols="15%,85%"]
 |=======================
 |*Term*|*Meaning and comment*
+|Principal| An entity that can be authenticated e.g. a user, an application
 |Permission|A permission is an object that allows a principal to perform an operation in the system. This permission can be _granted_ (give) or _revoked_ (taken away). Sometimes people also use the term _right_ what is actually wrong as a right (such as the right to be free) can not be revoked.
 |Group|We use the term group in this context for an object that contains permissions. A group may also contain other groups. Then the group represents the set of all recursively contained permissions.
 |Role|We consider a role as a specific form of group that also contains permissions. A role identifies a specific function of a principal. A user can act in a role.
@@ -44,6 +46,11 @@ For the access model we give the following suggestions:
 * For authorization of an implemented use case we determine the required permission. Furthermore, we determine the current user and verify that the required permission is contained in the tree spanned by all his associated Access Controls. If the user does not have the permission we throw a security exception and thus abort the operation and transaction.
 * We avoid negative permissions, that is a user has no permission by default and only those granted to him explicitly give him additional permission for specific things. Permissions granted can not be reduced by other permissions.
 * Technically we consider permissions as a secret of the application. Administrators shall not fiddle with individual permissions but grant them via groups. So the access management provides a list of strings identifying the Access Controls of a user. The individual application itself contains these Access Controls in a structured way, whereas each group forms a permission tree.
+* Do not use the pattern that defines non-configured permission as no limitation or in other word all permissions.
+    ** [DB1,DB2] -> allow to access DB1 and DB2
+    ** [] -> have no permission at all -> good
+    ** [] -> have all permissions -> bad
+
 
 == Naming conventions
 As stated above each Access Control is uniquely identified by a human readable string. This string should follow the naming convention:
