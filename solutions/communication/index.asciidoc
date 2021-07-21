@@ -19,6 +19,8 @@ Here we try to expose cross-cutting best practices for communication among servi
 == Communication types
 Generally, types of communication can be classified in two axes.
 
+image::communication-type.svg[Communication types]
+
 The first axis defines if the protocol is synchronous or asynchronous:
 
     * *Synchronous protocol*: The client sends a request and waits for a response from the service as the client code can only continue its task when it receives the server response. That's independent of the client code execution that could be synchronous (thread is blocked) or asynchronous (thread isn't blocked, and the response will reach a callback eventually). e.g. HTTP/HTTPs
