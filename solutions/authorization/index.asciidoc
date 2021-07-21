@@ -5,10 +5,10 @@
 
 = Authorization
 
-Access control is an important aspect for the security in IT application landscapes. There are two different aspects to distinguish:
+Access control is an important aspect for the security in IT application landscapes. There are two different aspects to distinguish: authentication and authorization.
 
-* Authentication (Who tries to access?)
-* Authorization (Is the one accessing allowed to do what he wants to do?)
+.[https://www.ssl2buy.com/wiki/wp-content/uploads/2019/04/authentication-vs-authorization.jpg[Authentication vs Authorization]]
+image::authentication-vs-authorization.jpg[width=70%]
 
 This part deals with the recommendations on authorization, concretely with the general concept and convention. Details how to implement this with specific libraries, or programming-languages are described in the individual stacks of devonfw.
 
