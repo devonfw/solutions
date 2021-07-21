@@ -12,12 +12,12 @@ Communication is a very important aspect while building IT application, especial
 
 Once you have your answers, make your choices on concrete protocols, products and libraries. Using multiple of them in your application is fine.
 
-Unfortunately, there is no silver bullet. Each communication type has its own advantages and disadvantages and target a different scenario and goals. With that said, do not always apply REST or always apply kafka just because you have heard some success stories about it.
+Unfortunately, there is no silver bullet. Each communication type has its own advantages and disadvantages and target a different scenario and goals. With that said, do not always apply REST or always apply message-driven approaches (e.g. Kafka) just because you have heard some success stories about it.
 
 Here we try to expose cross-cutting best practices for communication among services in larger IT application landscapes on a high level. Details how to implement this with specific libraries or programming-languages are described in the individual stacks of devonfw.
 
 == Communication types
-Generally, types of communication can be classified in 2 axes.
+Generally, types of communication can be classified in two axes.
 
 The first axis defines if the protocol is synchronous or asynchronous:
 
@@ -36,7 +36,7 @@ One common style is single-receiver communication with a synchronous protocol li
     * <<service_mesh>>
 
 [#rpc]
-== RPC
+=== RPC
 When it comes to RPC communication nowadays we immediately talk about HTTPS.
 
 The most common choice is https://en.wikipedia.org/wiki/Representational_state_transfer[REST] with https://www.json.org/[JSON] that perfectly works together with web browsers.
@@ -48,7 +48,7 @@ However, please also consider other options especially for backend communication
 Protocols like https://en.wikipedia.org/wiki/SOAP[SOAP] or even RMI, Corba, etc. should be considered as legacy and discouraged.
 
 [#messaging_and_eventing]
-== Messaging and eventing
+=== Messaging and eventing
 
 We do not even try to distinguish between _messaging_ and _eventing_.
 A message can be seen as an event and an event as a message.
@@ -64,7 +64,7 @@ However, when properly applied, this communication style can make your architect
 One of the most common choices for such a messaging system is https://kafka.apache.org[kafka]. Other message brokers to be considered are https://www.rabbitmq.com/[RabbitMQ] and https://activemq.apache.org/[ActiveMQ]
 
 [#service_mesh]
-== Service mesh
+=== Service mesh
 In the context of microservices, service mesh is a key to communication.
 Service-to-service communication is what makes microservices possible.
 But creating, routing and managing this communication, both within and across application clusters, becomes increasingly complex as the number of services grows.
@@ -72,7 +72,13 @@ Service mesh solves this problem. It takes the logic governing service-to-servic
 It also captures every aspect of the communication as performance metrics which can be used to monitor the cluster as well as identify and analyze system failures if occurs.
 
 One of the most common and best choices for service mesh is https://istio.io/latest/about/service-mesh/[istio].
-Istio is an open-source service mesh with powerful features that enable developers to easily configure 1. the traffic flow 2. the authentication and authorization among internal and to external services and 3. monitoring tools such as kiali, prometheus and grafana.
+Istio is an open-source service mesh with powerful features that enable developers to easily configure
+
+    1. the traffic flow
+
+    2. the authentication and authorization among internal and to external services and
+
+    3. monitoring tools such as kiali, prometheus and grafana.
 
 == Communication contracts
 
