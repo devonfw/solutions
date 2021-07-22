@@ -5,19 +5,23 @@ These content help you to know how you can contribute to the content of the arch
 A stack specific solution is the place where you can find all the solutions of each stack.
 
 == Fork repository
-First of all, you have to fork your own copy of devonfw/architectures to your account.
-image::fork.png[Fork_Repository]
+First of all, you have to fork your own copy of devonfw/architectures to your account, by clicking on the icon "Fork"
+
+image::fork.PNG[Fork_Repository,100,100]
 
 == Open the repository on Gitpod
-The repository is already on your account. You have to have to click on code and copy the url.
-image::url.png[URL]
-After go on your browser and enter "https://gitpod.io#"+url. The repository will be open on the idea Visual Studio.
-image::gitpod.png[gitpod]
+The repository is already on your account. You have to click on "code" and copy the url.
+
+image::url.png[URL,300]
+After that, go on your browser and enter "https://gitpod.io#"+url. The repository will be open on the idea Visual Studio.
+
+image::gitpod.png[gitpod,400]
 
 == Install extension
 
 To install a VS Code extension in Gitpod, simply go to the left vertical menu, and open the Extensions view. 
 There you can search for an extension and install it with one click.
+
 image::asciidoc.png[asciidoc]
 
 === Can be done automatically
@@ -42,23 +46,36 @@ vscode:
 You can share the installed extensions with your team by committing the .gitpod.yml change and pushing it to your Git repository.
 
 == Create/Change File
-To create a new file, you have to click on the icon "new File"   image::newFile.png[newFile]. Then give the name to your file, add the content abd save.
+To create a new file, you have to click on the icon "new File".
+
+image::newFile.png[newFile] 
+Then give the name to your file and press "Enter".
 
 To change a file, select this file, change the content and save.
 
 == Upload file
-To upload a file, you have to click on the menu button on the far left image::menu1.png[menu button], select "File", then choose "open  File". Enter the name of your file and click "ok".
+To upload a file, you have to click on the menu button on the far left
+
+image::menu1.png[menu button] 
+select "File", then choose "open File". Enter the name of your file and click "ok". the selected file will be directly opened in the editor.
 
 == Commit and Push
-First of all, you have to create your own branch, to do it, select the icon "source control" image::sourceControl.png[source Control].
-Go on the icon "view and more action" image::menu.png[menu button] .choose "branch" and select "create branch" . Give the name of the branch an press "Enter" .
+First of all, you have to create your own branch, to do it, select the icon "source control" 
+
+image::sourceControl.png[source Control]
+
+Go on the icon "view and more action" 
+
+image::menu.png[menu button] 
+choose "branch" and select "create branch". Give the name of the branch an press "Enter" .
 
 Now you can already do a commit,for this you must first make sure that a change has been made. Select the icon "source control",go on the icon "view and more action" choose "commit", provide the commit message and press "Enter" to confirm.
 
-You can push,by clicking again on the icon "source control",go on the icon "view and more action" choose "push".
+You can push, by clicking again on the icon "source control",go on the icon "view and more action" choose "push".
 
 == Create a pull request
 After doing a push, go to your Git account a create a pull request by clicking on "compare & pull request".
+
 image::pr.png[PR]
 
 That is important to accept CLA if not yet done.
