@@ -2,10 +2,11 @@
 These content help you to know how you can contribute to the content of the architecture browser .
 
 == Stack specific solution
-A stack specific solution is the place where you can find all the solutions of each stack.
+A stack specific solution is the place where you can find all the solutions of each stack. 
+You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
 
 == Fork repository
-First of all, you have to fork your own copy of devonfw/architectures to your account, by clicking on the icon "Fork"
+First of all, you have to fork your own copy of devonfw/architectures to your account, by clicking on the icon "Fork".
 
 image::fork.PNG[Fork_Repository,100,100]
 
@@ -16,34 +17,6 @@ image::url.png[URL,300]
 After that, go on your browser and enter "https://gitpod.io#"+url. The repository will be open on the idea Visual Studio.
 
 image::gitpod.png[gitpod,400]
-
-== Install extension
-
-To install a VS Code extension in Gitpod, simply go to the left vertical menu, and open the Extensions view. 
-There you can search for an extension and install it with one click.
-
-image::asciidoc.png[asciidoc]
-
-=== Can be done automatically
-If the extension is helpful to anyone who works on the project, you can add it to the 
-.gitpod.yml configuration file so that it gets installed for anyone who works on the project. To do that:
-
-. Visit the extension page (where you installed it from)
-. Click the settings icon
-. Select “Add to .gitpod.yml” from the menu
-
-Your project’s .gitpod.yml is updated automatically and lists the given extension. You can also directly edit this file to install or remove extensions manually.
-
-Here is an example of what a .gitpod.yml with installed extensions may look like:
-
-```
-vscode:
- extensions:
-    - asciidoctor.asciidoctor-vscode
-
-```
-
-You can share the installed extensions with your team by committing the .gitpod.yml change and pushing it to your Git repository.
 
 == Create/Change File
 To create a new file, you have to click on the icon "new File".
@@ -60,13 +33,14 @@ image::menu1.png[menu button]
 select "File", then choose "open File". Enter the name of your file and click "ok". the selected file will be directly opened in the editor.
 
 == Commit and Push
-First of all, you have to create your own branch, to do it, select the icon "source control" 
+First of all, you have to create your own branch, to do it, select the icon "source control".
 
 image::sourceControl.png[source Control]
 
 Go on the icon "view and more action" 
 
 image::menu.png[menu button] 
+
 choose "branch" and select "create branch". Give the name of the branch an press "Enter" .
 
 Now you can already do a commit,for this you must first make sure that a change has been made. Select the icon "source control",go on the icon "view and more action" choose "commit", provide the commit message and press "Enter" to confirm.
@@ -79,6 +53,13 @@ After doing a push, go to your Git account a create a pull request by clicking o
 image::pr.png[PR]
 
 That is important to accept CLA if not yet done.
+
+== Fetch upstream
+The fork will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
+
+image::fecht.png[fecht]
+
+
 
 
 
