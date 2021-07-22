@@ -1,0 +1,25 @@
+  # Install extension
+
+To install a VS Code extension in Gitpod, simply go to the left vertical menu, and open the Extensions view. 
+There you can search for an extension and install it with one click.
+
+## Can be done automatically
+If the extension is helpful to anyone who works on the project, you can add it to the 
+.gitpod.yml configuration file so that it gets installed for anyone who works on the project. To do that:
+
+. Visit the extension page (where you installed it from)
+. Click the settings icon
+. Select “Add to .gitpod.yml” from the menu
+
+Your project’s .gitpod.yml is updated automatically and lists the given extension. You can also directly edit this file to install or remove extensions manually.
+
+Here is an example of what a .gitpod.yml with installed extensions may look like:
+
+```
+vscode:
+ extensions:
+    - asciidoctor.asciidoctor-vscode
+
+```
+
+You can share the installed extensions with your team by committing the .gitpod.yml change and pushing it to your Git repository.
