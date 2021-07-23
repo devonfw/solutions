@@ -1,7 +1,7 @@
 //Category=Security;Authorization
 //Product=Keycloak;WSO2;Gluu;ForgeRock
 //Standard=OAuth;OIDC;JWT;SAML;WebAuthn
-//Maturity level=Initial
+//Maturity level=Complete
 
 = Authorization
 
