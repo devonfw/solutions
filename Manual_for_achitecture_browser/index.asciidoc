@@ -5,8 +5,19 @@ These content help you to know how you can contribute to the content of the arch
 A stack specific solution is the place where you can find all the solutions of each stack. 
 You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
 
+
+== Fetch upstream
+
+NB: This  is only relevant when you are building a tutorial that is not your first tutorials.
+
+The fork will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
+
+image::fecht.png[fecht]
+
+But if you are creating your first tutorials, then you have to fork the repository.
+
 == Fork repository
-First of all, you have to fork your own copy of devonfw/architectures to your account, by clicking on the icon "Fork".
+To fork your own copy of devonfw/architectures to your account,  please click on the icon "Fork".
 
 image::fork.PNG[Fork_Repository,100,100]
 
@@ -14,7 +25,7 @@ image::fork.PNG[Fork_Repository,100,100]
 The repository is already on your account. You have to click on "code" and copy the url.
 
 image::url.png[URL,300]
-After that,please go on your browser prefix the repository URL with https://gitpod.io/#. The repository will be open on the idea Visual Studio.
+After that,please go on your browser, prefix the repository URL with https://gitpod.io/#. The repository will be open on the idea Visual Studio.
 
 image::gitpod.png[gitpod,400]
 
@@ -45,22 +56,28 @@ choose "branch" and select "create branch". Give the name of the branch an press
 
 Now you can already do a commit,for this you must first make sure that a change has been made. Select the icon "source control",go on the icon "view and more action" choose "commit", provide the commit message and press "Enter" to confirm.
 
+
 You can push, by clicking again on the icon "source control",go on the icon "view and more action" choose "push".
 
 == Create a pull request
 After doing a push, go to your Git account a create a pull request by clicking on "compare & pull request".
 
+
 image::pr.png[PR]
 
 That is important to accept CLA if not yet done.
 
-== Fetch upstream
 
-This should be done before you start creating the tutorial and is only relevant when you are building a tutorial that is not your first tutorials.
 
-The fork will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
 
-image::fecht.png[fecht]
+.For more information please go to
+*  https://gitpod.io/from-referrer/ 
+*  https://spectrum.chat/gitpod/general/how-to-specify-users-fork-instead-of-main-repository~d4c0e615-511d-409e-9ffc-796869fe4708?m=MTU2NTI0NTAzNTI2OA==
+
+
+
+
+
 
 
 
