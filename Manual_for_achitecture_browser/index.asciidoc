@@ -1,40 +1,34 @@
 = Manual for architecture browser
 These content help you to know how you can contribute to the content of the architecture browser .
 
-== Stack specific solution
-A stack specific solution is the place where you can find all the solutions of each stack. 
-You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
 
+== Fetch upstream or fork repository
 
-== Fetch upstream
-
-NB: This  is only relevant when you are building a tutorial that is not your first tutorials.
-
-The fork will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
+If the repository already exists in your account, it will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
 
 image::fecht.png[fecht]
 
-But if you are creating your first tutorials, then you have to fork the repository.
-
-== Fork repository
-To fork your own copy of devonfw/architectures to your account,  please click on the icon "Fork".
+But if it doesn't exist, then you have to fork it, so that the main repository will be generated in your own account. To do that, please click on the icon "Fork" from the main repository.
 
 image::fork.png[Fork_Repository,100,100]
 
 == Open the repository on Gitpod
 The repository is already on your account. 
-You have only to go in the Readme.md and click on "https://gitpod.io/from-referrer/ ". This unique URL will automatically detect which repository it was visited from, and open that in Gitpod.
+Gitpod is aleady configured so that origin remote is not the main repository but your fork.
+You have only to go in the Readme.md and click on "https://gitpod.io/from-referrer/ ". This unique URL will automatically detect which repository it was visited from, and open that in Gitpod (using the Referrer HTTP header).
 
 
-== Create/Change File
-To create a new file, you have to click on the icon "new File".
+== Create or Change tutorial
+You have the possibility to add a new tutorial by creating a new tutorial, you can also change the content of existing tutorial.
+
+To create a new tutorial, you have to click on the icon "new File".
 
 image::newFile.png[newFile] 
 Then give the name to your file and press "Enter".
 
-To change a file, select this file, change the content and save.
+To change a tutorial, select this tutorial, change the content and save.
 
-== Upload file
+=== Upload file
 To upload a file, you have to click on the menu button on the far left
 
 image::menu1.png[menu button] 
@@ -67,10 +61,11 @@ image::pr.png[PR]
 
 That is important to accept CLA if not yet done.
 
+== Stack specific solution
+A stack specific solution is the place where you can find all the solutions of each stack. Each specific solution has a different prefix.
+So in devon4j.wiki there is e.g. a solutions folder, then every subfolder in this solution folder has the prefix devon4j_ .
 
-
-
-
+You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
 
 
 
