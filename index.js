@@ -1,3 +1,7 @@
+var curPage = 0;
+var totalPage = 0;
+var totalNumberOfPagination = 5;
+
 function getParameters() {
     const searchParams = new URLSearchParams(document.location.hash.length > 0 ? document.location.hash.substring(1) : "");
     var params = {};
@@ -24,6 +28,11 @@ function search() {
     for (const filterName of parameters.keys()) {
         var filterValues = parameters.get(filterName);
         for (var i in filterValues) {
+            if(filterName == 'page'){
+                curPage = filterValues;
+                parameters.delete('page',curPage);
+                break;
+        }
             var filterValue = filterValues[i];
             var filterSolutions = tagsJson[filterName][filterValue];
             var newSolutions = {};
@@ -39,6 +48,8 @@ function search() {
     renderSolutions(solutions);
     disableFilters(solutions);
     highlightSelected();
+    if(curPage == 0){pagination(totalNumberOfPagination,1)}
+    else{pagination(totalNumberOfPagination,curPage);}
 }
 
 function renderSolutions(solutions) {
@@ -65,6 +76,91 @@ function renderSolutions(solutions) {
             solutionDiv.append(solutionBodyDiv);
             filterpanelbody.append(solutionDiv);
         }
+    }
+}
+
+function pagination(proPage, current) {
+    var data = document.getElementById('resultspanel');
+    var dataSize = data.children.length;
+    var pageSize = proPage;
+    if (dataSize / pageSize > parseInt(dataSize / pageSize)) {
+        totalPage = parseInt(dataSize / pageSize) + 1;
+    } else {
+        totalPage = parseInt(dataSize / pageSize);
+    }
+    var currentPage = current;
+    var startData = (currentPage - 1) * pageSize + 1;
+    var endData = (currentPage * pageSize > dataSize ? dataSize : currentPage * pageSize);
+    for (var i = 1; i < (dataSize + 1); i++) {
+        var realData = data.children[i - 1];
+        if (i >= startData && i <= endData) {
+            $('#' + realData.id).attr('style', '');
+        } else {
+            $('#' + realData.id).attr('style', 'display: none');
+        }
+    }
+    createBtns(totalPage, current);
+}
+
+function createBtns(totalPage, current) {
+    $('#pagination').empty();
+    let tempStr = "";
+    if (current > 1) {
+        tempStr += "<span class='pageBtn' id='prepage' href=\"#\" data-page = " + (current - 1) + "><  Precious</span>"
+    }
+    for (var pageIndex = 1; pageIndex < totalPage + 1; pageIndex++) {
+        tempStr += "<a class='pageBtn' id='page" + pageIndex + "'  data-page = " + (pageIndex) + "><span>" + pageIndex + "</span></a>";
+    }
+    if (current < totalPage) {
+        tempStr += "<span class='pageBtn' id='nextpage' href=\"#\"  data-page = " + (current + 1) + ">Next  ></span>";;
+    }
+    tempStr += "</div>";
+    $('#page1').css({ background: '#007bff', color: '#fff' });
+    $("#pagination").append(tempStr);
+}
+
+function bindClick() {
+    $('#page1').css({background: '#007bff', color: '#fff'});
+    var buttonArr = ['#prepage', '#nextpage'];
+    for (var b in buttonArr) {
+        var dom = buttonArr[b];
+        $('#pagination').delegate(dom, 'click', function () {
+            var page = $(this).data('page');
+            if (page == 0) { page = 1; }
+            if (page == (totalPage + 1)) { page = totalPage; }
+            pagination(totalNumberOfPagination, page);
+            let parameters = getParameters();
+            let pageArr = parameters.get('page')
+            for (var p in pageArr) {
+                parameters.delete('page', pageArr[p]);
+            }
+            parameters.set('page', page);
+            document.location.hash = "#" + parameters.toString();
+            $('#page' + page).css({background: '#007bff', color: '#fff'});
+        });
+        $('#pagination').delegate(dom, 'mouseover', function () {
+            $('#' + $(this).attr("id")).css({cursor: 'pointer'});
+        });
+    }
+    for (var num = 1; num <= totalPage; num++) {
+        var singleDom = '#page' + num;
+        $('#pagination').delegate(singleDom, 'click', function () {
+            var page = $(this).data('page');
+            pagination(totalNumberOfPagination, page);
+            let parameters = getParameters();
+            let pageArr = parameters.get('page')
+            for (var p in pageArr) {
+                parameters.delete('page', pageArr[p]);
+            }
+            parameters.set('page', page);
+            document.location.hash = "#" + parameters.toString()
+            $('#page' + page).addClass('current');
+            $('#page' + page).css({background: '#007bff', color: '#fff'});
+        });
+        $('#pagination').delegate(singleDom, 'mouseover', function () {
+            var page = $(this).data('page');
+            $('#page' + page).css({cursor: 'pointer'});
+        });
     }
 }
 
@@ -105,6 +201,7 @@ function disableFilters(solutions) {
             }
         }
     }
+    pagination(totalNumberOfPagination,1);
 }
 
 async function main() {
@@ -117,7 +214,7 @@ async function main() {
     });
 
     tagsJson = await $.ajax({
-        url: "tags.json?r=" + (Math.random()*10000)
+        url: "tags.json?r=" + Math.random()*10000
     });
 
 
@@ -147,6 +244,9 @@ async function main() {
     console.log(solutionsJson);
 
     $("head").append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">');
+
+    var paginationDiv = $('<div id="pagination" class = "pagination"></div>');
+    $("#content").append(paginationDiv);
 
     var parameters = getParameters();
 
@@ -185,6 +285,9 @@ async function main() {
     var resultspanel = $('<div id="resultspanel" class="resultspanel"></div>');
     $("#content").append(resultspanel);
     search();
+    if(curPage != 0){pagination(totalNumberOfPagination,curPage);}
+    else{pagination(totalNumberOfPagination,1);}
+    bindClick();
 }
 
 main();
