@@ -79,10 +79,10 @@ function renderSolutions(solutions) {
     }
 }
 
-function pagination(proPage, current) {
+function pagination(perPage, current) {
     var data = document.getElementById('resultspanel');
     var dataSize = data.children.length;
-    var pageSize = proPage;
+    var pageSize = perPage;
     if (dataSize / pageSize > parseInt(dataSize / pageSize)) {
         totalPage = parseInt(dataSize / pageSize) + 1;
     } else {
