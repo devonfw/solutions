@@ -214,7 +214,7 @@ async function main() {
     });
 
     tagsJson = await $.ajax({
-        url: "tags.json?r=" + Math.random()*10000
+        url: "tags.json?r=" + (Math.random()*10000)
     });
 
 
