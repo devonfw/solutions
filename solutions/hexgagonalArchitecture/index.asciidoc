@@ -3,6 +3,8 @@
 
 = Hexagonal architecture
 
+== Hexagonal architecture
+
 This article explains so-called Hexagonal Architecture which is one of architectural styles applicable for wide variety of applications / software.
 
 == You have the following problem to be solved
@@ -10,11 +12,11 @@ We need to develop our software in more robust way so that it can survive techno
 You should be not forced to rewrite big amount of business logic code just because you need to:
 
 * replace specific transport layer protocol,
-* or storage technology,
+* or replace storage technology,
 * or you want to migrate from one cloud provider to another cloud provider,
 * or ...
 
-Eventually, you don't want your domain code base to be scattered obscured with technological details such as HTTP exceptions, SQL code, JPA/Spring annotations, etc.
+Eventually, you don't want your domain code base to be scattered and obscured with technological details such as HTTP exceptions, SQL code, JPA/Spring annotations, etc.
 
 === The proposed solution enables the customer
 With appropriate architecture that is technology agnostic the customer should expect:
