@@ -56,6 +56,7 @@ The use case is basically a function that uses and interacts with domain model.
 
 The domain and use cases form "the core" as shown in the center of following diagram.
 
+[.previewImage]
 image::hexagonal.png[Hexagonal architecture]
 
 === Isolate and protect your core
