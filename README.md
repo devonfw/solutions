@@ -11,6 +11,6 @@ Please add the tag `Maturity level` and set it to one of the values `Initial`, `
 
 ```
 //Category=coolCategory 2
-//Products=A cool product 2;Coolest product
+//Product=A cool product 2;Coolest product
 //Maturity level=Complete
 ```
