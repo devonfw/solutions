@@ -6,7 +6,6 @@ These content help you to know how you can contribute to the content of the arch
 If the repository already exists in your account, it will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
 
 image::./addManual_image/fecht.png[fecht]
-
 But if it doesn't exist, then you have to fork it, so that the main repository will be generated in your own account. To do that, please click on the icon "Fork" from the main repository.
 
 image::./addManual_image/fork.png[Fork_Repository,100,100]
@@ -28,7 +27,7 @@ Then give the name to your file and press "Enter".
 To change a tutorial, select this tutorial, change the content and save.
 
 === Upload file
-To upload a file, you have to click on the menu button on the far left
+To upload a file, you have to click on the menu button on the far left.
 
 image::./addManual_image/menu1.png[menu button] 
 Select "File", then choose "open File". Enter the name of your file and click "ok". The selected file will be directly opened in the editor.
@@ -37,7 +36,6 @@ Select "File", then choose "open File". Enter the name of your file and click "o
 First of all, you have to create your own branch, to do it, select the icon "source control".
 
 image::./addManual_image/sourceControl.png[source Control]
-
 Go on the icon "view and more action". 
 
 image::./addManual_image/menu.png[menu button] 
@@ -47,17 +45,12 @@ Choose "branch" and select "create branch". Give the name of the branch and pres
 Now you can already do a commit, for this you must first make sure that a change has been made. Select the icon "source control", go on the icon "view and more action" choose "commit", provide the commit message and press "Enter" to confirm.
 
 image::./addManual_image/commitMessage.png[commmit]
-
-
-
 You can push, by clicking again on the icon "source control", go on the icon "view and more action" choose "push".
 
 == Create a pull request
 After doing a push, go to your Git account and create a pull request by clicking on "compare & pull request".
 
-
 image::./addManual_image/pr.png[PR]
-
 That is important to accept CLA if not yet done.
 
 == Stack specific solution
@@ -67,19 +60,3 @@ A stack specific solution is the place where you can find all the solutions of e
 So in devon4j.wiki there is e.g. a solution folder, then every subfolder in this solution folder has the prefix devon4j_ .
 
 You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
