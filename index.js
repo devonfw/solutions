@@ -85,7 +85,8 @@ function disableFilters(solutions) {
     $(".disabled").removeClass("disabled");
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
-            const tag = tagsJson[filter];
+            const tags = tagsJson[filter];
+             const tag = orderTag(tags);
             var activeValues = [];
             for (const solutionKey in solutions) {
                 if (Object.hasOwnProperty.call(solutions, solutionKey)) {
@@ -123,7 +124,8 @@ async function main() {
 
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
-            const tag = tagsJson[filter];
+            const tags = tagsJson[filter];
+             const tag = orderTag(tags);
             for (const tagValue in tag) {
                 if (Object.hasOwnProperty.call(tag, tagValue)) {
                     var solutionIds = tag[tagValue];
@@ -153,7 +155,8 @@ async function main() {
     var filterspanel = $('<div id="filterspanel" class="filterspanel"></div>');
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
-            const tag = tagsJson[filter];
+            const tags = tagsJson[filter];
+            const tag = orderTag(tags);
             console.log(tag);
             var filterpanel = $('<div id="filterpanel_' + filter + '" class="filterpanel"></div>');
             var filterpanelhead = $('<div id="filterpanel_' + filter + '_head" class="filterpanelhead"></div>');
@@ -188,3 +191,23 @@ async function main() {
 }
 
 main();
+
+
+function orderTag (tag){
+    var tags = {};
+  
+     keys = Object.keys(tag);
+    var i, len = keys.length;
+    keys.sort(function(s1, s2){
+     var l=s1.toLowerCase(), m=s2.toLowerCase();
+     return l===m?0:l>m?1:-1;
+ });
+    
+    for (i = 0; i < len; i++) {
+     k = keys[i];
+     tags[k] = tag[k];
+     }
+   
+     return tags;
+
+}
