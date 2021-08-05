@@ -1,7 +1,7 @@
 # Architectures / Pattern Catalog of devonfw
 This catalog is maintaining the sources for the [architectures website section](https://devonfw.com/website/pages/architectures/).
 
-If you want to edit your repository in the cloud, please click [here](https://gitpod.io/from-referrer/).
+If you want to edit yours repository in the cloud, please click [here](https://gitpod.io/from-referrer/).
 
 
 ## How to create a new architecture
