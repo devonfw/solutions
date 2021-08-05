@@ -61,8 +61,14 @@ image::./addManual_image/pr.png[PR]
 That is important to accept CLA if not yet done.
 
 == Stack specific solution
+<<<<<<< HEAD
 A stack is understood to mean the various technologies that our application contains. e.g. devon4j stands for java, devon4ng for angular, devon4node for node.js, etc.
 
+=======
+
+A stack is understood to mean the various technologies that our application contains. e.g. devon4j stands for java, devon4ng for angular, devon4node for node.js, etc.
+ 
+>>>>>>> edf7beaf1277350c35b8fba6148e23283e1a467a
 A stack specific solution is the place where you can find all the solutions of each stack. Each specific solution has a different prefix.
 So in devon4j.wiki there is e.g. a solution folder, then every subfolder in this solution folder has the prefix devon4j_ .
 
@@ -85,3 +91,8 @@ You should do each solution on a new branch and not take the master branch becau
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> edf7beaf1277350c35b8fba6148e23283e1a467a

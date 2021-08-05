@@ -2,6 +2,10 @@
 This catalog is maintaining the sources for the [architectures website section](https://devonfw.com/website/pages/architectures/).
 
 If you want to edit yours repository in the cloud, please click [here](https://gitpod.io/from-referrer/).
+<<<<<<< HEAD
+=======
+
+>>>>>>> edf7beaf1277350c35b8fba6148e23283e1a467a
 
 ## How to create a new architecture
 To create a new architecture, copy over the [solution-template.asciidoc](https://github.com/devonfw/architectures/blob/master/solution-template.asciidoc) file from the root of the repository to a newly created folder within https://github.com/devonfw/architectures/tree/master/solutions. For ease of use, the folder name should encode at least the name of your architecture sample / pattern. Afterwards, rename the solution-template.asciidoc file to index.asciidoc to make it be generated properly.
