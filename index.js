@@ -107,6 +107,22 @@ function disableFilters(solutions) {
     }
 }
 
+
+function orderTag(tag) {
+    var tags = {};
+    keys = Object.keys(tag);
+    var i, len = keys.length;
+    keys.sort(function (s1, s2) {
+        var l = s1.toLowerCase(), m = s2.toLowerCase();
+        return l === m ? 0 : l > m ? 1 : -1;
+    });
+    for (i = 0; i < len; i++) {
+        k = keys[i];
+        tags[k] = tag[k];
+    }
+    return tags;
+}
+
 async function main() {
     indexJson = await $.ajax({
         url: "index.json?r=" + Math.random() * 10000
@@ -189,19 +205,3 @@ async function main() {
 
 main();
 
-
-function orderTag(tag) {
-    var tags = {};
-    keys = Object.keys(tag);
-    var i, len = keys.length;
-    keys.sort(function (s1, s2) {
-        var l = s1.toLowerCase(), m = s2.toLowerCase();
-        return l === m ? 0 : l > m ? 1 : -1;
-    });
-    for (i = 0; i < len; i++) {
-        k = keys[i];
-        tags[k] = tag[k];
-    }
-    return tags;
-
-}
