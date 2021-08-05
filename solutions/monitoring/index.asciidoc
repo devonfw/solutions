@@ -1,3 +1,4 @@
+//Platform=Azure
 //Maturity level=Advanced
 
 == Azure Monitoring
