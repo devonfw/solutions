@@ -45,11 +45,7 @@ function search() {
         }
     }
     var dataSize = Object.keys(solutions).length;
-    if (dataSize / pageSize > parseInt(dataSize / pageSize)) {
-        totalPage = parseInt(dataSize / pageSize) + 1;
-    } else {
-        totalPage = parseInt(dataSize / pageSize);
-    }
+    totalPage = Math.ceil(dataSize / pageSize);
     if (parseInt(curPage) == 0) {
         renderSolutions(solutions, 1)
     } else {
