@@ -27,12 +27,12 @@ function search() {
     var curPage = 0;
     for (const filterName of parameters.keys()) {
         var filterValues = parameters.get(filterName);
-        for (var i in filterValues) {
-            if(filterName == 'page'){
-                curPage = filterValues[i];
-                parameters.delete('page',curPage);
-                break;
+        if (filterName == 'page') {
+            curPage = filterValues[0];
+            parameters.delete('page', curPage);
+            continue;
         }
+        for (var i in filterValues) {
             var filterValue = filterValues[i];
             var filterSolutions = tagsJson[filterName][filterValue];
             var newSolutions = {};
@@ -44,21 +44,16 @@ function search() {
             solutions = newSolutions;
         }
     }
-
     var dataSize = Object.keys(solutions).length;
-    if (dataSize / pageSize > parseInt(dataSize/ pageSize)) {
+    if (dataSize / pageSize > parseInt(dataSize / pageSize)) {
         totalPage = parseInt(dataSize / pageSize) + 1;
     } else {
         totalPage = parseInt(dataSize / pageSize);
     }
-    if(parseInt(curPage) == 0){
-        renderSolutions(solutions,1)
-    }
-    else if(parseInt(curPage) == totalPage){
-        renderSolutions(solutions,totalPage);
-    }
-    else{
-        renderSolutions(solutions,curPage);
+    if (parseInt(curPage) == 0) {
+        renderSolutions(solutions, 1)
+    } else {
+        renderSolutions(solutions, curPage);
     }
 
     disableFilters(solutions);
@@ -66,38 +61,38 @@ function search() {
 
 }
 
-function renderSolutions(solutions,cur) {
+function renderSolutions(solutions, current) {
     var filterpanelbody = $("#resultspanel");
     filterpanelbody.empty();
 
-    var currentPage = cur;
+    var currentPage = current;
     var countSolutions = 0;
     var dataSize = Object.keys(solutions).length;
     var startData = (currentPage - 1) * pageSize + 1;
     var endData = (currentPage * pageSize > dataSize ? dataSize : currentPage * pageSize);
-    
-    for (const solutionKey in solutions) {;
+
+    for (const solutionKey in solutions) {
         if (Object.hasOwnProperty.call(solutions, solutionKey)) {
             countSolutions++;
             if (countSolutions >= startData && countSolutions <= endData) {
-            const solution = solutions[solutionKey];
-            var solutionDiv = $('<div id="solution_' + solutionKey + '" class="solution"></div>');
-            var solutionHeadlineDiv = $('<div id="solution_' + solutionKey + '_headline" class="solutionheadline"></div>');
-            var solutionHeadlineLink = $('<a id="solution_' + solutionKey + '_headline_link" class="solutionheadlinelink" href="' + solution.path + '"></a>');
-            solutionHeadlineLink.text(solution.headline);
-            solutionHeadlineLink.attr('target', '_blank')
-            solutionHeadlineDiv.append(solutionHeadlineLink);
-            solutionDiv.append(solutionHeadlineDiv);
-            var solutionBodyDiv = $('<div id="solution_body_' + solutionKey + '" class="solutionbody"></div>');
-            if (solution.image != "") {
-                var solutionImage = $('<img id="solution_' + solutionKey + '_image" class="solutionimage" src="' + solution.image + '"></img>');
-                solutionBodyDiv.append(solutionImage);
-            }
-            var solutionSnippetDiv = $('<div id="solution_' + solutionKey + '_snippet" class="solutionsnippet"></div>');
-            solutionSnippetDiv.text(solution.snippet);
-            solutionBodyDiv.append(solutionSnippetDiv);
-            solutionDiv.append(solutionBodyDiv);
-            filterpanelbody.append(solutionDiv);
+                const solution = solutions[solutionKey];
+                var solutionDiv = $('<div id="solution_' + solutionKey + '" class="solution"></div>');
+                var solutionHeadlineDiv = $('<div id="solution_' + solutionKey + '_headline" class="solutionheadline"></div>');
+                var solutionHeadlineLink = $('<a id="solution_' + solutionKey + '_headline_link" class="solutionheadlinelink" href="' + solution.path + '"></a>');
+                solutionHeadlineLink.text(solution.headline);
+                solutionHeadlineLink.attr('target', '_blank')
+                solutionHeadlineDiv.append(solutionHeadlineLink);
+                solutionDiv.append(solutionHeadlineDiv);
+                var solutionBodyDiv = $('<div id="solution_body_' + solutionKey + '" class="solutionbody"></div>');
+                if (solution.image != "") {
+                    var solutionImage = $('<img id="solution_' + solutionKey + '_image" class="solutionimage" src="' + solution.image + '"></img>');
+                    solutionBodyDiv.append(solutionImage);
+                }
+                var solutionSnippetDiv = $('<div id="solution_' + solutionKey + '_snippet" class="solutionsnippet"></div>');
+                solutionSnippetDiv.text(solution.snippet);
+                solutionBodyDiv.append(solutionSnippetDiv);
+                solutionDiv.append(solutionBodyDiv);
+                filterpanelbody.append(solutionDiv);
             }
         }
     }
@@ -107,62 +102,42 @@ function renderSolutions(solutions,cur) {
 
 function createBtns(totalPage, current) {
     $('#pagination').empty();
-    let tempStr = "";
-    let cur = parseInt(current);
-    if (cur > 1) {
-        tempStr += "<span class='pageBtn' id='prepage' href=\"#\" data-page = " + (cur - 1) + "><  Precious</span>"
-    }
-    for (var pageIndex = 1; pageIndex < totalPage + 1; pageIndex++) {
-        tempStr += "<a class='pageBtn' id='page" + pageIndex + "'  data-page = " + (pageIndex) + "><span>" + pageIndex + "</span></a>";
-    }
-    if (cur < totalPage) {
-        tempStr += "<span class='pageBtn' id='nextpage' href=\"#\"  data-page = " + (cur + 1) + ">Next  ></span>";;
-    }
-    tempStr += "</div>";
-    $("#pagination").append(tempStr);
-}
-
-function bindClick() {
-    var buttonArr = ['#prepage', '#nextpage'];
-    for (var b in buttonArr) {
-        var dom = buttonArr[b];
-        $('#pagination').delegate(dom, 'click', function () {
-            var page = $(this).data('page');
-            let parameters = getParameters();
-            let pageArr = parameters.get('page')
-            for (var p in pageArr) {
-                parameters.delete('page', pageArr[p]);
-            }
-            parameters.set('page', page);
-            document.location.hash = "#" + parameters.toString();
-            search();
-            $('#page' + page).css({ background: '#007bff', color: '#fff' });
+    let pageSpan;
+    let currentPage = parseInt(current);
+    if (currentPage > 1) {
+        pageSpan = $("<span class='pageBtn' id='prepage' href=\"#\" data-page = " + (currentPage - 1) + "><  Precious</span>")
+        pageSpan.click(() => {
+            clickBtn(currentPage - 1);
         });
-        $('#pagination').delegate(dom, 'mouseover', function () {
-            $('#' + $(this).attr("id")).css({ cursor: 'pointer' });
-        });    
+        $("#pagination").append(pageSpan);
     }
-    for (var num = 1; num <= totalPage; num++) {
-        var singleDom = '#page' + num;
-        $('#pagination').delegate(singleDom, 'click', function () {
-            var page = $(this).data('page');
-            let parameters = getParameters();
-            let pageArr = parameters.get('page')
-            for (var p in pageArr) {
-                parameters.delete('page', pageArr[p]);
-            }
-            parameters.set('page', page);
-            document.location.hash = "#" + parameters.toString()
-            search();
-            $('#page' + page).css({ background: '#007bff', color: '#fff'});
+    for (let pageIndex = 1; pageIndex < totalPage + 1; pageIndex++) {
+        pageSpan = $("<a class='pageBtn' id='page" + pageIndex + "' data-page = " + (pageIndex) + "><span>" + pageIndex + "</span></a>");
+        pageSpan.click(() => {
+            clickBtn(pageIndex);
         });
-        $('#pagination').delegate(singleDom, 'mouseover', function () {
-            var page = $(this).data('page');
-            $('#page' + page).css({ cursor: 'pointer' });
+        $("#pagination").append(pageSpan);
+    }
+    if (currentPage < totalPage) {
+        pageSpan = $("<span class='pageBtn' id='nextpage' href=\"#\"  data-page = " + (currentPage + 1) + ">Next  ></span>");
+        pageSpan.click(() => {
+            clickBtn(currentPage + 1);
         });
+        $("#pagination").append(pageSpan);
     }
 }
 
+function clickBtn(current) {
+    let parameters = getParameters();
+    let pageArr = parameters.get('page');
+    for (var p in pageArr) {
+        parameters.delete('page', pageArr[p]);
+    }
+    parameters.set('page', current);
+    document.location.hash = "#" + parameters.toString()
+    search();
+    $('#page' + (current)).css({ background: '#007bff', color: '#fff' });
+}
 
 function highlightSelected() {
     $(".checkbox").text("check_box_outline_blank");
@@ -205,15 +180,15 @@ function disableFilters(solutions) {
 
 async function main() {
     indexJson = await $.ajax({
-        url: "index.json?r=" + Math.random()*10000
+        url: "index.json?r=" + Math.random() * 10000
     });
 
     solutionsJson = await $.ajax({
-        url: "solutions.json?r=" + Math.random()*10000
+        url: "solutions.json?r=" + Math.random() * 10000
     });
 
     tagsJson = await $.ajax({
-        url: "tags.json?r=" + (Math.random()*10000)
+        url: "tags.json?r=" + (Math.random() * 10000)
     });
 
 
@@ -281,8 +256,7 @@ async function main() {
     $("#content").append(filterspanel);
     var resultspanel = $('<div id="resultspanel" class="resultspanel"></div>');
     $("#content").append(resultspanel);
-    search(); 
-    bindClick();
+    search();
 }
 
 main();

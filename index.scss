@@ -56,19 +56,21 @@
           height: auto;
         }
       }
-    }  
+    }   
+  }
   #pagination {
-      position: absolute;
-      bottom: 0px;
-      left: 50%;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+  }
+  #pagination :hover{
+    cursor: pointer;
   }
   #pagination .pageBtn {
-      border: 1px solid transparent;
-      padding: .375rem .75rem;
-      font-size: 1rem;
-      border-radius: .8rem;
-      text-align: center;
-  }
-  
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .8rem;
+    text-align: center;
   }
 }
