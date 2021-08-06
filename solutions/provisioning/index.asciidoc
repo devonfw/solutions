@@ -61,7 +61,7 @@ As shown automation does not only include pipelines. All automation code artefac
 In most cases enterprises have already existing technologies in place that might not be based on cloud of a certain provider. *Integration* with other third party offerings to cover functionally also from elsewhere is also important.
 --
 The picture below summarizes the major aspects:
-image::Provisioning_Problem_Context.png[Provisioning Problem Context]
+image::provisioning_problem_context.png[Provisioning Problem Context]
 
 == Standard Problems
 
@@ -90,7 +90,7 @@ Interaction standard problems)
 
 For the following aspectcs check out the other defined patterns:
 
-* Monitoring
+* Monitoring infrastructure and application code
 * Source code repo structuring 
 
 == Azure as Platform
@@ -130,7 +130,7 @@ The Azure platform provides the following basic options to *store* automation co
 * Services that provide the possibility to store code
 * Integration of various external code repositories
 
-To *orcestrate* pipelines the two following basic mechanisms can be used:
+To *orchestrate* pipelines the two following basic mechanisms can be used:
 
 * Implicit Chaining
 +
@@ -155,7 +155,7 @@ Typical declarative options are shown in detail in the table below. The overall 
 * lack of support for testing based on plan and testing ecosystem since first added recently
 
 Table with declarative programming language options:
-[options="header,footer"]
+[options="header"]
 |=======================
 |Criteria|Bicep      |ARM | Terraform
 |Same syntax across clouds |- (Azure Only)     |- (Azure Only)   |+ (multi)
@@ -219,19 +219,29 @@ Granularity of roles that can be granted depend on the service. The boundaries i
 
 The Azure service targeting a full-blown productive provisioning setup is Azure DevOps.
 
-*+++Note:+++* Azure DevOps will be superseded by GitHub in the long run after Microsoft acquired GitHub. New features will be initially implemented there.
+*+++Note:+++* Azure DevOps will be superseeded by GitHub in the long run after Microsoft acquired GitHub. New features will be initially implemented there.
 
 The services that (can) complement Azure DevOps:
+
 * Azure Key Vault for storing secrets/ exchange of settings
-* Azure AD to provide RBAC
-* Monitoring (out of scope)
+* Azure App Configuration
++
+This service provides settings (key-value pairs) and feature toggles. Native integrations exist for typical application programming languages like .NET/ Java. However native integrations with terraform do not exist and it is also a special hardened service for sensitive information as key vault. Therefore, it is recommended to use that service as special case for application layer if feature toggles are needed.
+* Azure AD
++
+Azure Active Directory provides the service principal the pipelines run with.
+* Monitoring
++
+Azure DevOps generates metrics to check the health pipelines and displays te state in the Azure DevOps portal . However no built-in forwarding to App Insights independent from the deployed application exists. Continous monitoring assumes Web Applications.
+Check out the pattern monitoring how monitoring for infrastructure/ application code can be achieved. 
+Essential is that a monitoring consumer gets a single control plane across multiple environments.
 * Structural elements to model environments
+
 The picture illustrates the setup with the major dependencies:
+image::complementing_services.png[Complementing Services]
 
 === Pattern Details
-==== Cross
-
-*Organiation Mapping)*
+==== Cross Functionalities
 
 Your business structure should act as a guide for the number of organizations, projects, and teams that you create in Azure DevOps (https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Link]). Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
 
@@ -282,20 +292,31 @@ Adding teams instead of projects is recommended over projects for the following 
 The table below lists typical configurations along with their characteristics :
 [options="header"]
 |=======================
-|Criteria|1 prj, N teams      |1 org, N prjs/ teams | N org
+|Criteria|1 project, N teams      |1 org, N projects/ teams | N orgs
 |General guidance |	Smaller or larger organizations with highly aligned teams | Good when different efforts require different processes (multi) | Legacy migration
-|Process    |Aligned processes across teams; team flexibility to customize boards, dashboards, and so on     |Different processes per prj;e.g. different work item types, custom fields   |same as many prjs
+|Process    |Aligned processes across teams; team flexibility to customize boards, dashboards, and so on     |Different processes per prj;e.g. different work item types, custom fields   |same as many projects
 |=======================
 
 ==== Remaining goals (Automation Code)
 
 This chapter now how the above conceptual features can be achieved with Azure DevOps pipelines. 
 
-For *Integration External* supports both conceptual ways.
+For *integration external* supports both conceptual ways.
 
 The *programming approach* can be either UI driven or programmatic by using programming languages.
 
-YAML is supported out of the box. Scripting programming languages are supported out of the box by adding th appropriate task type.
+YAML is supported out of the box. Scripting programming languages are supported out of the box by adding the appropriate task type. The following list describes a few standard problems that were not so obvious from the documentation:
+
+* Passing files/ artefacts between jobs/ pipelines
++
+Passing between jobs within the same pipeline requires publishing the files as pipeline artefacts and downloading it afterwards. Passing between syntax requires a different syntax and also requires a version.
+* Variables
++
+Variables can have different scopes. A special syntax is required to publish them at runtime and to consume them in a different job (requires declaration). (https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch[Link])
+* Obtaining client secret
++
+Scripting languages such as terraform might require the client secret for embedded scripting blocks. However,  terraform does not provide a way to get it. The only way was to include an AzureCLI scripting task. Setting the argument "addSpnToEnvironment" to true makes the value for scripting languages as environment variable. A script can then publish the variable so that the value is available in the YAML pipeline. 
+
 Terraform requires either manual installation as part of the task or installation of extensions supporting terraform.
 
 Pipelines that shall be *triggered* by pushing to the repo state in the trigger element the details like branch when they shall run.
@@ -351,10 +372,8 @@ $body = @{
 }
 $bodyJson = $body | ConvertTo-Json
 # Uri extracted from the Azure DevOps UI
-# Note: Azure DevOps UI is using version "api-version=5.1-preview.1" 
-#       All other documented versions > 5.0 are also in preview after
-#       executing them in azure cli (=> best choice is therefore to stick
-#       with the version used by Azure DevOps)
+# $org_uri and $prj_id contain names of current organization/ project
+# $pl_id denotes the internal pipeline id to be started
 $uri = "${org_uri}${prj_id}/_apis/pipelines/${pl_id}/runs?api-version=5.1-preview.1"
 
 # Output paramters
@@ -366,16 +385,6 @@ Write-Host("Uri: ${uri}")
 try 
 {
     # Trigger pipeline
-    # Note: The build method did not accept parameters although stated in the docs.
-    # See also sources below
-    # -https://github.com/MicrosoftDocs/vsts-rest-api-specs/issues/188
-    # -https://stackoverflow.com/questions/50176797/tfs-2017-api-queuing-a-build-with-variables
-    #
-    # The used method was extracted by tracking the calls from the Azure DevOps
-    # UI in chrome with networl inspection (Ctrl+Shift+J).
-    # Powershell Invoke-RestMethod used since az command had already problems
-    # with space separated multiple headers since value for authentication
-    # contains spaces.
     $result = Invoke-RestMethod -Method POST -Headers $headers -Uri $uri -Body $bodyJson
     Write-Host("Result: ${result}")        
 
