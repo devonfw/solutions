@@ -1,4 +1,3 @@
-var totalPage = 0;
 var pageSize = 10;
 
 function getParameters() {
@@ -24,12 +23,12 @@ function getParameters() {
 function search() {
     var parameters = getParameters();
     var solutions = solutionsJson;
-    var curPage = 0;
+    let curentPage = 1;
     for (const filterName of parameters.keys()) {
         var filterValues = parameters.get(filterName);
         if (filterName == 'page') {
-            curPage = filterValues[0];
-            parameters.delete('page', curPage);
+            curentPage = filterValues[0];
+            parameters.delete('page', curentPage);
             continue;
         }
         for (var i in filterValues) {
@@ -44,28 +43,21 @@ function search() {
             solutions = newSolutions;
         }
     }
-    var dataSize = Object.keys(solutions).length;
-    totalPage = Math.ceil(dataSize / pageSize);
-    if (parseInt(curPage) == 0) {
-        renderSolutions(solutions, 1)
-    } else {
-        renderSolutions(solutions, curPage);
-    }
-
+    renderSolutions(solutions, curentPage);
     disableFilters(solutions);
     highlightSelected();
-
 }
 
 function renderSolutions(solutions, current) {
     var filterpanelbody = $("#resultspanel");
     filterpanelbody.empty();
 
-    var currentPage = current;
-    var countSolutions = 0;
-    var dataSize = Object.keys(solutions).length;
-    var startData = (currentPage - 1) * pageSize + 1;
-    var endData = (currentPage * pageSize > dataSize ? dataSize : currentPage * pageSize);
+    let currentPage = current;
+    let countSolutions = 0;
+    let dataSize = Object.keys(solutions).length;
+    let totalPage = Math.ceil(dataSize / pageSize);
+    let startData = (currentPage - 1) * pageSize + 1;
+    let endData = (currentPage * pageSize > dataSize ? dataSize : currentPage * pageSize);
 
     for (const solutionKey in solutions) {
         if (Object.hasOwnProperty.call(solutions, solutionKey)) {
