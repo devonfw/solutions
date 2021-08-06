@@ -145,6 +145,8 @@ An additional pipeline triggers in this scenario other pipelines acting as build
 Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault.
 
+*Recreation of resources in short intervals* can cause problems to fail since they still exist in the background.(Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals.
+
 *Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as incrementing numbers (https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[Link]). Linking the code in the repo to a certain version depends on used repository. 
 
 === Infrastructure/ Application code
@@ -171,15 +173,7 @@ Table with declarative programming language options:
 
 The major options for imperative programming languages are Azure CLI, Powershell (Windows) or Linux based scripting. Azure CLI is recommended as prefered choice since it works on linux and windows based VMs.
 
-The following special infrastructure problems are addressed in this pattern
-
-* *Uniform naming schema*
-+
-The created resources should follow a uniform naming schema. This requires naming to be factored out in a centralized module. Concrete approach depends on the programming language.
-
-* *Recreation of resources in short intervals*
-+
-Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals.
+The created resources should follow a *uniform naming schema*. This requires naming to be factored out in a centralized module. Terraform supports factoring out common code in modules. However the backend must already exist and should also follow a naming convention. The recommendation is therefore to expose the common terraform module via an additional path that does not require a backend to determine the names for the azure resources representing the backend. 
 
 === Cross 
 ==== Organizational Mapping
@@ -304,8 +298,6 @@ The table below lists typical configurations along with their characteristics :
 
 This chapter details how the above conceptual features can be achieved with Azure DevOps pipelines. 
 
-For *integration external* supports both conceptual ways.
-
 The *programming approach* can be either UI driven or programmatic by using YAML. YAML organizes pipelines into a hierarchy of stages, jobs and tasks. Tasks are the workhorse where activities are implemented. Tasks support scripting languages as stated below. They in turn allow to install additional libraries frameworks from third party providers such as terraform (or you use extensions that give you additional task types). The list below highlights a few YAML points you have to be aware of: 
 
 * Passing files/ artefacts between jobs/ pipelines
@@ -419,28 +411,18 @@ catch {
 ```
 Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault. 
+The *external integration* possibilities allow pipelines to be called from external and allow calling external tools.
 
-* *Recreation of resources in short intervals*
-+
-Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. One leverage is to use new resource group names which are part of the resource id.
+*Recreation of resources in short intervals* might cause pipelines to fail.Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
 
-* *Uniform Naming Conventions*
-+
-Terraform supports factoring out common code in modules. However the backend must already exist and should also follow a naming convention. The recommendation is therefore to expose the common terraform module via an additional path that does not require a backend to determine the names for the azure resources representing the backend. 
+As part of the *configuration* Azure DevOps provides the possibility to provide various settings that are used for development such as enforcing pull requests instead of direct pushes to the repo.
+The major configuration mechanisms in YAML are variables, parameters and variable groups. Variable groups bundle multiple settings as key value pairs. Parameters are not possible in a variable section (Dynamic inclusion of variable groups is possible via file switching). If they are declared on top level they have to be passed when the pipeline is called programmatically or manually by the user.
 
-* *Configuration*
-+
---
-Azure provides the possibility to provide various settings that are used for development such as enforcing pull requests instead of direct pushes to the repo.
+*Quality gates* can be enforced as follows:
 
-Variable groups can be configured to include variables depending on the environment. Parameters are not possible in a variable section (Dynamic inclusion of variable groups is possible via file switching).
---
-* *Enforcing Quality Gates*
+* Static code analysis:
 +
-Standard quality gates are:
-+
---
-* Static code analysis: Various tool support exists depending on the programming language.
+Various tool support exists depending on the programming language.
 * Automated tests (Unit, Integration, End-To-End)
 +
 --
