@@ -60,6 +60,7 @@ As shown automation does not only include pipelines. All automation code artefac
 
 In most cases enterprises have already existing technologies in place that might not be based on cloud of a certain provider. *Integration* with other third party offerings to cover functionally also from elsewhere is also important.
 --
+
 The picture below summarizes the major aspects:
 image::provisioning_problem_context.png[Provisioning Problem Context]
 
