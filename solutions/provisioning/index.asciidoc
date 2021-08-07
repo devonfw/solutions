@@ -61,7 +61,7 @@ In most cases enterprises have already existing technologies in place that might
 
 The picture below summarizes the major aspects:
 
-image::problem_context.png[alt=Provisioning Problem Context,scale=80]
+image::problem_context.png[alt=Provisioning Problem Context,scale=70]
 
 == Standard Problems
 
