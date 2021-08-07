@@ -5,14 +5,12 @@
 
 == Context & Problem
 
-This document describes the automated build (CI) & deployment (CD) of an application to a target environment. From a code perspective to different code domains are involved: (1) automation code and (2) application/ infra code to be deployed.
-
-The relevant aspects as part of this pattern are grouped in three clusters. Cross functionalities are used as third category besides the two code domains. Cross functionalities affect the automation and the application/ infra code such as compliance.
+This document describes patterns to automate the deployment of an application to a target environment. The major players in this documentation are (1) the process as a whole (aka provisioning), (2) automation code and (3) application/ infra code to be deployed.  
 
 * *Automation code:*
 +
 --
-The automation code is about automating parts of  deployment cycle. In an ideal world this covers the entire code development cycle from the first pull request to the final deployment. Possible  activities in this cycle are: (1) quality gates, (2) build and (3) deployment.
+The automation code is about automating parts of deployment cycle. In an ideal world this covers the entire code development cycle from the first pull request to the final deployment. Possible  activities in this cycle are: (1) quality gates, (2) build and (3) deployment.
 *Quality gates* refer to testing or approval. Approval might include a manual approval to deploy to sensitive environments like production or enforcing a review before the commit through a pull request. Failing a quality gate should stop the workflow to proceed. Ideally they are maximizing application code coverage and kick in as early as possible.
 From a timeline perspective major events that are kicking off actions from the automation code are:
 
@@ -47,14 +45,14 @@ Not relevant are:
 * Specific deployment options of the platform services forming the infrastructure
 --
 
-* Cross functionalities
+* *Provisioning*
 +
 --
-Automation code must work with the infrastructure/ application code in a compliant way end-to-end.  *Compliance* includes the general concern security and to impose constraints from the organization's perspective that need to be enforced.
+The process must work in a compliant way end-to-end. *Compliance* includes the general concern security and to adhere to constraints from the organization's perspective that need to be enforced.
 
 Provisoning should be subject to *monitoring* and must be able to adapt to the *organizational structure*.
 
-*Configuration* is also a cross concern that affects both sides. The major areas are: (1) properties of the environment and (2) settings of the involved automation/ application code depending on the target environment.
+*Configuration* is also a cross concern that affects both sides. From the automation side this includes properties of the environment and settings of the involved automation code. The application specific settings are out of scope in this pattern description. However, provisioning must enable the application code to access settings.
 
 As shown automation does not only include pipelines. All automation code artefacts must be *stored* in a code repository. Recommendations are given how to structure the automation code artefacts.
 
@@ -63,7 +61,7 @@ In most cases enterprises have already existing technologies in place that might
 
 The picture below summarizes the major aspects:
 
-image::problem_context.png[Provisioning Problem Context]
+image::problem_context.png[Provisioning Problem Context,640,480]
 
 == Standard Problems
 
@@ -81,7 +79,7 @@ Regarding pipelines the folloqing aspects will be detailed:
 --
 * Infra/ Application code (Programming approach,
 Interaction standard problems)
-* Cross 
+* Provisioning 
 +
 --
 * Organizational Mapping
