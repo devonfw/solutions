@@ -54,7 +54,7 @@ Provisoning should be subject to *monitoring* and must be able to adapt to the *
 
 *Configuration* is also a cross concern that affects both sides. From the automation side this includes properties of the environment and settings of the involved automation code. The application specific settings are out of scope in this pattern description. However, provisioning must enable the application code to access settings.
 
-As shown automation does not only include pipelines. All automation code artefacts must be *stored* in a code repository. Recommendations are given how to structure the automation code artefacts.
+As shown automation does not only include pipelines but also additional configuration settings. Automation code must be able to access the infra/ app code for deployment. This pattern includes guidelines regarding options to store the code and how to structure it in a *repository*. Application code structure is treated as black box.
 
 In most cases enterprises have already existing technologies in place that might not be based on cloud of a certain provider. *Integration* with other third party offerings to cover functionally also from elsewhere is also important.
 --
@@ -91,7 +91,8 @@ Interaction standard problems)
 For the following aspectcs check out the other defined patterns:
 
 * Monitoring infrastructure and application code
-* Source code repo structuring 
+* General guidelines for structuring repositories (e.g. mono vs. multi-repo) 
+* General guidelines for defining landing zones
 
 == Azure as Platform
 === Automation code
@@ -105,13 +106,13 @@ Azure provides the following structural elements to model an environment:
 
 An environment can be linked to another environment. Linking an environment to multiple environment is beneficial for addressing cross concerns such as monitoring (Similar to Hub/ Spoke topology in networks).
 
-==== Pipelines
+==== Implementation
 
-The programming approach can be either UI driven or *programmatic* by using programming languages.
+The programming approach can be either UI driven or *programmatic*. Pipeline programming languages such as YAML structure the actions to be performed by the pipeline and provide basic mechansims such as downloading code from the repo, parameter handling, stating triggers and triggering other programming languages. These other languages are then used to setup infrastructure such as terraform or deploying application code.
 
 Azure allows to *trigger* pipelines upon (1) a push to repo, (2) a pull request to repo, (3) a schedule and (4) a pipeline completion (https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops[Link]).
 
-The platform allows to *pass parameters* by various mechanisms to pipelines and channels (Explicit per user input, programmatically). Parameters can be passed by group identifier or explicitly. Complex structured objects as known from object programming languages are not directly possible (Require parsing of files with object structure). Parametrization might be constrained by the used service in certain areas.
+The platform allows to *pass parameters* by various mechanisms to pipelines(Explicit per user input, programmatically). Parameters can be passed by group identifier or explicitly as key value pairs. Complex structured objects as known from object programming languages are not directly possible (Require parsing of files with object structure). Parametrization might be constrained by the used service in certain areas.
 
 The platform provides *support for quality gates* as follows:
 
@@ -127,8 +128,10 @@ Azure services support approval for a certain environments and enforcing pull re
 
 The Azure platform provides the following basic options to *store* automation code:
 
-* Services that provide the possibility to store code
+* Services that provide repositories
 * Integration of various external code repositories
+
+==== Orchestration
 
 To *orchestrate* pipelines the two following basic mechanisms can be used:
 
@@ -143,7 +146,9 @@ An additional pipeline triggers in this scenario other pipelines acting as build
 Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault.
 
-*Recreation of resources in short intervals* can cause problems to fail since they still exist in the background.(Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals.
+*Recreation of resources in short intervals* can cause pipelines to fail since the previously deleted resource still exists in the background.(Even although soft delete is not applicable). Whether Azure really deleted everything depends on the service. For instance Azure API management seemed to be affected by that problem.
+
+==== Traceability
 
 *Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as incrementing numbers (https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[Link]). Linking the code in the repo to a certain version depends on used repository. 
 
@@ -153,8 +158,8 @@ A *programming language* is either "declarative" or "imperative". Declarative pr
 
 Typical declarative options are shown in detail in the table below. The overall recommendation is to go for terraform. Major reasons for downvoting Bicep/ ARM:
 
-* difficult readability for humans
-* lack of support for testing based on plan and testing ecosystem since first added recently
+* ARM: difficult readability for humans
+* Bicep: Lack of support for testing based on plan and testing ecosystem since first added recently.
 
 Table with declarative programming language options:
 [options="header"]
@@ -173,7 +178,7 @@ The major options for imperative programming languages are Azure CLI, Powershell
 
 The created resources should follow a *uniform naming schema*. This requires naming to be factored out in a centralized module. Terraform supports factoring out common code in modules. However the backend must already exist and should also follow a naming convention. The recommendation is therefore to expose the common terraform module via an additional path that does not require a backend to determine the names for the azure resources representing the backend. 
 
-=== Cross 
+=== Provisioning
 ==== Organizational Mapping
 
 The provisioning must match the organizational requirements of your organization. Azure provides services to model sub units within your organization such as departments, projects and teams.
@@ -236,17 +241,16 @@ The picture illustrates the setup with the major dependencies:
 image::complementing_services.png[Complementing Services]
 
 === Pattern Details
-==== Cross Functionalities
+==== Geting Started
 
-Your business structure should act as a guide for the number of organizations, projects, and teams that you create in Azure DevOps (https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Link]). Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
+Many aspects influence the setup of the service. Following a top down approach the following decisions have to be made:
+* Define landing zone of the service itself (out of scope)
+* Organizational mapping
++
+This yields the structural components to host provisioning which will be detailed in the next chapter. It introduces the possible components and guidelines for its structuring.
+* Modelling other outlined aspects across automation, infra/ app code and provisioning
 
-* Azure Pipelines: One hosted job with 1,800 minutes per month for CI/CD and one self-hosted job
-* Azure Boards: Work item tracking and Kanban boards
-* Azure Repos: for version control and management of source code and artifacts
-* Azure Artifacts: Package management
-* Testing: Continuous test integration throughout the project life cycle
-
-A team is a unit that supports many team-configurable tools. These tools help you plan and manage work, and make collaboration easier. Every team owns their own backlog, to create a new backlog you create a new team. By configuring teams and backlogs into a hierarchical structure, program owners can more easily track progress across teams, manage portfolios, and generate rollup data.
+The structural components are organizations, teams and projects. A team is a unit that supports many team-configurable tools. These tools help you plan and manage work, and make collaboration easier. Every team owns their own backlog, to create a new backlog you create a new team. By configuring teams and backlogs into a hierarchical structure, program owners can more easily track progress across teams, manage portfolios, and generate rollup data.
 
 A project in Azure DevOps contains the following set of features:
 
@@ -270,7 +274,15 @@ Tests can also be integrated in pipelines. Pipelines support a wide range of fra
 --
 * Each organization contains one or more projects
 
-The next paragraphs give guidelines *how to map* the introduced structural elements to your organizational needs. Adding multiple projects makes sense in the following cases (https://docs.microsoft.com/en-us/azure/devops/organizations/projects/about-projects?view=azure-devops[Link]):
+Your business structure should act as a guide for the number of organizations, projects, and teams that you create in Azure DevOps (https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Link]). Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
+
+* Azure Pipelines: One hosted job with 1,800 minutes per month for CI/CD and one self-hosted job
+* Azure Boards: Work item tracking and Kanban boards
+* Azure Repos: for version control and management of source code and artifacts
+* Azure Artifacts: Package management
+* Testing: Continuous test integration throughout the project life cycle
+
+Adding multiple projects makes sense in the following cases (https://docs.microsoft.com/en-us/azure/devops/organizations/projects/about-projects?view=azure-devops[Link]):
 
 * To prohibit or manage access to the information contained within a project to select groups
 * To support custom work tracking processes for specific business units within your organization
@@ -481,6 +493,13 @@ environment: env-demo
             artifact: ${{parameters.pipelineArtifactName}}
 ```
 --
+
+==== Remaining goals (Provisioning)
+
+TODO 
+* Integration
+* Configuration
+* Compliance
 
 === Variations
 
