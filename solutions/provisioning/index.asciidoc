@@ -73,7 +73,7 @@ The following standard problems will be addressed in subsequent paragraphs:
 Regarding pipelines the folloqing aspects will be detailed:
 
 * Modeling environments
-* Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
+* Pipeline Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
 * Orchestration 
 * Traceability (Versioning, Tagging)
 --
@@ -107,7 +107,7 @@ Azure provides the following structural elements to model an environment:
 
 An environment can be linked to another environment. Linking an environment to multiple environment is beneficial for addressing cross concerns such as monitoring (Similar to Hub/ Spoke topology in networks).
 
-==== Implementation
+==== Pipeline Implementation
 
 The programming approach can be either UI driven or *programmatic*. Pipeline programming languages such as YAML structure the actions to be performed by the pipeline and provide basic mechansims such as downloading code from the repo, parameter handling, stating triggers and triggering other programming languages. These other languages are then used to setup infrastructure such as terraform or deploying application code.
 
@@ -309,7 +309,7 @@ The table below lists typical configurations along with their characteristics :
 
 This chapter details how the above conceptual features can be achieved with Azure DevOps pipelines. 
 
-The *programming approach* can be either UI driven or programmatic by using YAML. YAML organizes pipelines into a hierarchy of stages, jobs and tasks. Tasks are the workhorse where activities are implemented. Tasks support scripting languages as stated below. They in turn allow to install additional libraries frameworks from third party providers such as terraform (or you use extensions that give you additional task types). The list below highlights a few YAML points you have to be aware of: 
+The pipeline *programming approach* can be either UI driven or programmatic by using YAML. YAML organizes pipelines into a hierarchy of stages, jobs and tasks. Tasks are the workhorse where activities are implemented. Tasks support scripting languages as stated below. They in turn allow to install additional libraries frameworks from third party providers such as terraform (or you use extensions that give you additional task types). The list below highlights a few YAML points you have to be aware of: 
 
 * Passing files/ artefacts between jobs/ pipelines
 +
