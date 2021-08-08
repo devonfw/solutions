@@ -534,6 +534,7 @@ Azure DevOps *can integrate* with various external tools. Pipelines can be calle
 For *compliance* Azure DevOps provides various settings inside Azure DevOps itself and via Azure Active Directory.
 Portal access to Boards, Repos, Pipelines, Artifacts and Test Plans can be controlled through Azure DevOps project settings (https://docs.microsoft.com/en-us/azure/devops/organizations/settings/set-services?view=azure-devops[Link]).
 Azure DevOps supports the following autthentication mechanisms to connect to services and resources in your organization (https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/change-application-access-policies?view=azure-devops[Link]):
+
 * OAuth to generate tokens for accessing REST APIs for Azure DevOps. The Organizations and Profiles APIs support only OAuth.
 * SSH authentication to generate encryption keys for using Linux, macOS, and Windows running Git for Windows, but you can't use Git credential managers or personal access tokens (PATs) for HTTPS authentication.
 Personal access token (PAT) to generate tokens for:
