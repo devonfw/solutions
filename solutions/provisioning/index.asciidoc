@@ -508,7 +508,7 @@ variables:
   parameters: ${{parameters.envName}}
 ...
 ``` 
-(2) Shared: Switch to select file
+(2) Shared: Switch to correct configuration file
 ```YAML
 ...
 parameters:
