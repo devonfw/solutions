@@ -84,6 +84,7 @@ Interaction standard problems)
 --
 * Organizational Mapping
 * Integration
+* Code Repository (Automation/ Infra & App Code)
 * Configuration
 * Compliance
 --
@@ -421,7 +422,6 @@ catch {
 ```
 Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault. 
-The *external integration* possibilities allow pipelines to be called from external and allow calling external tools.
 
 *Recreation of resources in short intervals* might cause pipelines to fail.Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
 
@@ -473,6 +473,7 @@ Tests can be included in pipelines via additional libraries and additional previ
 
 * Manual approval e.g. for production
 +
+--
 YAML allows deployments to named environments. Approvers can then be defined for the named environments in the portal what causes the deployment pipeline to wait. However Approval must be done multiple times if you have multiple deplyoment blocks. The example below shows a deployment to the environment "env-demo":
 ```YAML
 jobs:
@@ -496,10 +497,88 @@ environment: env-demo
 
 ==== Remaining goals (Provisioning)
 
-TODO 
-* Integration
-* Configuration
-* Compliance
+*Configuration settings* can be broken down into key value pairs. As already stated key vault is the recommended place for storage. Azure App Configuration and variable groups can reference values in Key Vault. Key Value pairs must be selected in YAML based on the target environment. Switching based on the parameter value is possible by constructing filenames based on the parameter value. The resolved filenam contains then the variable group or the key value pairs. as shown below:
+
+(1) Main pipeline that requires switching
+```YAML
+...
+# Switch in the pipeline which is implemented in a shared repository
+variables:
+- template: ./pipelines/configurations/vars-env-single-template.yaml@repo-shared
+...
+``` 
+(2) Shared: Switch to select file
+```YAML
+...
+parameters:
+- name: envName
+  displayName: name of environment
+  type: string
+
+# Load filename with resolved parameter value
+variables:
+- template: vars-env-def-${{parameters.envName}}-template.yaml
+``` 
+(3) Shared: Configuration file vars-env-def-dev1.yaml
+```YAML
+variables:
+  envNamePPE1MainScriptLocation: app/dev
+  envNamePPE1SvcLevel: Full
+  envNamePPE1BranchName: dev
+  envNamePPE1KvEnvName: $(envNameCRST)1
+``` 
+
+Azure DevOps *can integrate* with various external tools. Pipelines can be called from external and allow calling external tools. Various third party tools can be manually installed or used via extensions. The built in repository and the artefact store can be replaced with third party tools such as github.
+
+For *compliance* Azure DevOps provides various settings inside Azure DevOps itself and via Azure Active Directory.
+Portal access to Boards, Repos, Pipelines, Artifacts and Test Plans can be controlled through Azure DevOps project settings (https://docs.microsoft.com/en-us/azure/devops/organizations/settings/set-services?view=azure-devops[Link]).
+Azure DevOps supports the following autthentication mechanisms to connect to services and resources in your organization (https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/change-application-access-policies?view=azure-devops[Link]):
+* OAuth to generate tokens for accessing REST APIs for Azure DevOps. The Organizations and Profiles APIs support only OAuth.
+* SSH authentication to generate encryption keys for using Linux, macOS, and Windows running Git for Windows, but you can't use Git credential managers or personal access tokens (PATs) for HTTPS authentication.
+Personal access token (PAT) to generate tokens for:
++
+--
+* Accessing specific resources or activities, like builds or work items
+* Clients like Xcode and NuGet that require usernames and passwords as basic credentials and don't support Microsoft account and Azure Active Directory features like multi-factor authentication
+* Accessing REST APIs for Azure DevOps
+--
+User permissions for team members are split in access levels and project permissions inside Azure DevOps. The Basic and higher access levels support full access to all Azure Boards features. Stakeholder access provides partial support to select features, allowing users to view and modify work items without having access to all other features. Additional restrictions are possible by Azure Active Directory settings using conditional access policies and MFA. Azure DevOps honors all conditional access policies 100% for our Web flows. For third-party client flow, like using a PAT with git.exe, IP fencing policies are supported only (no support for MFA policies).
+Permissions to work with repositories can be set under project’s repositories settings which also allows to disable forks. Many forks makes it hard to keep the overview and forking allows to download code into someones private account. Azure DevOps supports creating branch protection policies, which protect the code committed to the main branches (project settings => repo => branch policies).
+Compliance affects dealing with sensitive settings. As already stated key vault is the standard service for storing them at runtime. Exports from key vault can only be decrypted in a key vault instance. 
+Hence, secrets can be stored in a repository in a safe way without having to store the values in plain. Using them later should be done in a safe way. This includes publishing them in a safe way and passing them from YAML to terraform by avoiding log output in plain text. Avoiding log output passing them as environment variables/ files.
+
+The following *repository* structure shows a conceptual breakdown that covers most aspects:
+
+* 1. Infra
+* 1.1. Infrastructure
+* 1.1.1. Other landing zones
++
+Represents other areas with shared functionality that are required. Examples are environments for monitoring, the environment containing Azure DevOps, Key Vault settings etc.
+* 1.1.2. App Environments
++
+Represents the environments where application is deployed to.
+* 1.1.2.1. Envs
++
+This level contains all infrastructure code for seting up en environment. The split between dev and non-dev leverages cost savings for less performant dev environments e.g. by picking cheaper service configurations or totally different Azure services.
+* 1.1.2.1.1. Dev
+* 1.1.2.1.2. Non-Dev
+* 1.1.2.1.3. Modules
++
+Factored out modules for shared reuse. One example is could a central module to generate the name for a given module.
+* 1.1.2.2. Envs-Mgmt
++
+Captures aspects assumed by the chosen programming language such as terraform for managing an environment. This includes for instance the backend creation code.
+* 1.2. Pipelines
++
+Pipelines for automating infrastrcuture deployment.
+* 2. App
+* 2.1. Application (Black Box)
+* 2.2. Pipelines
++
+Pipelines for automating app code deployment.
+* 3. Shared
++
+Captures shared aspects between infrastructure and application code such as publishing key vault secrets for a pipeline or triggering another pipeline.
 
 === Variations
 
