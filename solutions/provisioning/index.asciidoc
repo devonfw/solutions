@@ -537,13 +537,14 @@ Azure DevOps supports the following autthentication mechanisms to connect to ser
 
 * OAuth to generate tokens for accessing REST APIs for Azure DevOps. The Organizations and Profiles APIs support only OAuth.
 * SSH authentication to generate encryption keys for using Linux, macOS, and Windows running Git for Windows, but you can't use Git credential managers or personal access tokens (PATs) for HTTPS authentication.
-Personal access token (PAT) to generate tokens for:
+* Personal access token (PAT) to generate tokens for:
 +
 --
 * Accessing specific resources or activities, like builds or work items
 * Clients like Xcode and NuGet that require usernames and passwords as basic credentials and don't support Microsoft account and Azure Active Directory features like multi-factor authentication
 * Accessing REST APIs for Azure DevOps
 --
+
 User permissions for team members are split in access levels and project permissions inside Azure DevOps. The Basic and higher access levels support full access to all Azure Boards features. Stakeholder access provides partial support to select features, allowing users to view and modify work items without having access to all other features. Additional restrictions are possible by Azure Active Directory settings using conditional access policies and MFA. Azure DevOps honors all conditional access policies 100% for our Web flows. For third-party client flow, like using a PAT with git.exe, IP fencing policies are supported only (no support for MFA policies).
 Permissions to work with repositories can be set under project’s repositories settings which also allows to disable forks. Many forks makes it hard to keep the overview and forking allows to download code into someones private account. Azure DevOps supports creating branch protection policies, which protect the code committed to the main branches (project settings => repo => branch policies).
 Compliance affects dealing with sensitive settings. As already stated key vault is the standard service for storing them at runtime. Exports from key vault can only be decrypted in a key vault instance. 
