@@ -505,6 +505,7 @@ environment: env-demo
 # Switch in the pipeline which is implemented in a shared repository
 variables:
 - template: ./pipelines/configurations/vars-env-single-template.yaml@repo-shared
+  parameters: ${{parameters.envName}}
 ...
 ``` 
 (2) Shared: Switch to select file
