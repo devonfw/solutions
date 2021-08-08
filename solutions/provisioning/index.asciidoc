@@ -102,7 +102,7 @@ For the following aspectcs check out the other defined patterns:
 Azure provides the following structural elements to model an environment:
 
 * *Resource groups:* Smallest possible container
-* *Subscriptions:* One subscription can contain many resource groups. With a subscription dsicounts for dev/ test environments are possible.
+* *Subscriptions:* One subscription can contain many resource groups. With a subscription discounts for dev/ test environments are possible.
 * *Management groups:* One management group can contain many resource groups. They can be used enforce policies across subscriptions if environments share common characteristics.
 
 An environment can be linked to another environment. Linking an environment to multiple environment is beneficial for addressing cross concerns such as monitoring (Similar to Hub/ Spoke topology in networks).
