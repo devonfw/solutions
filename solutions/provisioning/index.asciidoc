@@ -239,7 +239,7 @@ Essential is that a monitoring consumer gets a single control plane across multi
 
 The picture illustrates the setup with the major dependencies:
 
-image::complementing_services.png[Complementing Services, scalewidth=50%, scaleheight=50%]
+image::complementing_services.png[Complementing Services, width=832, height=469]
 
 === Pattern Details
 ==== Geting Started
