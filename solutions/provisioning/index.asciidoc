@@ -1,9 +1,9 @@
 //Platform=Azure
 //Maturity level=Advanced
 
-= Provisioning
+== Provisioning
 
-== Context & Problem
+=== Context & Problem
 
 This document describes patterns to automate the deployment of an application to a target environment. The major players in this documentation are (1) the process as a whole (aka provisioning), (2) automation code and (3) application/ infra code to be deployed.  
 
@@ -63,7 +63,7 @@ The picture below summarizes the major aspects:
 
 image::problem_context.png[alt=Provisioning Problem Context,width=451, height=257]
 
-== Standard Problems
+=== Standard Problems
 
 The following standard problems will be addressed in subsequent paragraphs:
 
@@ -95,9 +95,9 @@ For the following aspectcs check out the other defined patterns:
 * General guidelines for structuring repositories (e.g. mono vs. multi-repo) 
 * General guidelines for defining landing zones
 
-== Azure as Platform
-=== Automation code
-==== Modelling Environments
+=== Azure as Platform
+==== Automation code
+===== Modelling Environments
 
 Azure provides the following structural elements to model an environment:
 
@@ -107,7 +107,7 @@ Azure provides the following structural elements to model an environment:
 
 An environment can be linked to another environment. Linking an environment to multiple environment is beneficial for addressing cross concerns such as monitoring (Similar to Hub/ Spoke topology in networks).
 
-==== Pipeline Implementation
+===== Pipeline Implementation
 
 The programming approach can be either UI driven or *programmatic*. Pipeline programming languages such as YAML structure the actions to be performed by the pipeline and provide basic mechansims such as downloading code from the repo, parameter handling, stating triggers and triggering other programming languages. These other languages are then used to setup infrastructure such as terraform or deploying application code.
 
@@ -132,7 +132,7 @@ The Azure platform provides the following basic options to *store* automation co
 * Services that provide repositories
 * Integration of various external code repositories
 
-==== Orchestration
+===== Orchestration
 
 To *orchestrate* pipelines the two following basic mechanisms can be used:
 
@@ -149,11 +149,11 @@ Orchestrated pipelines must pass data between them. The recommended method is to
 
 *Recreation of resources in short intervals* can cause pipelines to fail since the previously deleted resource still exists in the background.(Even although soft delete is not applicable). Whether Azure really deleted everything depends on the service. For instance Azure API management seemed to be affected by that problem.
 
-==== Traceability
+===== Traceability
 
 *Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as incrementing numbers (https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[Link]). Linking the code in the repo to a certain version depends on used repository. 
 
-=== Infrastructure/ Application code
+==== Infrastructure/ Application code
 
 A *programming language* is either "declarative" or "imperative". Declarative programming languages state the target state and it is the job of the declarative programming language how to get there. The following rules are applied to achieve that: (1) Create a resource if not there, (2) update an existing resource if different properties, (3) delete resource if not there. Imperative programming languages state the how. The internal delta calculation needs to be explicitly programmed here. If possible declarative programming languages are recommended due to automatic delta calculation. Typical case is infrastructure.
 
@@ -179,12 +179,12 @@ The major options for imperative programming languages are Azure CLI, Powershell
 
 The created resources should follow a *uniform naming schema*. This requires naming to be factored out in a centralized module. Terraform supports factoring out common code in modules. However the backend must already exist and should also follow a naming convention. The recommendation is therefore to expose the common terraform module via an additional path that does not require a backend to determine the names for the azure resources representing the backend. 
 
-=== Provisioning
-==== Organizational Mapping
+==== Provisioning
+===== Organizational Mapping
 
 The provisioning must match the organizational requirements of your organization. Azure provides services to model sub units within your organization such as departments, projects and teams.
 
-==== Integration
+===== Integration
 
 Platform allows a modular approach to outsource certain functionality to third party software such as code repository. Which parts is service specific.
 
@@ -193,7 +193,7 @@ External tools providing pipelines can be integrated in two conceptual ways:
 * *Trigger automation pipelines from external:* This involves the configuration of a CI pipeline in the external tool such as Jenkins and mechanism in the automation service that invokes the CI process when source code is pushed to a repository or a branch.
 * *Run external pipelines from within the platform:* In this approach automation reaches out to an external tool to work with the results.
 
-==== Configuration
+===== Configuration
 
 Configuration for provisioning is required in various areas:
 
@@ -203,7 +203,7 @@ Configuration for provisioning is required in various areas:
 
 Concrete features used for the above three points depend on the used services. A general storage for sensitive data (Keys, secrets, certificates) in Azure is always Azure Key Vault.
 
-==== Compliance
+===== Compliance
 
 The standard concept for role-based access controls is called RBAC in Azure. It assigns principals (=humans or technical accounts) permissions for a certain resource. Regarding provisioning the following users are relevant:
 
@@ -214,8 +214,8 @@ Azure Active Directory is the central service in Azure that defines and controls
 
 Granularity of roles that can be granted depend on the service. The boundaries in which users exist/ permissions can be assigned is also service specific.
 
-== Solution (Full blown productive)
-=== Overview
+=== Solution (Full blown productive)
+==== Overview
 
 The Azure service targeting a full-blown productive provisioning setup is Azure DevOps.
 
@@ -241,8 +241,8 @@ The picture illustrates the setup with the major dependencies:
 
 image::complementing_services.png[Complementing Services, width=594, height=335]
 
-=== Pattern Details
-==== Geting Started
+==== Pattern Details
+===== Geting Started
 
 Many aspects influence the setup of the service. Following a top down approach the following decisions have to be made:
 * Define landing zone of the service itself (out of scope)
@@ -305,7 +305,7 @@ The table below lists typical configurations along with their characteristics :
 |Process    |Aligned processes across teams; team flexibility to customize boards, dashboards, and so on     |Different processes per prj;e.g. different work item types, custom fields   |same as many projects
 |=======================
 
-==== Remaining goals (Automation Code)
+===== Remaining goals (Automation Code)
 
 This chapter details how the above conceptual features can be achieved with Azure DevOps pipelines. 
 
@@ -495,7 +495,7 @@ environment: env-demo
 ```
 --
 
-==== Remaining goals (Provisioning)
+===== Remaining goals (Provisioning)
 
 *Configuration settings* can be broken down into key value pairs. As already stated key vault is the recommended place for storage. Azure App Configuration and variable groups can reference values in Key Vault. Key Value pairs must be selected in YAML based on the target environment. Switching based on the parameter value is possible by constructing filenames based on the parameter value. The resolved filenam contains then the variable group or the key value pairs. as shown below:
 
@@ -583,7 +583,7 @@ Pipelines for automating app code deployment.
 +
 Captures shared aspects between infrastructure and application code such as publishing key vault secrets for a pipeline or triggering another pipeline.
 
-=== Variations
+==== Variations
 
 For Dev/ Test scenarios the following services exist:
 
@@ -592,6 +592,6 @@ For Dev/ Test scenarios the following services exist:
 ** Azure DevSpaces (Deprecated) in favor of “Bridge-to-kubernetes”
 ** Bridge-to-Kubernetes
 
-== When to use
+=== When to use
 
 This solution assumes that your control plane is in Azure and that your monitored resources are located in Azure.
