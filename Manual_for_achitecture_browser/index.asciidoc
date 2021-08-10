@@ -1,62 +1,73 @@
-= Manual for architecture browser
+== Manual for architecture browser
+
 These content help you to know how you can contribute to the content of the architecture browser.
 
+=== Create Github user
 
-== Fetch upstream or fork repository
-If the repository already exists in your account, it will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fecht upstream " and choose "Fecht and merge".
+Without a GitHub account you can't contribute on the architecture browser.It is very simple to create an account on GitHub. 
+First, you have to go to GitHub.com and you'll be greeted by the welcome page then click on "sign up",now enter your email address your password and your username. You can choose if you want or not to receive the newsletter of GitHub after to verify your account you can click on "create account" .You will receive automatically a verification email open that and click on the link,your GitHub account is now available.
 
-image::./addManual_image/fecht.png[fecht]
+=== Fetch upstream or fork repository
+
+If the repository already exists in your account, it will eventually become out of date, you have to make the changes that were made on the main repository. To do that, you have to click on "Fetch upstream " and choose "Fetch and merge".
+
+image::./addManual_image/fetch.png[fetch]
 But if it doesn't exist, then you have to fork it, so that the main repository will be generated in your own account. To do that, please click on the icon "Fork" from the main repository.
 
 image::./addManual_image/fork.png[Fork_Repository,100,100]
 
-== Open the repository on Gitpod
-The repository is already on your account. 
-Gitpod is already configured so that origin remote is not the main repository but your fork.
+=== Open the repository on Gitpod
+
+"The repository is already on your account." -> "Please go to your fork (https://github.com/<>/architectures) and open the repository in the online IDE Gitpod." 
+
 You have only to go in the Readme.md and click on "https://gitpod.io/from-referrer/ ". This unique URL will automatically detect which repository it was visited from, and open that in Gitpod (using the Referrer HTTP header).
 
+=== Create or Change tutorial
 
-== Create or Change tutorial
-You have the possibility to add a new tutorial by creating a new tutorial, you can also change the content of existing tutorial.
+You have the possibility to create a new tutorial. Each tutorial is located in its own directory and consists of an asciidoc file, in which the tutorial is specified. 
+So create a new folder in inside the tutorials directory and the file for the tutorial.
 
-To create a new tutorial, you have to click on the icon "new File".
+Go to https://github.com/devonfw/architectures/blob/master/solution-template.asciidoc to see a template for creating architecture solutions, copy this file and delete this explanation and adapt.
+Please don't use first-level headlines because they are converted to the page title and not to a headline.
 
-image::./addManual_image/newFile.png[newFile] 
-Then give the name to your file and press "Enter".
+To change a tutorial, select the file of this tutorial, change the content and save.
 
-To change a tutorial, select this tutorial, change the content and save.
+==== Upload file
 
-=== Upload file
 To upload a file, you have to click on the menu button on the far left.
 
 image::./addManual_image/menu1.png[menu button] 
 Select "File", then choose "open File". Enter the name of your file and click "ok". The selected file will be directly opened in the editor.
 
-== Commit and Push
-First of all, you have to create your own branch, to do it, select the icon "source control".
+=== Commit and Push
+
+You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
+
+To create your own branch, select the icon "source control".
 
 image::./addManual_image/sourceControl.png[source Control]
 Go on the icon "view and more action". 
 
 image::./addManual_image/menu.png[menu button] 
 
-Choose "branch" and select "create branch". Give the name of the branch and press "Enter" .
+Choose "branch" and select "create branch". Give the name of the branch and press "Enter".
 
 Now you can already do a commit, for this you must first make sure that a change has been made. Select the icon "source control", go on the icon "view and more action" choose "commit", provide the commit message and press "Enter" to confirm.
 
-image::./addManual_image/commitMessage.png[commmit]
+image::./addManual_image/commit.png[commit]
+
 You can push, by clicking again on the icon "source control", go on the icon "view and more action" choose "push".
 
-== Create a pull request
+=== Create a pull request
+
 After doing a push, go to your Git account and create a pull request by clicking on "compare & pull request".
 
 image::./addManual_image/pr.png[PR]
-That is important to accept CLA if not yet done.
+That is important to accept CLA if not yet done. For this you will see that on your repository 
 
-== Stack specific solution
-A stack is understood to mean the various technologies that our application contains. e.g. devon4j stands for java, devon4ng for angular, devon4node for node.js, etc.
+image::./addManual_image/tempsnip.png[cla]
+only you have to do is to click on "Contributor License Agreement". It will send you on the CLA page, now you can agree the CLA.
 
-A stack specific solution is the place where you can find all the solutions of each stack. Each specific solution has a different prefix.
-So in devon4j.wiki there is e.g. a solution folder, then every subfolder in this solution folder has the prefix devon4j_ .
+=== Stack specific solution
 
-You should do each solution on a new branch and not take the master branch because that can lead to conflicts.
+In devonfw we have the principle that we store the documentation together with the code. This also means that architecture snippets that refer to a specific technology stack such as Java or .net are in the repo of this devonfw stack. To do this, create a “solutions” folder in the “documentation” subfolder of the repos. This then has the same structure internally as the “solutions” folder in the architectures repo. When the website is compiled, the folders of the stack repos are integrated into the folder in the architecture repo.
