@@ -7,14 +7,17 @@
 
 === Context & Problem
 
-This document describes the automated build (CI) & deployment (CD) of an application to a target environment. From a code perspective to different code domains are involved: (1) automation code and (2) application/ infra code to be deployed.
+This document describes the automated build (CI) & deployment (CD) of an application to a target environment. From a code perspective two different code domains are involved: _automation code_ (1) and _application/infra code_ (2) to be deployed. Additionally a third aspect is _cross functionalities_ (3) that affect the automation and the application/infra code such as compliance.
 
-The relevant aspects as part of this pattern are grouped in three clusters. Cross functionalities are used as third category besides the two code domains. Cross functionalities affect the automation and the application/ infra code such as compliance.
-
-* *Automation code:*
+1. *Automation code:*
 +
 --
-The automation code is about automating parts of  deployment cycle. In an ideal world this covers the entire code development cycle from the first pull request to the final deployment. Possible  activities in this cycle are: (1) quality gates, (2) build and (3) deployment.
+The automation code is about automating parts of  deployment cycle. In an ideal world this covers the entire code development cycle from the first pull request to the final deployment. Possible  activities in this cycle are:
+
+* quality gates
+* build 
+* deployment
+
 *Quality gates* refer to testing or approval. Approval might include a manual approval to deploy to sensitive environments like production or enforcing a review before the commit through a pull request. Failing a quality gate should stop the workflow to proceed. Ideally they are maximizing application code coverage and kick in as early as possible.
 From a timeline perspective major events that are kicking off actions from the automation code are:
 
@@ -33,13 +36,13 @@ Pipelines are built in a modular way which also adds intermediate steps such as 
 Pipelines must ensure *traceability* of the performed actions across the entire chain including source code repo, the targeted environment or intermediate stores. This includes a versioning schema for built artefacts. Branches in source repos must be tagged to be able to reconstruct the code behind a versioned artefact.
 --
 
-* *Application code/ infra:*
+2. *Application/infra code:*
 +
 --
-The base for automation code activities is the code creating/ updating the infrastructure and the application on top. Focus in this documentation is the interaction between automation code and application/ infra code. This includes:
+The base for automation code activities is the code creating or updating the infrastructure and the application on top. Focus in this documentation is the interaction between automation code and application/infra code. This includes:
 
 * Programming approach (Language or UI) for deploying infrastructure and application code
-* Interaction standard problems between automation code and application/ infra code
+* Interaction standard problems between automation code and application/infra code
 +
 Problems also depend on the chosen programing approach.
 
@@ -49,46 +52,43 @@ Not relevant are:
 * Specific deployment options of the platform services forming the infrastructure
 --
 
-* Cross functionalities
+3. *Cross functionalities*
 +
 --
 Automation code must work with the infrastructure/ application code in a compliant way end-to-end.  *Compliance* includes the general concern security and to impose constraints from the organization's perspective that need to be enforced.
 
 Provisoning should be subject to *monitoring* and must be able to adapt to the *organizational structure*.
 
-*Configuration* is also a cross concern that affects both sides. The major areas are: (1) properties of the environment and (2) settings of the involved automation/ application code depending on the target environment.
+*Configuration* is also a cross concern that affects both sides. The major areas are: 
+
+* properties of the environment 
+* settings of the involved automation or application/infra code depending on the target environment.
 
 As shown automation does not only include pipelines. All automation code artefacts must be *stored* in a code repository. Recommendations are given how to structure the automation code artefacts.
 
-In most cases enterprises have already existing technologies in place that might not be based on cloud of a certain provider. *Integration* with other third party offerings to cover functionally also from elsewhere is also important.
+In most cases enterprises have already existing technologies in place that might not be based on cloud of a certain provider:
+*Integration* with other third party offerings to cover functionally also from elsewhere is also important.
 --
 The picture below summarizes the major aspects:
+
 image::Provisioning_Problem_Context.png[Provisioning Problem Context]
 
 === Standard Problems
 
 The following standard problems will be addressed in subsequent paragraphs:
 
-* Automation code
-+
---
-Regarding pipelines the folloqing aspects will be detailed:
-
-* Modeling environments
-* Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
-* Orchestration 
-* Traceability (Versioning, Tagging)
---
-* Infra/ Application code (Programming approach,
-Interaction standard problems)
-* Cross 
-+
---
-* Organizational Mapping
-* Integration
-* Configuration
-* Compliance
---
+* Automation code - Regarding pipelines the following aspects will be detailed:
+** Modeling environments
+** Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
+** Orchestration 
+** Traceability (Versioning, Tagging)
+* Application/infra code (Programming approach, Interaction standard problems)
+* Cross functionalities
+** Organizational
+** Mapping
+** Integration
+** Configuration
+** Compliance
 
 For the following aspectcs check out the other defined patterns:
 
@@ -96,7 +96,9 @@ For the following aspectcs check out the other defined patterns:
 * Source code repo structuring 
 
 === Azure as Platform
+
 ==== Automation code
+
 ===== Modelling Environments
 
 Azure provides the following structural elements to model an environment:
@@ -111,7 +113,12 @@ An environment can be linked to another environment. Linking an environment to m
 
 The programming approach can be either UI driven or *programmatic* by using programming languages.
 
-Azure allows to *trigger* pipelines upon (1) a push to repo, (2) a pull request to repo, (3) a schedule and (4) a pipeline completion (https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops[Link]).
+Azure allows to *trigger* pipelines upon 
+
+* a push to repo
+* a pull request to repo
+* a schedule 
+* a https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops[pipeline completion]
 
 The platform allows to *pass parameters* by various mechanisms to pipelines and channels (Explicit per user input, programmatically). Parameters can be passed by group identifier or explicitly. Complex structured objects as known from object programming languages are not directly possible (Require parsing of files with object structure). Parametrization might be constrained by the used service in certain areas.
 
@@ -140,16 +147,22 @@ In that case the complete workflow is not explicitly coded in a dedicated pipeli
 
 * Creating a dedicated orchestration pipeline
 +
-An additional pipeline triggers in this scenario other pipelines acting as building blocks. Pipelines can run separately (Just run the deployment) or as part of a bigger workflow (=create environment from scratch).
+An additional pipeline triggers in this scenario other pipelines acting as building blocks. Pipelines can run separately (just run the deployment) or as part of a bigger workflow (e.g. create environment from scratch).
 
-Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
+Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (scope is e.g. a single microservice and code includes the libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault.
 
-*Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as incrementing numbers (https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[Link]). Linking the code in the repo to a certain version depends on used repository. 
+*Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[incrementing numbers]. Linking the code in the repo to a certain version depends on used repository. 
 
 ==== Infrastructure/ Application code
 
-A *programming language* is either "declarative" or "imperative". Declarative programming languages state the target state and it is the job of the declarative programming language how to get there. The following rules are applied to achieve that: (1) Create a resource if not there, (2) update an existing resource if different properties, (3) delete resource if not there. Imperative programming languages state the how. The internal delta calculation needs to be explicitly programmed here. If possible declarative programming languages are recommended due to automatic delta calculation. Typical case is infrastructure.
+A *programming language* is either "declarative" or "imperative". Declarative programming languages state the target state and it is the job of the declarative programming language how to get there. The following rules are applied to achieve that:
+
+* Create a resource if not there
+* update an existing resource if different properties
+* delete resource if not there
+
+Imperative programming languages state the how. The internal delta calculation needs to be explicitly programmed here. If possible declarative programming languages are recommended due to automatic delta calculation. Typical case is infrastructure.
 
 Typical declarative options are shown in detail in the table below. The overall recommendation is to go for terraform. Major reasons for downvoting Bicep/ ARM:
 
@@ -181,7 +194,7 @@ The created resources should follow a uniform naming schema. This requires namin
 +
 Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals.
 
-==== Cross 
+==== Cross functionalities 
 ===== Organizational Mapping
 
 The provisioning must match the organizational requirements of your organization. Azure provides services to model sub units within your organization such as departments, projects and teams.
@@ -203,18 +216,18 @@ Configuration for provisioning is required in various areas:
 * *Repository:* E.g. relevant repos/ branching
 * *Pipelines:* Parameters pipelines run with such as the technical user name or settings required by the built/ deployed code.
 
-Concrete features used for the above three points depend on the used services. A general storage for sensitive data (Keys, secrets, certificates) in Azure is always Azure Key Vault.
+Concrete features used for the above three points depend on the used services. A general storage for sensitive data (keys, secrets, certificates) in Azure is always Azure Key Vault.
 
 ===== Compliance
 
-The standard concept for role-based access controls is called RBAC in Azure. It assigns principals (=humans or technical accounts) permissions for a certain resource. Regarding provisioning the following users are relevant:
+The standard concept for role-based access controls is called RBAC in Azure. It assigns principals (humans or technical accounts) permissions for a certain resource. Regarding provisioning the following users are relevant:
 
-* Technical user (=service principal) the pipelines are running with
+* Technical user (service principal) the pipelines are running with
 * Users for administrating the provisioning service
 
-Azure Active Directory is the central service in Azure that defines and controls all principals (human/ service).
+Azure Active Directory is the central service in Azure that defines and controls all principals (human/service).
 
-Granularity of roles that can be granted depend on the service. The boundaries in which users exist/ permissions can be assigned is also service specific.
+Granularity of roles that can be granted depend on the service. The boundaries in which users exist or permissions can be assigned is also service specific.
 
 === Solution (Full blown productive)
 ==== Overview
@@ -231,11 +244,9 @@ The services that (can) complement Azure DevOps:
 The picture illustrates the setup with the major dependencies:
 
 ==== Pattern Details
-===== Cross
+===== Cross Organiation Mapping
 
-*Organiation Mapping)*
-
-Your business structure should act as a guide for the number of organizations, projects, and teams that you create in Azure DevOps (https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Link]). Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
+Your business structure should act as a guide for the number of organizations, projects, and teams that you create in https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Azure DevOps]. Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
 
 * Azure Pipelines: One hosted job with 1,800 minutes per month for CI/CD and one self-hosted job
 * Azure Boards: Work item tracking and Kanban boards
@@ -256,7 +267,7 @@ The service comes with hosted git repositories inside that service. You can also
 * Testing
 +
 --
-Azure DevOps supports the following testing by defining test suites with test cases (https://docs.microsoft.com/en-us/azure/devops/test/create-test-cases?view=azure-devops[Link]):
+Azure DevOps supports the following testing by https://docs.microsoft.com/en-us/azure/devops/test/create-test-cases?view=azure-devops[defining test suites with test cases]:
 
 * *Planned manual testing*. Manual testing by organizing tests into test plans and test suites by designated testers and test leads.
 * *User acceptance testing*. Testing carried out by designated user acceptance testers to verify the value delivered meets customer requirements, while reusing the test artifacts created by engineering teams.
@@ -267,7 +278,7 @@ Tests can also be integrated in pipelines. Pipelines support a wide range of fra
 --
 * Each organization contains one or more projects
 
-The next paragraphs give guidelines *how to map* the introduced structural elements to your organizational needs. Adding multiple projects makes sense in the following cases (https://docs.microsoft.com/en-us/azure/devops/organizations/projects/about-projects?view=azure-devops[Link]):
+The next paragraphs give guidelines *how to map* the introduced structural elements to your organizational needs. Adding multiple projects makes sense in the following cases (see https://docs.microsoft.com/en-us/azure/devops/organizations/projects/about-projects?view=azure-devops[azure projects]):
 
 * To prohibit or manage access to the information contained within a project to select groups
 * To support custom work tracking processes for specific business units within your organization
@@ -275,7 +286,7 @@ The next paragraphs give guidelines *how to map* the introduced structural eleme
 * To support testing customization activities or adding extensions before rolling out changes to the working project
 * To support an Open Source Software (OSS) project
 
-Adding teams instead of projects is recommended over projects for the following reasons (https://docs.microsoft.com/en-us/azure/devops/boards/plans/agile-culture?view=azure-devops[Link]):
+Adding teams instead of projects is recommended over projects due to https://docs.microsoft.com/en-us/azure/devops/boards/plans/agile-culture?view=azure-devops[agile culture]:
 
 * Visibility: It's much easier to view progress across all teams
 * Tracking and auditing: It's easier to link work items and other objects for tracking and auditing purposes
@@ -291,7 +302,7 @@ The table below lists typical configurations along with their characteristics :
 
 ===== Remaining goals (Automation Code)
 
-This chapter now how the above conceptual features can be achieved with Azure DevOps pipelines. 
+This chapter describes how the above conceptual features can be achieved with Azure DevOps pipelines. 
 
 For *Integration External* supports both conceptual ways.
 
@@ -322,7 +333,7 @@ schedules:
     include:
     - 'refs/heads/master'
 ```
-Pull request (PR) triggers cause a pipeline to run whenever a pull request is opened with one of the specified target branches, or when changes are pushed to such a pull request. In Azure Repos Git, this functionality is implemented using branch policies. To enable pull request validation in Azure Git Repos, navigate to the branch policies for the desired branch, and configure the Build validation policy for that branch. For more information, see Configure branch policies. Draft pull requests do not trigger a pipeline even if you configure a branch policy. Building pull requests from Azure Repos forks is no different from building pull requests within the same repository or project. You can create forks only within the same organization that your project is part of. (https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/azure-repos-git?view=azure-devops&tabs=yaml#pr-triggers[Link])
+Pull request (PR) triggers cause a pipeline to run whenever a pull request is opened with one of the specified target branches, or when changes are pushed to such a pull request. In Azure Repos Git, this functionality is implemented using branch policies. To enable pull request validation in Azure Git Repos, navigate to the branch policies for the desired branch, and configure the Build validation policy for that branch. For more information, see Configure branch policies. Draft pull requests do not trigger a pipeline even if you configure a branch policy. Building pull requests from Azure Repos forks is no different from building pull requests within the same repository or project. You can create forks only within the same organization that your project is part of (see https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/azure-repos-git?view=azure-devops&tabs=yaml#pr-triggers[PR triggers]).
 To trigger a pipeline upon the completion of another pipeline, specify the triggering pipeline as a pipeline resource. The following example has two pipelines - app-ci (the pipeline defined by the YAML snippet), and security-lib-ci (the triggering pipeline referenced by the pipeline resource). We want the app-ci pipeline to run automatically every time a new version of security-lib-ci is built.
 ```YAML
 # this is being defined in app-ci pipeline
@@ -411,12 +422,12 @@ catch {
     return "Failed"
 }
 ```
-Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
+Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (scope is e.g. a single microservice and Code includes the libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault. 
 
 * *Recreation of resources in short intervals*
 +
-Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. One leverage is to use new resource group names which are part of the resource id.
+Even if resources are deleted they might still exist in the background (even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. One leverage is to use new resource group names which are part of the resource id.
 
 * *Uniform Naming Conventions*
 +
@@ -500,8 +511,8 @@ environment: env-demo
 
 For Dev/ Test scenarios the following services exist:
 
-* Azure Lab Services (https://docs.microsoft.com/en-us/azure/lab-services/)
-* Kubernetes
+* https://docs.microsoft.com/en-us/azure/lab-services/[Azure Lab Services]
+* https://kubernetes.io[Kubernetes]
 ** Azure DevSpaces (Deprecated) in favor of “Bridge-to-kubernetes”
 ** Bridge-to-Kubernetes
 
