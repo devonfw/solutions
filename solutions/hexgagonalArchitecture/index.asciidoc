@@ -7,6 +7,8 @@
 
 This article explains so-called Hexagonal Architecture which is one of architectural styles applicable for wide variety of applications / software.
 
+image::hexagonal-intro.png[Hexagonal Architecture]
+
 == You have the following problem to be solved
 We need to develop our software in more robust way so that it can survive technological changes.
 You should be not forced to rewrite big amount of business logic code just because you need to:
