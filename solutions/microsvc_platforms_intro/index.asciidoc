@@ -1,0 +1,69 @@
+//Platform=Azure
+//Maturity level=Initial
+
+== Microservice Platforms Introduction
+
+=== Context & Problem
+
+Microservice orchestration is the automatic process of managing or scheduling the work of individual microservices of an application within multiple clusters. The platform provides an automated process of managing, scaling, and maintaining microservices of an applications.
+
+The container orchestration platform kubernetes is the de facto standard in the meantime (Docker swarm and others are ngelectable compared to Kubernetes in the meantime).  Containers are executable units of software containing application code, libraries, and dependencies so that the application can be run anywhere.
+
+Container orchestration tools automate the management of several tasks that software teams encounter in a container’s lifecycle, including the following: Deployment, Scaling and load balancing/traffic routing, Networking, Insights, Provisioning, Configuration and scheduling, Allocation of resources, Moving to physical hosts, Service discovery, Health monitoring, Cluster management (https://avinetworks.com/glossary/container-orchestration/[Link]).
+
+The picture below summarizes the major aspects:
+
+image::problem_context.png[alt=Container orchestration Problem Context,width=451, height=257]
+
+=== Standard Problems
+
+The following standard problems will be addressed in subsequent paragraphs:
+
+* *Orchestration Platform:*
++
+--
+To be detailed:
+
+* Deplyoment (of resources into cluster)
+* Scaling
+* load balancing/traffic routing
+* Networking
+* Configuration and scheduling
+* Service discovery
+* Application services like DAPR
+--
+
+* *Resources to be deployed:*
++
+--
+To be detailed:
+* Resources (Containers but also other Kubernetes objects)
+* Building of containers
+* Registry
+--
+
+* *Container Platform:*
++
+--
+Affect containers running on/ platform
+To be detailed:
+* monitoring
+* Security
+* Provisioning
+--
+
+For the following aspects check out the other defined patterns:
+
+* Monitoring infrastructure and application code
+* General guidelines for structuring repositories (e.g. mono vs. multi-repo) 
+* General guidelines for defining landing zones
+
+=== Azure as Platform
+
+Azure provides container platforms that address major concerns:
+
+* Cluster orchestration => What Kubernetes
+* Service Meshes => what they cover
+* Application patterns => DAPR provides application patterns like publish/ subscribe and abstracts from Kubernetes
+* Azure Arc => extends control plane to non Azure hosted Kubernetes clusters (e.g. on-premise, other clouds)
+
