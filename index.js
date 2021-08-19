@@ -1,5 +1,4 @@
 var pageSize = 10;
-var queryData = '';
 var searchData = { index: null, documents: null };
 
 function getParameters() {
@@ -22,7 +21,7 @@ function getParameters() {
     return params;
 }
 
-function loadIndexForSolutions(searchData) {
+function loadIndexForSolutions() {
     const BASE_PATH = '/';
 
     $.getJSON(`${BASE_PATH}website/docs-json_solutions.json`, function (docsJson) {
@@ -37,7 +36,10 @@ function loadIndexForSolutions(searchData) {
 function search() {
     var parameters = getParameters();
     var solutions = solutionsJson;
+    var newSolutions = {};
     let curentPage = 1;
+    let queryRes = query(searchData);
+
     for (const filterName of parameters.keys()) {
         var filterValues = parameters.get(filterName);
         if (filterName == 'page') {
@@ -46,13 +48,12 @@ function search() {
             continue;
         }
         if (filterName == 'search') {
-            document.getElementById('search-field-solutions').value = filterValues[0];
             continue;
         }
         for (var i in filterValues) {
             var filterValue = filterValues[i];
             var filterSolutions = tagsJson[filterName][filterValue];
-            var newSolutions = {};
+            newSolutions = {};
             for (var solutionKey in solutions) {
                 if (filterSolutions.includes(solutionKey)) {
                     newSolutions[solutionKey] = solutions[solutionKey];
@@ -61,10 +62,27 @@ function search() {
             solutions = newSolutions;
         }
     }
+    if (queryRes.length > 0) {
+        for (var r in queryRes) {
+            var result = queryRes[r];
+            if (result in solutions) {
+                newSolutions[result] = solutions[result];
+            }
+        }
+    }
+    else {
+        newSolutions = {}
+        let query = document.getElementById('search-field-solutions').value;
+        if (query.length == 0) {
+            newSolutions = solutions;
+        }
+    }
+    solutions = newSolutions;
     renderSolutions(solutions, curentPage);
     disableFilters(solutions);
     highlightSelected();
 }
+
 
 function renderSolutions(solutions, current) {
     var filterpanelbody = $("#resultspanel");
@@ -235,7 +253,6 @@ function query(searchData) {
 
     let query = document.getElementById('search-field-solutions').value;
     let queryRes = query ? searchData.index.search(query) : [];
-    let content = document.getElementById('resultspanel').children;
 
     const findById = (id, objects) => {
         const obj = objects.find((obj) => '' + obj.id == '' + id);
@@ -245,30 +262,19 @@ function query(searchData) {
     for (let i = 0; i < queryRes.length; i++) {
         let res = queryRes[i];
         let obj = findById(res.ref, searchData.documents);
-        results = results.concat('solution_' + obj['dirname']);
+        results = results.concat(obj['dirname']);
     }
+    if (searchArr) {
+        for (var p in searchArr) {
+            parameters.delete('search', searchArr[p]);
+        }
+    }
+    if (queryRes.length > 0) {
+        parameters.set('search', query);
+    }
+    document.location.hash = "#" + parameters.toString()
 
-    for (let k = 0; k < content.length; k++) {
-        if (!results.includes(content[k].id)) {
-            if (query.length == 0) {
-                for (var p in pageArr) {
-                    parameters.delete('search', searchArr[p]);
-                }
-                document.location.hash = "#" + parameters.toString()
-                content[k].setAttribute('style', 'display: inline')
-                continue;
-            }
-            content[k].setAttribute('style', 'display: none');
-        }
-        else {
-            for (var p in pageArr) {
-                parameters.delete('search', searchArr[p]);
-            }
-            parameters.set('search', query);
-            document.location.hash = "#" + parameters.toString()
-            content[k].setAttribute('style', 'display: inline');
-        }
-    }
+    return results;
 }
 
 async function main() {
@@ -351,11 +357,15 @@ async function main() {
     $("#content").append(filterspanel);
     var resultspanel = $('<div id="resultspanel" class="resultspanel"></div>');
     $("#content").append(resultspanel);
+    for (const filterName of parameters.keys()) {
+        if (filterName == 'search') {
+            document.getElementById('search-field-solutions').value = parameters.get('search')[0];
+        }
+    }
     search();
-    const queryFun = () => { query(searchData); };
+    const queryFun = () => { search(); };
     searchOnClick(queryFun);
-    query(searchData)
 }
 
-loadIndexForSolutions(searchData);
+loadIndexForSolutions();
 main();
