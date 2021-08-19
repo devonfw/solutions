@@ -1,5 +1,4 @@
 var pageSize = 10;
-var searchData = { index: null, documents: null };
 
 function getParameters() {
     const searchParams = new URLSearchParams(document.location.hash.length > 0 ? document.location.hash.substring(1) : "");
@@ -21,24 +20,11 @@ function getParameters() {
     return params;
 }
 
-function loadIndexForSolutions() {
-    const BASE_PATH = '/';
-
-    $.getJSON(`${BASE_PATH}website/docs-json_solutions.json`, function (docsJson) {
-        searchData.documents = docsJson;
-
-        $.getJSON(`${BASE_PATH}website/index_solutions.json`, function (idxJson) {
-            searchData.index = lunr.Index.load(idxJson);
-        });
-    });
-}
-
 function search() {
     var parameters = getParameters();
     var solutions = solutionsJson;
-    var newSolutions = {};
     let curentPage = 1;
-    let queryRes = query(searchData);
+    let queryRes = queryIndex();
 
     for (const filterName of parameters.keys()) {
         var filterValues = parameters.get(filterName);
@@ -53,7 +39,7 @@ function search() {
         for (var i in filterValues) {
             var filterValue = filterValues[i];
             var filterSolutions = tagsJson[filterName][filterValue];
-            newSolutions = {};
+            let newSolutions = {};
             for (var solutionKey in solutions) {
                 if (filterSolutions.includes(solutionKey)) {
                     newSolutions[solutionKey] = solutions[solutionKey];
@@ -62,27 +48,29 @@ function search() {
             solutions = newSolutions;
         }
     }
-    if (queryRes.length > 0) {
-        for (var r in queryRes) {
-            var result = queryRes[r];
-            if (result in solutions) {
-                newSolutions[result] = solutions[result];
+
+    let newSolutions = {};
+    let query = document.getElementById('search-field-solutions').value;
+
+    if (query.length > 0) {
+        if (queryRes.length > 0) {
+            for (var r in queryRes) {
+                var result = queryRes[r];
+                console.log('queryRes, result', queryRes, result);
+                if (result in solutions) {
+                    newSolutions[result] = solutions[result];
+                }
             }
+            solutions = newSolutions;
+        }
+        else {
+            solutions = {};
         }
     }
-    else {
-        newSolutions = {}
-        let query = document.getElementById('search-field-solutions').value;
-        if (query.length == 0) {
-            newSolutions = solutions;
-        }
-    }
-    solutions = newSolutions;
     renderSolutions(solutions, curentPage);
     disableFilters(solutions);
     highlightSelected();
 }
-
 
 function renderSolutions(solutions, current) {
     var filterpanelbody = $("#resultspanel");
@@ -202,7 +190,6 @@ function disableFilters(solutions) {
     }
 }
 
-
 function orderTag(tag) {
     var tags = {};
     keys = Object.keys(tag);
@@ -218,7 +205,7 @@ function orderTag(tag) {
     return tags;
 }
 
-function searchOnClick(clickFunction) {
+function searchOnClick() {
     let searchField = document.getElementById('search-field-solutions');
     let timer = null;
     searchField.onkeypress = function (e) {
@@ -228,25 +215,25 @@ function searchOnClick(clickFunction) {
         if (e.key == 'Enter') {
             e.preventDefault();
         }
-        timer = setTimeout(clickFunction, 100);
+        timer = setTimeout(search, 500);
     };
 
     searchField.onpaste = function (e) {
         if (timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(clickFunction, 100);
+        timer = setTimeout(search, 100);
     };
 
     $('#search-field-solutions').change(function () {
         if (timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(clickFunction, 100);
+        timer = setTimeout(search, 500);
     });
 }
 
-function query(searchData) {
+function queryIndex() {
     let results = [];
     let parameters = getParameters();
     let searchArr = parameters.get('search');
@@ -282,6 +269,10 @@ async function main() {
         url: "index.json?r=" + Math.random() * 10000
     });
 
+    docsJson = await $.ajax({
+        url: "docs-json.json?r=" + Math.random() * 10000
+    });
+
     solutionsJson = await $.ajax({
         url: "solutions.json?r=" + Math.random() * 10000
     });
@@ -290,6 +281,7 @@ async function main() {
         url: "tags.json?r=" + (Math.random() * 10000)
     });
 
+    searchData = { index: lunr.Index.load(indexJson), documents: docsJson };
 
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
@@ -363,9 +355,7 @@ async function main() {
         }
     }
     search();
-    const queryFun = () => { search(); };
-    searchOnClick(queryFun);
+    searchOnClick();
 }
 
-loadIndexForSolutions();
 main();
