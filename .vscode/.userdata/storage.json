@@ -1,0 +1,25 @@
+{
+    "telemetry.machineId": "60c996423c869f575fa4dd8886b167f8e6525788fbf5d7c1ffba8b0a0d0ed9ce",
+    "openedPathsList": {
+        "workspaces3": [
+            "file:///c%3A/Users/mdaniel/Desktop/Projekt/workspaces/architectures"
+        ],
+        "files2": []
+    },
+    "theme": "vs-dark",
+    "themeBackground": "#1e1e1e",
+    "windowsState": {
+        "lastActiveWindow": {
+            "folder": "file:///c%3A/Users/mdaniel/Desktop/Projekt/workspaces/architectures",
+            "backupPath": "C:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\Backups\\95120e0bfe7c27ec45c4da18044522a5",
+            "uiState": {
+                "mode": 0,
+                "x": 256,
+                "y": 48,
+                "width": 1024,
+                "height": 768
+            }
+        },
+        "openedWindows": []
+    }
+}

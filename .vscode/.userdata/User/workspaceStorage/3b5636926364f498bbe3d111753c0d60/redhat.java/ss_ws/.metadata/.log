@@ -1,0 +1,54 @@
+!SESSION 2021-08-19 12:29:06.956 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.9.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -data c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\.vscode\.userdata\User\workspaceStorage\3b5636926364f498bbe3d111753c0d60\redhat.java\ss_ws
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:09.751
+!MESSAGE class org.eclipse.jdt.ls.core.internal.JavaLanguageServerPlugin is started
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:09.930
+!MESSAGE Main thread is waiting
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:09.981
+!MESSAGE >> initialize
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:09.982
+!MESSAGE Initializing Java Language Server 1.3.0.202108171519
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.065
+!MESSAGE Creating the Java project jdt.ls-java-project
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.094
+!MESSAGE >> initialized
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.200
+!MESSAGE Finished creating the Java project jdt.ls-java-project
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.703
+!MESSAGE Workspace initialized in 640ms
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.739
+!MESSAGE >> initialization job finished
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.746
+!MESSAGE >> registerFeature 'workspace/didChangeWatchedFiles'
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.749
+!MESSAGE >> registerFeature 'workspace/didChangeWatchedFiles'
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:10.751
+!MESSAGE >> workspace/didChangeConfiguration
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:12.836
+!MESSAGE >> shutdown
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:12.843
+!MESSAGE >> exit
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:12.885
+!MESSAGE Shutdown received... waking up main thread
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2021-08-19 12:29:12.891
+!MESSAGE class org.eclipse.jdt.ls.core.internal.JavaLanguageServerPlugin is stopping:

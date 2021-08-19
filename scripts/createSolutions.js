@@ -20,10 +20,14 @@ function main(solutionsDir, outputFile, snippetLength) {
                 if (snippet.length > snippetLength) {
                     snippet = snippet.slice(0, snippetLength - 1) + " ...";
                 }
+                //ToDo
+                var myImage = new Image(600);
+                myImage.src = (imagePath != "") ? `./solutions/${dirItem}/${imagePath}` : "";
+
                 solutions[dirItem] = {
                     headline: headline,
                     path: `solutions/${dirItem}`,
-                    image: (imagePath != "") ? `./solutions/${dirItem}/${imagePath}` : "",
+                    image: myImage,
                     snippet: snippet
                 }
             }

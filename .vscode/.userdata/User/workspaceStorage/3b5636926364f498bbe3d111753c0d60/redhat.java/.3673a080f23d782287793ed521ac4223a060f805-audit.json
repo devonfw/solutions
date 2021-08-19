@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 2
+    },
+    "auditLog": "c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\workspaceStorage\\3b5636926364f498bbe3d111753c0d60\\redhat.java\\.3673a080f23d782287793ed521ac4223a060f805-audit.json",
+    "files": [
+        {
+            "date": 1629368916888,
+            "name": "c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\workspaceStorage\\3b5636926364f498bbe3d111753c0d60\\redhat.java\\client.log.2021-08-19",
+            "hash": "e794b1c80978243f35a0b3d36a7e0ea0"
+        }
+    ]
+}

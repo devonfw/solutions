@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+C:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\.vscode\.userdata\User\workspaceStorage\3b5636926364f498bbe3d111753c0d60\redhat.java\ss_ws\.metadata\.plugins\org.eclipse.jdt.core
