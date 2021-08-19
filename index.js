@@ -50,7 +50,7 @@ function search() {
     }
 
     let newSolutions = {};
-    let query = document.getElementById('search-field-solutions').value;
+    let query = document.getElementById('search-field-solutions').value.trim();
 
     if (query.length > 0) {
         if (queryRes.length > 0) {
