@@ -1,4 +1,6 @@
 var pageSize = 10;
+var queryData = '';
+var searchData = { index: null, documents: null };
 
 function getParameters() {
     const searchParams = new URLSearchParams(document.location.hash.length > 0 ? document.location.hash.substring(1) : "");
@@ -20,6 +22,18 @@ function getParameters() {
     return params;
 }
 
+function loadIndexForSolutions(searchData) {
+    const BASE_PATH = '/';
+
+    $.getJSON(`${BASE_PATH}website/docs-json_solutions.json`, function (docsJson) {
+        searchData.documents = docsJson;
+
+        $.getJSON(`${BASE_PATH}website/index_solutions.json`, function (idxJson) {
+            searchData.index = lunr.Index.load(idxJson);
+        });
+    });
+}
+
 function search() {
     var parameters = getParameters();
     var solutions = solutionsJson;
@@ -29,6 +43,10 @@ function search() {
         if (filterName == 'page') {
             curentPage = filterValues[0];
             parameters.delete('page', curentPage);
+            continue;
+        }
+        if (filterName == 'search') {
+            document.getElementById('search-field-solutions').value = filterValues[0];
             continue;
         }
         for (var i in filterValues) {
@@ -182,6 +200,77 @@ function orderTag(tag) {
     return tags;
 }
 
+function searchOnClick(clickFunction) {
+    let searchField = document.getElementById('search-field-solutions');
+    let timer = null;
+    searchField.onkeypress = function (e) {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        if (e.key == 'Enter') {
+            e.preventDefault();
+        }
+        timer = setTimeout(clickFunction, 100);
+    };
+
+    searchField.onpaste = function (e) {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(clickFunction, 100);
+    };
+
+    $('#search-field-solutions').change(function () {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(clickFunction, 100);
+    });
+}
+
+function query(searchData) {
+    let results = [];
+    let parameters = getParameters();
+    let searchArr = parameters.get('search');
+
+    let query = document.getElementById('search-field-solutions').value;
+    let queryRes = query ? searchData.index.search(query) : [];
+    let content = document.getElementById('resultspanel').children;
+
+    const findById = (id, objects) => {
+        const obj = objects.find((obj) => '' + obj.id == '' + id);
+        return obj;
+    };
+
+    for (let i = 0; i < queryRes.length; i++) {
+        let res = queryRes[i];
+        let obj = findById(res.ref, searchData.documents);
+        results = results.concat('solution_' + obj['dirname']);
+    }
+
+    for (let k = 0; k < content.length; k++) {
+        if (!results.includes(content[k].id)) {
+            if (query.length == 0) {
+                for (var p in pageArr) {
+                    parameters.delete('search', searchArr[p]);
+                }
+                document.location.hash = "#" + parameters.toString()
+                content[k].setAttribute('style', 'display: inline')
+                continue;
+            }
+            content[k].setAttribute('style', 'display: none');
+        }
+        else {
+            for (var p in pageArr) {
+                parameters.delete('search', searchArr[p]);
+            }
+            parameters.set('search', query);
+            document.location.hash = "#" + parameters.toString()
+            content[k].setAttribute('style', 'display: inline');
+        }
+    }
+}
+
 async function main() {
     indexJson = await $.ajax({
         url: "index.json?r=" + Math.random() * 10000
@@ -224,6 +313,8 @@ async function main() {
     $("head").append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">');
     var paginationDiv = $('<div id="pagination" class = "pagination"></div>');
     $("#content").append(paginationDiv);
+    var seachFieldDiv = '<div class="search-bar"><input id="search-field-solutions" type="search" class="form-control mr-sm-2" placeholder="Search by keyword(s)..." aria-label="Search" style="height: auto;"/>';
+    $('#content').append(seachFieldDiv);
     var parameters = getParameters();
 
     var filterspanel = $('<div id="filterspanel" class="filterspanel"></div>');
@@ -261,7 +352,10 @@ async function main() {
     var resultspanel = $('<div id="resultspanel" class="resultspanel"></div>');
     $("#content").append(resultspanel);
     search();
+    const queryFun = () => { query(searchData); };
+    searchOnClick(queryFun);
+    query(searchData)
 }
 
+loadIndexForSolutions(searchData);
 main();
-
