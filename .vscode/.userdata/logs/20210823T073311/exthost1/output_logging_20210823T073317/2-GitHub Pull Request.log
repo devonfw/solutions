@@ -1,0 +1,8 @@
+[Info] C:\Users\mdaniel\.ssh\config: ENOENT: no such file or directory, open 'C:\Users\mdaniel\.ssh\config'
+[Info] Looking for git repository
+[Info] Git repository found, initializing review manager and pr tree view.
+[Info] Review> Validate state in progress
+[Info] Review> Validating state...
+[Info] Found GitHub remote
+[Info] Review> no matching pull request metadata found for current branch DanBranch
+[Info] Review> no matching pull request metadata found on GitHub for current branch DanBranch

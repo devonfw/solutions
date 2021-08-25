@@ -1,0 +1,4 @@
+[2021-08-23 14:03:16.913] [renderer1] [warning] UNRESPONSIVE extension host, 'redhat.vscode-yaml' took 98% of 263.717ms, saved PROFILE here: 'file:///c%3A/Users/mdaniel/AppData/Local/Temp/exthost-1737d8.cpuprofile' [{"id":"alefragnani.project-manager","total":5629,"percentage":2},{"id":"redhat.vscode-yaml","total":257335,"percentage":98},{"id":"self","total":532,"percentage":0}]
+[2021-08-23 14:03:23.564] [renderer1] [error] ENOENT: no such file or directory, unlink 'c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\cascade.json': Error: ENOENT: no such file or directory, unlink 'c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\cascade.json'
+[2021-08-23 16:52:09.719] [renderer1] [error] getaddrinfo ENOTFOUND default.exp-tas.com: Error: getaddrinfo ENOTFOUND default.exp-tas.com
+	at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:66:26)

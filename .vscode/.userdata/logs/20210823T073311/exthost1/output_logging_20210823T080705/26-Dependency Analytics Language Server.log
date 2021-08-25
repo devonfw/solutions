@@ -1,0 +1,10 @@
+manifest parse took 18 ms, found 25 deps
+cache hit: 0 miss: 25
+sendDiagnostics: 0
+fetching vuln for 5 packages
+sendDiagnostics: 0
+fetching vuln for 10 packages
+sendDiagnostics: 0
+fetching vuln for 10 packages
+sendDiagnostics: 0
+fetch vulns took 712 ms

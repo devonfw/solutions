@@ -1,0 +1,4 @@
+manifest parse took 6 ms, found 5 deps
+cache hit: 0 miss: 0
+sendDiagnostics: 0
+fetch vulns took 3 ms

@@ -1,0 +1,213 @@
+[2021-08-23 14:03:12.369] [exthost] [info] extension host started
+[2021-08-23 14:03:12.601] [exthost] [info] ExtensionService#_doActivateExtension vscode.microsoft-authentication {"startup":false,"extensionId":{"value":"vscode.microsoft-authentication","_lower":"vscode.microsoft-authentication"},"activationEvent":"onAuthenticationRequest:microsoft"}
+[2021-08-23 14:03:12.601] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/microsoft-authentication/dist/extension.js
+[2021-08-23 14:03:12.627] [exthost] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"extensionId":{"value":"vscode.typescript-language-features","_lower":"vscode.typescript-language-features"},"activationEvent":"onLanguage:javascript"}
+[2021-08-23 14:03:12.627] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/typescript-language-features/dist/extension
+[2021-08-23 14:03:12.678] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.vscode-typescript-tslint-plugin {"startup":false,"extensionId":{"value":"ms-vscode.vscode-typescript-tslint-plugin","_lower":"ms-vscode.vscode-typescript-tslint-plugin"},"activationEvent":"onLanguage:javascript"}
+[2021-08-23 14:03:12.678] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/ms-vscode.vscode-typescript-tslint-plugin-1.3.3/out/index.js
+[2021-08-23 14:03:12.693] [exthost] [info] ExtensionService#_doActivateExtension VisualStudioExptTeam.vscodeintellicode {"startup":false,"extensionId":{"value":"VisualStudioExptTeam.vscodeintellicode","_lower":"visualstudioexptteam.vscodeintellicode"},"activationEvent":"onLanguage:javascript"}
+[2021-08-23 14:03:12.693] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/visualstudioexptteam.vscodeintellicode-1.2.14/dist/intellicode
+[2021-08-23 14:03:12.734] [exthost] [info] ExtensionService#_doActivateExtension wix.vscode-import-cost {"startup":false,"extensionId":{"value":"wix.vscode-import-cost","_lower":"wix.vscode-import-cost"},"activationEvent":"onLanguage:javascript"}
+[2021-08-23 14:03:12.734] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/wix.vscode-import-cost-2.15.0/out/extension.js
+[2021-08-23 14:03:13.896] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"extensionId":{"value":"vscode.debug-auto-launch","_lower":"vscode.debug-auto-launch"},"activationEvent":"*"}
+[2021-08-23 14:03:13.896] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/debug-auto-launch/dist/extension
+[2021-08-23 14:03:13.905] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2021-08-23 14:03:13.905] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/git/dist/main
+[2021-08-23 14:03:13.953] [exthost] [info] ExtensionService#_doActivateExtension redhat.vscode-yaml {"startup":true,"extensionId":{"value":"42Crunch.vscode-openapi","_lower":"42crunch.vscode-openapi"},"activationEvent":"*"}
+[2021-08-23 14:03:13.953] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/redhat.vscode-yaml-0.22.0/out/src/extension
+[2021-08-23 14:03:15.038] [exthost] [info] ExtensionService#_doActivateExtension alefragnani.project-manager {"startup":true,"extensionId":{"value":"alefragnani.project-manager","_lower":"alefragnani.project-manager"},"activationEvent":"*"}
+[2021-08-23 14:03:15.038] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/alefragnani.project-manager-12.2.0/dist/extension
+[2021-08-23 14:03:15.050] [exthost] [info] ExtensionService#_doActivateExtension christian-kohler.path-intellisense {"startup":true,"extensionId":{"value":"christian-kohler.path-intellisense","_lower":"christian-kohler.path-intellisense"},"activationEvent":"*"}
+[2021-08-23 14:03:15.050] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/christian-kohler.path-intellisense-2.4.0/out/extension.js
+[2021-08-23 14:03:15.097] [exthost] [info] ExtensionService#_doActivateExtension CoenraadS.bracket-pair-colorizer {"startup":true,"extensionId":{"value":"CoenraadS.bracket-pair-colorizer","_lower":"coenraads.bracket-pair-colorizer"},"activationEvent":"*"}
+[2021-08-23 14:03:15.097] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/coenraads.bracket-pair-colorizer-1.0.61/out/src/extension
+[2021-08-23 14:03:15.135] [exthost] [info] ExtensionService#_doActivateExtension donjayamanne.githistory {"startup":true,"extensionId":{"value":"donjayamanne.githistory","_lower":"donjayamanne.githistory"},"activationEvent":"*"}
+[2021-08-23 14:03:15.135] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/donjayamanne.githistory-0.6.18/dist/src/extension
+[2021-08-23 14:03:15.174] [exthost] [info] ExtensionService#_doActivateExtension GitHub.vscode-pull-request-github {"startup":true,"extensionId":{"value":"GitHub.vscode-pull-request-github","_lower":"github.vscode-pull-request-github"},"activationEvent":"*"}
+[2021-08-23 14:03:15.174] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/github.vscode-pull-request-github-0.24.0/dist/extension
+[2021-08-23 14:03:15.225] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.sublime-keybindings {"startup":true,"extensionId":{"value":"ms-vscode.sublime-keybindings","_lower":"ms-vscode.sublime-keybindings"},"activationEvent":"*"}
+[2021-08-23 14:03:15.225] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/ms-vscode.sublime-keybindings-4.0.9/dist/extension.js
+[2021-08-23 14:03:15.229] [exthost] [info] ExtensionService#_doActivateExtension ms-vsliveshare.vsliveshare {"startup":true,"extensionId":{"value":"ms-vsliveshare.vsliveshare-audio","_lower":"ms-vsliveshare.vsliveshare-audio"},"activationEvent":"*"}
+[2021-08-23 14:03:15.229] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/ms-vsliveshare.vsliveshare-1.0.4673/out/prod/extension-prod
+[2021-08-23 14:03:15.353] [exthost] [info] ExtensionService#_doActivateExtension mutantdino.resourcemonitor {"startup":true,"extensionId":{"value":"mutantdino.resourcemonitor","_lower":"mutantdino.resourcemonitor"},"activationEvent":"*"}
+[2021-08-23 14:03:15.353] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/mutantdino.resourcemonitor-1.0.7/out/extension
+[2021-08-23 14:03:15.477] [exthost] [info] ExtensionService#_doActivateExtension nrwl.angular-console {"startup":true,"extensionId":{"value":"nrwl.angular-console","_lower":"nrwl.angular-console"},"activationEvent":"*"}
+[2021-08-23 14:03:15.477] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/nrwl.angular-console-17.8.0/main.js
+[2021-08-23 14:03:15.633] [exthost] [info] ExtensionService#_doActivateExtension swyphcosmo.spellchecker {"startup":true,"extensionId":{"value":"swyphcosmo.spellchecker","_lower":"swyphcosmo.spellchecker"},"activationEvent":"*"}
+[2021-08-23 14:03:15.633] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/swyphcosmo.spellchecker-1.3.0/out/src/extension
+[2021-08-23 14:03:15.652] [exthost] [info] ExtensionService#_doActivateExtension vscode-icons-team.vscode-icons {"startup":true,"extensionId":{"value":"vscode-icons-team.vscode-icons","_lower":"vscode-icons-team.vscode-icons"},"activationEvent":"*"}
+[2021-08-23 14:03:15.652] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/vscode-icons-team.vscode-icons-11.6.0/dist/src/vscode-icons.bundle.js
+[2021-08-23 14:03:15.673] [exthost] [info] ExtensionService#_doActivateExtension WallabyJs.quokka-vscode {"startup":true,"extensionId":{"value":"WallabyJs.quokka-vscode","_lower":"wallabyjs.quokka-vscode"},"activationEvent":"*"}
+[2021-08-23 14:03:15.673] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/wallabyjs.quokka-vscode-1.0.394/index
+[2021-08-23 14:03:15.676] [exthost] [info] ExtensionService#_doActivateExtension wayou.vscode-todo-highlight {"startup":true,"extensionId":{"value":"wayou.vscode-todo-highlight","_lower":"wayou.vscode-todo-highlight"},"activationEvent":"*"}
+[2021-08-23 14:03:15.676] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/wayou.vscode-todo-highlight-1.0.4/src/extension
+[2021-08-23 14:03:15.682] [exthost] [info] ExtensionService#_doActivateExtension yycalm.linecount {"startup":true,"extensionId":{"value":"yycalm.linecount","_lower":"yycalm.linecount"},"activationEvent":"*"}
+[2021-08-23 14:03:15.682] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/yycalm.linecount-0.1.7/out/src/extension
+[2021-08-23 14:03:15.691] [exthost] [info] ExtensionService#_doActivateExtension GabrielBB.vscode-lombok {"startup":true,"extensionId":{"value":"GabrielBB.vscode-lombok","_lower":"gabrielbb.vscode-lombok"},"activationEvent":"workspaceContains:pom.xml"}
+[2021-08-23 14:03:15.691] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/gabrielbb.vscode-lombok-1.0.1/out/index
+[2021-08-23 14:03:15.698] [exthost] [info] ExtensionService#_doActivateExtension redhat.java {"startup":true,"extensionId":{"value":"redhat.java","_lower":"redhat.java"},"activationEvent":"workspaceContains:pom.xml"}
+[2021-08-23 14:03:15.698] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/redhat.java-0.81.0/dist/extension
+[2021-08-23 14:03:15.735] [exthost] [info] ExtensionService#_doActivateExtension vscjava.vscode-java-pack {"startup":true,"extensionId":{"value":"vscjava.vscode-java-pack","_lower":"vscjava.vscode-java-pack"},"activationEvent":"workspaceContains:pom.xml"}
+[2021-08-23 14:03:15.735] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/vscjava.vscode-java-pack-0.18.4/out/extension
+[2021-08-23 14:03:15.775] [exthost] [info] ExtensionService#_doActivateExtension vscjava.vscode-java-debug {"startup":true,"extensionId":{"value":"vscjava.vscode-java-test","_lower":"vscjava.vscode-java-test"},"activationEvent":"workspaceContains:pom.xml"}
+[2021-08-23 14:03:15.775] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/vscjava.vscode-java-debug-0.32.1/dist/extension
+[2021-08-23 14:03:17.531] [exthost] [info] ExtensionService#_doActivateExtension redhat.vscode-commons {"startup":true,"extensionId":{"value":"redhat.fabric8-analytics","_lower":"redhat.fabric8-analytics"},"activationEvent":"workspaceContains:**/package.json,**/pom.xml,**/requirements.txt,**/go.mod"}
+[2021-08-23 14:03:17.531] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/redhat.vscode-commons-0.0.6/dist/extension.js
+[2021-08-23 14:03:17.752] [exthost] [info] ExtensionService#_doActivateExtension pranaygp.vscode-css-peek {"startup":true,"extensionId":{"value":"pranaygp.vscode-css-peek","_lower":"pranaygp.vscode-css-peek"},"activationEvent":"workspaceContains:**/*.css,**/*.scss,**/*.sass,**/*.less"}
+[2021-08-23 14:03:17.752] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/pranaygp.vscode-css-peek-4.2.0/client/out/extension
+[2021-08-23 14:03:17.874] [exthost] [info] ExtensionService#_doActivateExtension vscjava.vscode-maven {"startup":true,"extensionId":{"value":"vscjava.vscode-maven","_lower":"vscjava.vscode-maven"},"activationEvent":"workspaceContains:**/pom.xml"}
+[2021-08-23 14:03:17.874] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/vscjava.vscode-maven-0.30.1/dist/extension
+[2021-08-23 14:03:18.140] [exthost] [info] ExtensionService#_doActivateExtension vscode.github-authentication {"startup":false,"extensionId":{"value":"vscode.github-authentication","_lower":"vscode.github-authentication"},"activationEvent":"onAuthenticationRequest:github"}
+[2021-08-23 14:03:18.140] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/github-authentication/dist/extension.js
+[2021-08-23 14:03:18.380] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.js-debug {"startup":false,"extensionId":{"value":"ms-vscode.js-debug","_lower":"ms-vscode.js-debug"},"activationEvent":"onCommand:extension.js-debug.clearAutoAttachVariables"}
+[2021-08-23 14:03:18.380] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/ms-vscode.js-debug/src/extension.js
+[2021-08-23 14:03:18.489] [exthost] [info] ExtensionService#_doActivateExtension vscode.github {"startup":false,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2021-08-23 14:03:18.489] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/github/dist/extension.js
+[2021-08-23 14:03:18.497] [exthost] [info] ExtensionService#_doActivateExtension 42Crunch.vscode-openapi {"startup":false,"extensionId":{"value":"42Crunch.vscode-openapi","_lower":"42crunch.vscode-openapi"},"activationEvent":"*"}
+[2021-08-23 14:03:18.497] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/42crunch.vscode-openapi-4.5.2/out/extension
+[2021-08-23 14:03:19.018] [exthost] [info] ExtensionService#_doActivateExtension redhat.fabric8-analytics {"startup":true,"extensionId":{"value":"redhat.fabric8-analytics","_lower":"redhat.fabric8-analytics"},"activationEvent":"workspaceContains:**/package.json,**/pom.xml,**/requirements.txt,**/go.mod"}
+[2021-08-23 14:03:19.018] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/redhat.fabric8-analytics-0.3.3/dist/extension
+[2021-08-23 14:03:19.218] [exthost] [warning] [redhat.vscode-yaml] Accessing a resource scoped configuration without providing a resource is not expected. To get the effective value for '[yaml]', provide the URI of a resource or 'null' for any resource.
+[2021-08-23 14:03:19.513] [exthost] [warning] [redhat.java] Accessing a resource scoped configuration without providing a resource is not expected. To get the effective value for '[java]', provide the URI of a resource or 'null' for any resource.
+[2021-08-23 14:03:19.995] [exthost] [warning] [redhat.java] Accessing a resource scoped configuration without providing a resource is not expected. To get the effective value for '[java]', provide the URI of a resource or 'null' for any resource.
+[2021-08-23 14:03:20.452] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 544
+[2021-08-23 14:03:22.550] [exthost] [error] Activating extension ms-vsliveshare.vsliveshare failed due to an error:
+[2021-08-23 14:03:22.551] [exthost] [error] Error: Agent terminated with exit code: 0 and signal null: A fatal error occurred. The required library hostfxr.dll could not be found.
+If this is a self-contained application, that library should exist in [c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\dotnet_modules\].
+If this is a framework-dependent application, install the runtime in the global location [C:\Program Files (x86)\dotnet] or use the DOTNET_ROOT(x86) environment variable to specify the runtime location or register the runtime location in [HKLM\SOFTWARE\dotnet\Setup\InstalledVersions\x86\InstallLocation].
+
+The .NET Core runtime can be found at:
+  - https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=x86&rid=win10-x86
+	at ChildProcess.<anonymous> (c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\out\prod\extension-prod.js:198810:32)
+	at ChildProcess.emit (events.js:327:22)
+	at maybeClose (internal/child_process.js:1021:16)
+	at Socket.<anonymous> (internal/child_process.js:443:11)
+	at Socket.emit (events.js:315:20)
+	at Pipe.<anonymous> (net.js:674:12)
+[2021-08-23 14:03:22.585] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":false,"extensionId":{"value":"vscode.emmet","_lower":"vscode.emmet"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.585] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/emmet/dist/node/emmetNodeMain
+[2021-08-23 14:03:22.649] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":false,"extensionId":{"value":"vscode.merge-conflict","_lower":"vscode.merge-conflict"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.649] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/merge-conflict/dist/mergeConflictMain
+[2021-08-23 14:03:22.654] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode-remote.remote-wsl-recommender {"startup":false,"extensionId":{"value":"ms-vscode-remote.remote-wsl-recommender","_lower":"ms-vscode-remote.remote-wsl-recommender"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.654] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/ms-vscode-remote.remote-wsl-recommender/dist/extension.js
+[2021-08-23 14:03:22.664] [exthost] [info] ExtensionService#_doActivateExtension vscode.testing-editor-contributions {"startup":false,"extensionId":{"value":"vscode.testing-editor-contributions","_lower":"vscode.testing-editor-contributions"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.664] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/testing-editor-contributions/dist/extension.js
+[2021-08-23 14:03:22.667] [exthost] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":false,"extensionId":{"value":"dbaeumer.vscode-eslint","_lower":"dbaeumer.vscode-eslint"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.667] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/dbaeumer.vscode-eslint-2.1.20/client/out/extension
+[2021-08-23 14:03:22.707] [exthost] [info] ExtensionService#_doActivateExtension eamodio.gitlens {"startup":false,"extensionId":{"value":"eamodio.gitlens","_lower":"eamodio.gitlens"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.707] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/eamodio.gitlens-11.3.0/dist/gitlens
+[2021-08-23 14:03:22.739] [exthost] [info] ExtensionService#_doActivateExtension esbenp.prettier-vscode {"startup":false,"extensionId":{"value":"esbenp.prettier-vscode","_lower":"esbenp.prettier-vscode"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.739] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/esbenp.prettier-vscode-7.1.1/dist/extension
+[2021-08-23 14:03:22.792] [exthost] [info] ExtensionService#_doActivateExtension formulahendry.code-runner {"startup":false,"extensionId":{"value":"formulahendry.code-runner","_lower":"formulahendry.code-runner"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.792] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/formulahendry.code-runner-0.11.3/out/src/extension
+[2021-08-23 14:03:22.899] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode-remote.remote-containers {"startup":false,"extensionId":{"value":"ms-vscode-remote.remote-containers","_lower":"ms-vscode-remote.remote-containers"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.899] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/ms-vscode-remote.remote-containers-0.163.2/dist/extension/extension
+[2021-08-23 14:03:22.935] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode-remote.remote-wsl {"startup":false,"extensionId":{"value":"ms-vscode-remote.remote-wsl","_lower":"ms-vscode-remote.remote-wsl"},"activationEvent":"onStartupFinished"}
+[2021-08-23 14:03:22.935] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/ms-vscode-remote.remote-wsl-0.54.6/dist/extension
+[2021-08-23 14:03:26.048] [exthost] [info] ExtensionService#_doActivateExtension vscjava.vscode-java-test {"startup":true,"extensionId":{"value":"vscjava.vscode-java-test","_lower":"vscjava.vscode-java-test"},"activationEvent":"workspaceContains:pom.xml"}
+[2021-08-23 14:03:26.048] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/vscjava.vscode-java-test-0.29.0/main.js
+[2021-08-23 14:03:26.133] [exthost] [info] eager extensions activated
+[2021-08-23 14:03:28.295] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:03:43.981] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 553
+[2021-08-23 14:03:51.592] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 553
+[2021-08-23 14:04:12.385] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 553
+[2021-08-23 14:06:31.951] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 553
+[2021-08-23 14:06:46.822] [exthost] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"extensionId":{"value":"vscode.extension-editing","_lower":"vscode.extension-editing"},"activationEvent":"onLanguage:typescript"}
+[2021-08-23 14:06:46.822] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode/resources/app/extensions/extension-editing/dist/extensionEditingMain
+[2021-08-23 14:06:46.888] [exthost] [info] ExtensionService#_doActivateExtension Angular.ng-template {"startup":false,"extensionId":{"value":"Angular.ng-template","_lower":"angular.ng-template"},"activationEvent":"onLanguage:typescript"}
+[2021-08-23 14:06:46.888] [exthost] [info] ExtensionService#loadCommonJSModule file:///c:/Users/mdaniel/Desktop/Projekt/software/vscode-extensions/angular.ng-template-11.2.14/index
+[2021-08-23 14:06:49.068] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:07:35.968] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:07:41.857] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:07:56.876] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:08:02.798] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:08:13.405] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:08:19.240] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:08:30.676] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:09:12.437] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:09:28.479] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:09:34.365] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:09:44.664] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:09:50.506] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:10:18.638] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:10:44.350] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:10:52.491] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:10:58.339] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:11:04.250] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:11:10.218] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:11:36.711] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:12:25.067] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:12:58.019] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:13:55.567] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:15:12.529] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:15:18.438] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:15:28.362] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:15:56.284] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:16:02.274] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:16:08.168] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:16:14.436] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:16:29.408] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:16:43.593] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:16:49.561] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:17:12.483] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:24:44.897] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:24:50.842] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:24:57.750] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:25:03.633] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:25:09.538] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:25:23.374] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:25:39.798] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:25:50.524] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:25:57.074] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:26:03.042] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:26:08.950] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:26:14.879] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:26:20.794] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:27:08.328] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:27:14.242] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:27:20.182] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:27:34.771] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:29:48.632] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:29:59.328] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:30:15.820] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:30:31.715] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:30:37.702] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:31:02.327] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:31:08.199] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:47:23.770] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:49:21.695] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:50:18.690] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:50:24.627] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:50:35.263] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:50:41.272] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:50:48.259] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:50:54.215] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:51:05.981] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:51:23.029] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:51:29.255] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:51:40.211] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:51:49.015] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:52:44.301] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:53:10.134] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:53:22.931] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:58:02.418] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:59:17.232] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:59:23.093] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 14:59:35.903] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:59:41.769] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 14:59:50.807] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:00:07.543] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:00:14.894] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:00:22.291] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 15:00:33.941] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 15:01:15.244] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:01:21.217] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:01:27.131] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:01:32.966] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:01:46.956] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:02:01.915] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:02:10.931] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 555
+[2021-08-23 15:02:23.056] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 16:54:25.639] [exthost] [warning] [Decorations] CAPPING events from decorations provider vscode.git 554
+[2021-08-23 16:54:26.645] [exthost] [info] extension host terminating: received terminate message from renderer
+[2021-08-23 16:54:27.744] [exthost] [info] exiting with code 0

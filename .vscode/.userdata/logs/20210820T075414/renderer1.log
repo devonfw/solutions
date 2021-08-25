@@ -1,0 +1,1 @@
+[2021-08-20 07:54:23.908] [renderer1] [error] ENOENT: no such file or directory, unlink 'c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\cascade.json': Error: ENOENT: no such file or directory, unlink 'c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\cascade.json'

@@ -1,0 +1,37 @@
+{
+  message: 'Starting Java server with: C:\\Users\\mdaniel\\Desktop\\Projekt\\software\\java\\bin\\java --add-modules=ALL-SYSTEM --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Dfile.encoding=utf8 -DwatchParentProcess=false -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:C:\\Users\\mdaniel\\Desktop\\Projekt\\software\\vscode-extensions\\gabrielbb.vscode-lombok-1.0.1\\server\\lombok.jar -noverify -jar c:\\Users\\mdaniel\\Desktop\\Projekt\\software\\vscode-extensions\\redhat.java-0.81.0\\server\\plugins\\org.eclipse.equinox.launcher_1.6.200.v20210416-2027.jar -configuration c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\globalStorage\\redhat.java\\0.81.0\\config_ss_win -data c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\workspaceStorage\\3b5636926364f498bbe3d111753c0d60\\redhat.java\\ss_ws',
+  level: 'info',
+  timestamp: '2021-08-25 13:27:38.819'
+}
+{
+  message: 'Starting Java server with: C:\\Users\\mdaniel\\Desktop\\Projekt\\software\\java\\bin\\java --add-modules=ALL-SYSTEM --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Dfile.encoding=utf8 -DwatchParentProcess=false -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:C:\\Users\\mdaniel\\Desktop\\Projekt\\software\\vscode-extensions\\gabrielbb.vscode-lombok-1.0.1\\server\\lombok.jar -noverify -jar c:\\Users\\mdaniel\\Desktop\\Projekt\\software\\vscode-extensions\\redhat.java-0.81.0\\server\\plugins\\org.eclipse.equinox.launcher_1.6.200.v20210416-2027.jar -configuration c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\globalStorage\\redhat.java\\0.81.0\\config_win -data c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\workspaceStorage\\3b5636926364f498bbe3d111753c0d60\\redhat.java\\jdt_ws',
+  level: 'info',
+  timestamp: '2021-08-25 13:27:39.420'
+}
+{
+  message: '[Error - 13:27:46] 25.08.2021, 13:27:46 Initialization failed \n' +
+    'Invalid project description.\n' +
+    'org.eclipse.core.internal.resources.ResourceException: Invalid project description.\r\n' +
+    '\tat org.eclipse.core.internal.resources.Project.checkDescription(Project.java:173)\r\n' +
+    '\tat org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:57)\r\n' +
+    '\tat org.eclipse.core.internal.resources.Project.create(Project.java:266)\r\n' +
+    '\tat org.eclipse.core.internal.resources.Project.create(Project.java:252)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.project.ProjectConfigurationManager.create(ProjectConfigurationManager.java:998)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.project.ProjectConfigurationManager.lambda$0(ProjectConfigurationManager.java:163)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:179)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:153)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:101)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.embedder.MavenImpl.execute(MavenImpl.java:1374)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.project.ProjectConfigurationManager.importProjects(ProjectConfigurationManager.java:146)\r\n' +
+    '\tat org.eclipse.m2e.core.internal.project.ProjectConfigurationManager.importProjects(ProjectConfigurationManager.java:136)\r\n' +
+    '\tat org.eclipse.jdt.ls.core.internal.managers.MavenProjectImporter.importToWorkspace(MavenProjectImporter.java:194)\r\n' +
+    '\tat org.eclipse.jdt.ls.core.internal.managers.ProjectsManager.importProjects(ProjectsManager.java:113)\r\n' +
+    '\tat org.eclipse.jdt.ls.core.internal.managers.ProjectsManager.initializeProjects(ProjectsManager.java:102)\r\n' +
+    '\tat org.eclipse.jdt.ls.core.internal.handlers.InitHandler$1.runInWorkspace(InitHandler.java:203)\r\n' +
+    '\tat org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)\r\n' +
+    '\tat org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)\r\n' +
+    'Contains: OK\r\n' +
+    'Contains: C:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures overlaps the workspace location: C:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\.vscode\\.userdata\\User\\workspaceStorage\\3b5636926364f498bbe3d111753c0d60\\redhat.java\\jdt_ws\r\n',
+  level: 'info',
+  timestamp: '2021-08-25 13:27:46.212'
+}

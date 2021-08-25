@@ -1,0 +1,8 @@
+[2021-08-23 14:03:15.360] [sharedprocess] [info] Installing extension: msjsdiag.cordova-tools
+[2021-08-23 14:03:16.511] [sharedprocess] [info] Downloaded extension: msjsdiag.cordova-tools undefined
+[2021-08-23 14:03:16.880] [sharedprocess] [info] Extracted extension to C:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\.msjsdiag.cordova-tools-2.3.0: msjsdiag.cordova-tools
+[2021-08-23 14:03:16.882] [sharedprocess] [info] Renamed to C:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\msjsdiag.cordova-tools-2.3.0
+[2021-08-23 14:03:16.884] [sharedprocess] [info] Installation completed. msjsdiag.cordova-tools
+[2021-08-23 14:03:16.891] [sharedprocess] [info] Extensions installed successfully: msjsdiag.cordova-tools
+[2021-08-23 14:03:51.751] [sharedprocess] [info] Starting to clean up unused language packs.
+[2021-08-23 16:51:57.629] [sharedprocess] [warning] No ptyHost heartbeat after 6 seconds

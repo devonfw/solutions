@@ -1,0 +1,8 @@
+[2021-08-25 11:27:43:074] library
+Error: Agent terminated with exit code: 0 and signal null: A fatal error occurred. The required library hostfxr.dll could not be found.
+If this is a self-contained application, that library should exist in [c:\Users\mdaniel\Desktop\Projekt\software\vscode-extensions\ms-vsliveshare.vsliveshare-1.0.4673\dotnet_modules\].
+If this is a framework-dependent application, install the runtime in the global location [C:\Program Files (x86)\dotnet] or use the DOTNET_ROOT(x86) environment variable to specify the runtime location or register the runtime location in [HKLM\SOFTWARE\dotnet\Setup\InstalledVersions\x86\InstallLocation].
+
+The .NET Core runtime can be found at:
+  - https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=x86&rid=win10-x86
+[2021-08-25 11:27:54:417] [c:/Users/mdaniel/Desktop/Projekt/workspaces/architectures] Git Command failed: C:\Program Files\Git\cmd\git.exe -c core.longpaths=true -c core.quotepath=false -c color.ui=false -c log.showSignature=false log --format=%x3cr%x3e%x20%H -n3 -m -L 53,53:scripts/createSolutions.js • file scripts/createSolutions.js has only 43 lines • 124 ms 

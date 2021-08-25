@@ -1,0 +1,33 @@
+["INFO" - 09:09:49] Extension Name: esbenp.prettier-vscode.
+["INFO" - 09:09:49] Extension Version: 7.1.1.
+["INFO" - 10:39:55] Formatting c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\scripts\createSolutions.js
+["INFO" - 10:39:55] Using ignore file (if present) at c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\.prettierignore
+["INFO" - 10:39:55] File Info:
+{
+  "ignored": false,
+  "inferredParser": "babel"
+}
+["INFO" - 10:39:55] No local configuration (i.e. .prettierrc or .editorconfig) detected, falling back to VS Code configuration
+["INFO" - 10:39:55] Prettier Options:
+{
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "vueIndentScriptAndStyle": false,
+  "filepath": "c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\scripts\\createSolutions.js",
+  "parser": "babel"
+}
+["INFO" - 10:39:55] Formatting completed in 237.097ms.

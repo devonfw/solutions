@@ -1,0 +1,64 @@
+["INFO" - 13:27:41] Extension Name: esbenp.prettier-vscode.
+["INFO" - 13:27:41] Extension Version: 7.1.1.
+["INFO" - 13:28:45] Formatting c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\scripts\createSolutions.js
+["INFO" - 13:28:45] Using ignore file (if present) at c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\.prettierignore
+["INFO" - 13:28:45] File Info:
+{
+  "ignored": false,
+  "inferredParser": "babel"
+}
+["INFO" - 13:28:45] No local configuration (i.e. .prettierrc or .editorconfig) detected, falling back to VS Code configuration
+["INFO" - 13:28:45] Prettier Options:
+{
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "vueIndentScriptAndStyle": false,
+  "filepath": "c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\scripts\\createSolutions.js",
+  "parser": "babel"
+}
+["INFO" - 13:28:45] Formatting completed in 118.660101ms.
+["INFO" - 13:28:57] Formatting c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\scripts\createSolutions.js
+["INFO" - 13:28:57] Using ignore file (if present) at c:\Users\mdaniel\Desktop\Projekt\workspaces\architectures\.prettierignore
+["INFO" - 13:28:57] File Info:
+{
+  "ignored": false,
+  "inferredParser": "babel"
+}
+["INFO" - 13:28:57] No local configuration (i.e. .prettierrc or .editorconfig) detected, falling back to VS Code configuration
+["INFO" - 13:28:57] Prettier Options:
+{
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "vueIndentScriptAndStyle": false,
+  "filepath": "c:\\Users\\mdaniel\\Desktop\\Projekt\\workspaces\\architectures\\scripts\\createSolutions.js",
+  "parser": "babel"
+}
+["INFO" - 13:28:57] Formatting completed in 58.823301ms.
