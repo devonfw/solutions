@@ -1,20 +1,20 @@
+
 //Category=Storage
 //Products=types of cloud storage
 //Maturity level=Initial
-
-----
 
 = Cloud Storage
 
 == Cloud Storage
 
 This article mainly focuses on below topics:
+
 - what is cloud storage?
 - How does it works?
 - Benefits of cloud storage
-- Cloud storage requirement
+- Limitations of Cloud Storage
 - Types of Cloud Storage
-- Use cases
+- Product and services offered by different vendors
 
 === What is cloud storage?
 
@@ -127,4 +127,5 @@ Below table contains services from different cloud vendors:
 === References:
 
 https://www.ibm.com/cloud/learn/cloud-storage#toc-what-is-cl-vt64lltQ
+
 https://aws.amazon.com/what-is-cloud-storage/ 
