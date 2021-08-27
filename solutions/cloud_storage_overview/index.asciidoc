@@ -1,8 +1,7 @@
+
 //Category=Storage
 //Products=types of Cloud Storage
 //Maturity level=Initial
-
-----
 
 = Cloud Storage
 
@@ -14,7 +13,7 @@ This article mainly focuses on below topics:
 - Benefits of Cloud Storage
 - Cloud Storage requirement
 - Types of Cloud Storage
-- Use cases
+- Product and services offered by different vendors
 
 === What is Cloud Storage?
 
@@ -130,4 +129,5 @@ Below table contains services from different cloud vendors:
 === References:
 
 https://www.ibm.com/cloud/learn/cloud-storage#toc-what-is-cl-vt64lltQ
+
 https://aws.amazon.com/what-is-cloud-storage/ 
