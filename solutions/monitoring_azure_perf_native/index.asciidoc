@@ -2,7 +2,7 @@
 //Maturity level=Advanced
 
 == Solution Performance Monitoring Azure Native
-=== Application
+=== Application Monitoring
 ==== Overview
 
 The solution is to use Azure Monitor with App Insights and Log Analytics and the following platform regarding the monitored resources. The focus of this chapter is to introduce the available features. Recommendations for a concrete setup are given in the next chapter.
@@ -146,7 +146,7 @@ Regarding components for logs/ metrics:
 
 This solution assumes that your application monitoring plane is in Azure and that your monitored resources are located in Azure.
 
-=== Infrastructure
+=== Infrastructure Monitoring
 ==== Overview
 
 The solution is to use Azure Monitor with Log Analytics and the following platform regarding the monitored resources. The focus of this chapter is to introduce the available features. Recommendations for a concrete setup are given in the next chapter.
