@@ -227,7 +227,7 @@ image::infra_monitoring.png[Infra Monitoring,width=566px,height=285px]
 
 ==== Variations
 
-See application infrastructure.
+See application monitoring.
 
 ==== When to use
 
