@@ -1,0 +1,126 @@
+//Platform=Azure
+//Maturity level=Advanced
+
+== Monitoring
+=== Context & Problem
+==== Terminology
+
+_Used definition: A monitoring solution helps the monitoring consumer achieve the satisfactory level of control of a defined service_. (https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/manage/monitor/observability[Link])
+
+This definition already includes the following:
+
+* *Defined service:* The resources you want to monitor aka monitored resources. The resources to be monitored can be split in infrastructure and applications on top. 
+* *Level of control:* That is your bandwidth in which your defined service operates normally aka known as baseline
+* *Measuring:* A measurement is a single act that quantifies an attribute of a part, equipment, service or process (CPU load, available memory etc.). Data measured is emitted by the monitored resources and aka telemetry. 
+* *Monitoring consumer:* The user trying to keep the service within its baseline boundaries.
++
+--
+The key to achieve that is a single control plane is usually preferred to simplify the operations for the consumer aka monitoring plane. The relevant content depends on the perspective of the consumer such as performance, costs, compliance and health. Performance in this pattern includes the following (https://github.com/uglide/azure-content/blob/master/articles/best-practices-monitoring.md[Link]):
+
+** *Health monitoring:* purpose of health monitoring is to generate a snapshot of the current health of the system so that you can verify that all components of the system are functioning as expected. This discipline includes checking for bugs and errors. 
+** *Availability monitoring:* A truly healthy system requires that the components and subsystems that compose the system are available. Availability monitoring is closely related to health monitoring. But whereas health monitoring provides an immediate view of the current health of the system, availability monitoring is concerned with tracking the availability of the system and its components to generate statistics about the uptime of the system.
+** *Performance monitoring:* As the system is placed under more and more stress (by increasing the volume of users), the size of the datasets that these users access grows and the possiblity of failure of one or more components becomes more likely. Frequently, component failure is preceded by a decrease in performance. If you're able detect such a decrease, you can take proactive steps to remedy the situation.
+** *SLA Monitoring:* SLA monitoring is closely related to performance monitoring. But whereas performance monitoring is concerned with ensuring that the system functions *optimally*, SLA monitoring is governed by a contractual obligation that defines what optimally actually means. You can calculate the percentage availability of a service over a period of time by using the following formula: `%Availability =  ((Total Time – Total Downtime) / Total Time ) * 100`
+--
+
+Providing a control plane requires a monitoring pipeline that should be implemented as feedback loop. The pipeline transforms raw telemetry into meaningful information that the monitoring consumer can use to determine the state of the system. The loop ensures that lessons learnt are the starting point for further improvements on the defined service side. E.g. by adaptive scaling depending on monitored traffic. The entire monitoring must be compliant and provide integration features. The conceptual stages of the pipeline are as follows:
+
+* Data Sources/ Instrumention (Monitored resources): concerned with identifying the sources from where the telemetry needs to be captured, determining which data to capture and how to capture it.
+* Collection/ Storage (Monitoring plane)
+* Analysis/ Diagnosis (Monitoring plane): generate meaningful information that an monitoring consumer can use to determine the state of the system
+* Visualization/ Alerting (Monitoring plane): decisions about possible actions to take and then feed the results back into the instrumentation and collection stages
+
+The picture below summarizes the aspects:
+
+image::monitoring.png[Monitoring]
+
+==== Standard Problems
+
+The list below describes the standard problems that apply independent from the monitoring consumer perspective. Solutions with concrete technology are first described in subsequent chapters. Per monitoring pipeline stage the following standard problems are known:
+
+* *Data Sources/ Instrumention (Monitored Resources)*
++
+--
+This also includes the possibility of preprocessing to reduce or enrich sent telemtry data to the monitoring consumer. Telemetry itself might be of different structure and convey different information.
+--
+* *Collection/ Storage (Monitoring Plane)*
++
+--
+The drop location of the telemetry needs to be determined such as inside the monitoring plane or externally.
+
+Monitoring can result in a large amount of data. Storing such granular data is costly. Therefore an archiving mechanism is required to make sure costs are not exploding. Once archived the ingested telemetry should be removed.
+--
+* *Analysis/ Diagnosis (Monitoring Plane)*
++
+--
+Includes standard problems like:
+
+** Filtering
+** Aggregation
+** Correlation
+** Reformating
+** Comparison against Key Performance Indicatorss (=KPIs). KPIs have no weight in software development unless they are paired with your business goals. You don’t need a handful of KPI metrics for your software team. All you need is the right KPI to help you improve your product or process. KPIs should be SMART (S = Specific; M = Measureable; A = Assignable; R = Realistic; T = Time Bound). Examples: Code Quality KPIs such as Maintainability index, Complexity metrics, Depth of inheritance, Class coupling, Lines of code; Testing Quality such as Test effort, Test coverage; Availability = Mean time between failures, Mean time to recovery/ repair (https://stackify.com/metrics-monitoring-choosing-the-right-kpis/[Link])
+--
+* *Visualization/ Alerting (Monitoring Plane)*
++
+--
+Includes standard problems like:
+
+** Visualization for monitoring consumer
+** Alerts: *Programmatic action* that free the monitoring consumer from manual intervention. It states the trigger and the action to bee executed. One challenging aspect is to minimize the number of alerts or to detect patterns behind multiple alerts. Infering a suitable thresholds can be challing especially if the threshold is not static.
+** Reports
+** Ad-hoc queries
+** Exploration
+--
+* *Improving Feedback Loop (Plane/ Resources)*
++
+--
+Cases where the monitored resources operated outside their baseline should be the starting point for improvements. This might mean a better tuning of alerts and intervention or system requirements.
+--
+
+Integrating and compliance affect the entire pipeline. Telemetry might have to be collected from other systems to achieve a single monitoring plane. However alerts/ notications might have to be forwarded to other systems.
+Of course a monitoring must be compliant regarding the enterprise guidelines.
+
+The following patterns are not dicussed here:
+
+* Provisioning of the monitoring plane and the monitored resourves
+
+The next chapter describes on platform level the monitoring support of various platforms along with concrete solutions for the outlined perspectives.  Monitoring services/ features for specific resources such as containers are out of scope. They are described together with the specific resource type.
+
+=== Azure as Platform
+
+This chapter lists major features/ concrete services for monitoring of the Azure platform. A detailed discussion of services is part of the solution design in the subsequent chapters. Major features per stage of the monitoring pipeline are as follows:
+
+* *Data Sources/ Instrumention*
++
+--
+Telemetry in Azure is split in logs and metrics. Logs contain non-structured text entries whereas metric is a value measured at a certain time. Dimensions are additional characterisitics of the measured metric.
+
+The major logs/ metrics are one of the following categories: (1) Activity logs, (2) resource logs (former diagnostic logs) and (3) Azure Active Directory (=AAD) related logs. Activity logs track actions on Azure Resource Manager level such as creation, update or deletion of Azure resources. Resource logs track operations within a resource such as reading secrets from a key vault after it has been created.
+--
+* *Monitoring Plane*
++
+--
+The services used for processing depend on the perspective. A major stop for a unified end-to-end monitoring is Azure Monitor. It unifies the former separate services Application Insights and Log Analytics as features. Application Insights is focusing at application monitoring whereas Log Analytics started as part of the operation management suite targeting infrastructure monitoring. Both come with their own repository for storing the telemetry. In the future a Log Analytic Workspace will be the central place for collecting data from infrastructure and application perspective. 
+
+Telemetry can either be (1) forwarded *(=pushed)* to the monitoring plane or (2) *pulled* from the monitoring plane.
+*Pushing* can be necessary if the telemetry is not available in Azure monitor out of the box or pulling from the monitored resources is not possible. Monitored resources have to be instrumented to forward telemetry to the monitoring consumer for later processing within the monitoring plane. App insight requires linking via instruentation keys. Log Analytic workspaces require diagnostic settings. Possible targets are only log analytics workspace, event hub or azure blob storage. Telemetry that can be forwarded is predefined. Fine granular selection of metrics/ logs is not always possible.
+*Pulling* reads telemetry such as metrics directly from the monitored resource. Logs cannot be read directly and require pushing. Compared to pushing this method is also faster.
+
+Both features cover health and performance *perspectives*. Cost management is covered by Azure Cost Management. The major services for monitoring compliance are Azure Security Center and Azure Sentinel (Larger enterprise scope compared to Azure Security Center with SIEM and SOAR capabilities).
+
+Azure monitor provides various options for *visualizations* but also other services are possible. Dashboards like features provide a single pane of control across a number resources. Kusto is the major language for analyzing logs and metrics e.g. as part of the *root cause analysis*. Additional features of app insights/ log analytics complement the language.
+
+*Alert* thresholds can be dynamic and actions can be grouped in action groups for multiple reuse. Dynamic Thresholds continuously learns the data of the metric series and tries to model it using a set of algorithms and methods (https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-dynamic-thresholds[Link]). Alerts can be grouped dynamically to reduce noise and filtered/ scoped to reduce false alarms.
+
+Various options for *archiving* exist in Azure such as Logic Apps. A cheap archive is usually Azure blob storage. Policies can be used to automatically delete archived blobs. Removal of ingested telemetry is configurable by setting the retention period accordingly in Log Analytics/ App Insights.
+--
+* *Improving Feedback Loop (Plane/ Resources)*
++
+--
+The platform allows to track track end-user behavior and engagement. Impact Analysis helps to prioritize which areas to focus on to improve the most important KPIs (https://docs.microsoft.com/en-us/learn/modules/route-system-feedback/3-monitoring-status-dashboards[Link]). Autoscaling is provided by Azure monitor and other Azure services directly.
+--
+
+Azure monitor can *integrate* with and forward telemetry from various sources. Some services like Azure Security center forward telemtry to Azure monitor.
+IT service management tools such as ServiceNow or System Center Service Manager can integrate with Azure monitoring tools.
+Azure provides the standard *compliance mechanisms* also for monitoring which ensure authentication/ authorization (via Azure Active Directory), compliance for data at-rest and in-transit.
