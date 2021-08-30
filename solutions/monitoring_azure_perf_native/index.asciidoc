@@ -71,7 +71,7 @@ Azure Monitor has also extensive integration features. This includes:
 
 The following picture summarizes potential Azure services/ features that might be potentially relevant: 
 
-image::app_monitoring.png[App Monitoring,scalewidth="80%",scaleheight="80%"]
+image::app_monitoring.png[App Monitoring,width=533px,height=277px]
 
 ==== Variations
 
@@ -181,7 +181,7 @@ Telemetry can either be stored internally inside the monitoring plane or externa
 Telemetry can be *pulled* from the monitoring plane. This is limited to metrics but faster than pushing. *Pushing* can be necessary if the telemetry is not available in Azure monitor out of the box or pulling from the monitored resources is not possible. Pushing can be done as follows:
 
 * *Resource diagnostic*: Useful to push resource specific telemtry.
-* *Health diagnostic*: Resource Health tracks the health of your resources for specific known issues. With diagnostic settings configured on subscription level you can send that data to Log Analytics workspace. You will need to send the ResourceHealth/ Service Health categories (https://cloudadministrator.net/2021/01/13/tracking-issues-with-resource-health-and-log-analytics/[Link-Overall] https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema[Link-Possible-Categories]).
+* *Health diagnostic*: Resource Health tracks the health of your resources for specific known issues. With diagnostic settings configured on subscription level you can send that data to Log Analytics workspace. You will need to send the ResourceHealth/ Service Health categories (https://cloudadministrator.net/2021/01/13/tracking-issues-with-resource-health-and-log-analytics/[Health-Overall] https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema[Possible-Categories]).
 --
 * *Analysis/ Diagnosis (Monitoring Plane)*
 +
@@ -223,7 +223,7 @@ See Application monitoring features for alerts and visualization.
 
 The following picture summarizes potential Azure services/ features that might be potentially relevant: 
 
-image::infra_monitoring.png[Infra Monitoring,scalewidth="80%",scaleheight="80%"]
+image::infra_monitoring.png[Infra Monitoring,width=566px,height=285px]
 
 ==== Variations
 
