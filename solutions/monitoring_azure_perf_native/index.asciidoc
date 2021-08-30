@@ -1,6 +1,11 @@
 //Platform=Azure
 //Maturity level=Advanced
 
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
 == Solution Performance Monitoring Azure Native
 === Application Monitoring
 ==== Overview
