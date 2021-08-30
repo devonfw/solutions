@@ -71,7 +71,7 @@ Azure Monitor has also extensive integration features. This includes:
 
 The following picture summarizes potential Azure services/ features that might be potentially relevant: 
 
-image::app_monitoring.png[App Monitoring]
+image::app_monitoring.png[App Monitoring,scale=80]
 
 ==== Variations
 
@@ -223,7 +223,7 @@ See Application monitoring features for alerts and visualization.
 
 The following picture summarizes potential Azure services/ features that might be potentially relevant: 
 
-image::infra_monitoring.png[Infra Monitoring]
+image::infra_monitoring.png[Infra Monitoring,scale=80]
 
 ==== Variations
 
