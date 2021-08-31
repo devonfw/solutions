@@ -38,11 +38,11 @@ Azure Application Insights sends web requests to your application at regular int
 
 Kusto queries across multiple application insights or log analytic workspaces are possible. App insight or log analytic workspaces must then be referenced with an additional identifier (App Insights: `app('<identifier>')`; Log Analytics: (`workspace('<qualifier>')`) as shown in the samples below. Various options for identifiers exist such as name and guid (https://azure.microsoft.com/en-us/blog/query-across-resources/[Link]):
 ```
-// Cross app insights example
+// Cross-Kusto app insights example
 union app('mmsportal-prod').requests, app('AI-Prototype/Fabrikam/fabrikamprod').requests, requests
 | summarize count() by bin(timestamp, 1h)
 
-// Cross app insights example
+// Cross-Kusto log analytics example
 union Update, workspace("b438b4f6-912a-46d5-9cb1-b44069212ab4").Update
 | where TimeGenerated >= ago(1h)
 | where UpdateState == "Needed"
