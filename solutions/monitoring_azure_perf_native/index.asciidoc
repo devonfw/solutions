@@ -10,21 +10,21 @@ toc::[]
 === Application Monitoring
 ==== Overview
 
-The solution is to use Azure Monitor with App Insights and Log Analytics and the following platform regarding the monitored resources. The focus of this chapter is to introduce the available features. Recommendations for a concrete setup are given in the next chapter.
+The solution is to use Azure Monitor with App Insights, Log Analytics and the following platform features regarding the monitored resources. The focus of this chapter is to introduce the relevant features. Recommendations for a concrete setup are given in the next chapter.
 
 The relevant Azure monitor features are as follows:
 
 * *Collection/ Storage (Monitoring Plane)*
 +
 --
-Telemetry can either be stored internally inside the monitoring plane or externally.
+Telemetry can either be stored internally inside the monitoring plane by App Insights/ Log Analytics or externally.
 
 Telemetry can be *pulled* from the monitoring plane. This is limited to metrics but faster than pushing. *Pushing* can be necessary if the telemetry is not available in Azure monitor out of the box or pulling from the monitored resources is not possible. The major mechanisms to push telemetry to the monitoring plane are:
 
 * *Diagnostic setting*
 * *App Insights Instrumentation/ Linking*: Linked App Insights must be specified for the monitored resource. Some Azure Services such as Azure App Service come with a built-in App Insight integration. However, other services only provide diagnostic settings instead such as API management.
 * *Manual forwarding*: E.g. by scheduled process using the APIs provided by Azure Monitor for App Insights and Log Analytics.
-App Insights/ log analytics also provide APIs to manual send data. However this APIs have some constraints:
+App Insights/ log analytics also provide APIs to manual forward data. However this APIs have some constraints:
 
 ** timestamp cannot be set freely (Both)
 ** deleting something is not possible (Both)
@@ -33,10 +33,22 @@ App Insights/ log analytics also provide APIs to manual send data. However this 
 * *Analysis/ Diagnosis (Monitoring Plane)*
 +
 --
-Azure Monitor comes with no built-in support for KPIs such as code quality, test coverage or availability/ maintenance. However, standard KPIs such as MTBF can be programmed with Kusto queries.
+Azure Monitor comes with no built-in support for KPIs such as code quality, test coverage or availability/ maintenance. However, standard KPIs such as mean time between failure (=MTBF) can be programmed with Kusto queries.
 Azure Application Insights sends web requests to your application at regular intervals from points around the world. It can alert you if your application isn't responding, or if it responds too slowly (https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-alerts[Link]).
 
-Kusto queries across multiple application insights or log analytic workspaces are possible.
+Kusto queries across multiple application insights or log analytic workspaces are possible. App insight or log analytic workspaces must then be referenced with an additional identifier (App Insights: `app('<identifier>')`; Log Analytics: (`workspace('<qualifier>')`) as shown in the samples below. Various options for identifiers exist such as name and guid (https://azure.microsoft.com/en-us/blog/query-across-resources/[Link]):
+```
+// Cross app insights example
+union app('mmsportal-prod').requests, app('AI-Prototype/Fabrikam/fabrikamprod').requests, requests
+| summarize count() by bin(timestamp, 1h)
+
+// Cross app insights example
+union Update, workspace("b438b4f6-912a-46d5-9cb1-b44069212ab4").Update
+| where TimeGenerated >= ago(1h)
+| where UpdateState == "Needed"
+| summarize dcount(Computer) by Classification
+```
+Azure Data Explorer is a service for large scale analysis of telemetry. Large refers large amount of data or high frequency of time series data (https://iterationinsights.com/article/azure-data-explorer-3-scenarios/[Link]).  
 --
 * *Visualization/ Alerting (Monitoring Plane)*
 +
@@ -168,7 +180,7 @@ A major source for infrastructure is the health information provided by the plat
 
 On resource level resource utilization is relevant. This includes:
 
-** Reaching of capacity limits regarding CPU/ memory
+** Hitting capacity limits regarding CPU/ memory
 ** Idle resources
 
 Availability differs per service. They are usually exposed via metrics.
@@ -206,7 +218,7 @@ AzureActivity
 ```
 Availability of resource utilization specific KPIs depends on the monitored resources.
 
-Kusto queries across multiple application insights or log analytic workspaces are possible.
+Kusto queries across multiple application insights or log analytic workspaces are possible (See app monitoring for details).
 
 Log Analytics comes with the following tools for *exploration and root cause analysis*:
 
