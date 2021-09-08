@@ -1,3 +1,4 @@
+//Category=Monitoring
 //Platform=Azure
 //Maturity level=Advanced
 
@@ -10,7 +11,7 @@ toc::[]
 === Context & Problem
 ==== Terminology
 
-_Used definition: A monitoring solution helps the monitoring consumer achieve the satisfactory level of control of a defined service_. (https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/manage/monitor/observability[Link])
+_Used definition: A monitoring solution helps the monitoring consumer achieve the satisfactory level of control of a defined service_. (https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/manage/monitor/observability[Link to source])
 
 This definition already includes the following:
 
@@ -20,9 +21,10 @@ This definition already includes the following:
 * *Monitoring consumer:* The user trying to keep the service within its baseline boundaries.
 +
 --
-The key to achieve that is a single control plane is usually preferred to simplify the operations for the consumer aka monitoring plane. The relevant content depends on the perspective of the consumer such as performance, costs, compliance and health. Performance in this pattern includes the following (https://github.com/uglide/azure-content/blob/master/articles/best-practices-monitoring.md[Link]):
+The key to achieve that is a single control plane is usually preferred to simplify the operations for the consumer aka monitoring plane. The relevant content depends on the perspective of the consumer such as performance, costs, compliance and health. Performance in this pattern includes the following as described https://github.com/uglide/azure-content/blob/master/articles/best-practices-monitoring.md[here]:
 
-** *Health monitoring:* purpose of health monitoring is to generate a snapshot of the current health of the system so that you can verify that all components of the system are functioning as expected. This discipline includes checking for bugs and errors. 
+** *Health monitoring:* purpose of health monitoring is to generate a snapshot of the current health of the system so that you can verify that all components of the system are functioning as expected.
+** *Error monitoring:* Bugs & errors need to be detected by monitoring. Supporting information must be provided that allows monitoring consumer to analyze the root cause.
 ** *Availability monitoring:* A truly healthy system requires that the components and subsystems that compose the system are available. Availability monitoring is closely related to health monitoring. But whereas health monitoring provides an immediate view of the current health of the system, availability monitoring is concerned with tracking the availability of the system and its components to generate statistics about the uptime of the system.
 ** *Performance monitoring:* As the system is placed under more and more stress (by increasing the volume of users), the size of the datasets that these users access grows and the possiblity of failure of one or more components becomes more likely. Frequently, component failure is preceded by a decrease in performance. If you're able detect such a decrease, you can take proactive steps to remedy the situation.
 ** *SLA Monitoring:* SLA monitoring is closely related to performance monitoring. But whereas performance monitoring is concerned with ensuring that the system functions *optimally*, SLA monitoring is governed by a contractual obligation that defines what optimally actually means. You can calculate the percentage availability of a service over a period of time by using the following formula: `%Availability =  ((Total Time – Total Downtime) / Total Time ) * 100`
@@ -64,7 +66,7 @@ Includes standard problems like:
 ** Aggregation
 ** Correlation
 ** Reformating
-** Comparison against Key Performance Indicatorss (=KPIs). KPIs have no weight in software development unless they are paired with your business goals. You don’t need a handful of KPI metrics for your software team. All you need is the right KPI to help you improve your product or process. KPIs should be SMART (S = Specific; M = Measureable; A = Assignable; R = Realistic; T = Time Bound). Examples: Code Quality KPIs such as Maintainability index, Complexity metrics, Depth of inheritance, Class coupling, Lines of code; Testing Quality such as Test effort, Test coverage; Availability = Mean time between failures, Mean time to recovery/ repair (https://stackify.com/metrics-monitoring-choosing-the-right-kpis/[Link])
+** Comparison against Key Performance Indicatorss (=KPIs). KPIs have no weight in software development unless they are paired with your business goals. You don’t need a handful of KPI metrics for your software team. All you need is the right KPI to help you improve your product or process. KPIs should be SMART (S = Specific; M = Measureable; A = Assignable; R = Realistic; T = Time Bound). Examples: Code Quality KPIs such as Maintainability index, Complexity metrics, Depth of inheritance, Class coupling, Lines of code; Testing Quality such as Test effort, Test coverage; Availability = Mean time between failures, Mean time to recovery/ repair https://stackify.com/metrics-monitoring-choosing-the-right-kpis/[as described here]
 --
 * *Visualization/ Alerting (Monitoring Plane)*
 +
@@ -116,14 +118,14 @@ Both features cover health and performance *perspectives*. Cost management is co
 
 Azure monitor provides various options for *visualizations* but also other services are possible. Dashboards like features provide a single pane of control across a number resources. Kusto is the major language for analyzing logs and metrics e.g. as part of the *root cause analysis*. Additional features of app insights/ log analytics complement the language.
 
-*Alert* thresholds can be dynamic and actions can be grouped in action groups for multiple reuse. Dynamic Thresholds continuously learns the data of the metric series and tries to model it using a set of algorithms and methods (https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-dynamic-thresholds[Link]). Alerts can be grouped dynamically to reduce noise and filtered/ scoped to reduce false alarms.
+*Alert* thresholds can be dynamic and actions can be grouped in action groups for multiple reuse. Dynamic Thresholds continuously learns the data of the metric series and tries to model it using a set of algorithms and methods https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-dynamic-thresholds[as described here]. Alerts can be grouped dynamically to reduce noise and filtered/ scoped to reduce false alarms.
 
 Various options for *archiving* exist in Azure such as Logic Apps. A cheap archive is usually Azure blob storage. Policies can be used to automatically delete archived blobs. Removal of ingested telemetry is configurable by setting the retention period accordingly in Log Analytics/ App Insights.
 --
 * *Improving Feedback Loop (Plane/ Resources)*
 +
 --
-The platform allows to track track end-user behavior and engagement. Impact Analysis helps to prioritize which areas to focus on to improve the most important KPIs (https://docs.microsoft.com/en-us/learn/modules/route-system-feedback/3-monitoring-status-dashboards[Link]). Autoscaling is provided by Azure monitor and other Azure services directly.
+The platform allows to track track end-user behavior and engagement. Impact Analysis helps to prioritize which areas to focus on to improve the most important KPIs https://docs.microsoft.com/en-us/learn/modules/route-system-feedback/3-monitoring-status-dashboards[as described here]. Autoscaling is provided by Azure monitor and other Azure services directly.
 --
 
 Azure monitor can *integrate* with and forward telemetry from various sources. Some services like Azure Security center forward telemtry to Azure monitor.

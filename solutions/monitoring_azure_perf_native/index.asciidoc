@@ -1,3 +1,4 @@
+//Category=Monitoring
 //Platform=Azure
 //Maturity level=Advanced
 
@@ -34,9 +35,9 @@ App Insights/ log analytics also provide APIs to manual forward data. However th
 +
 --
 Azure Monitor comes with no built-in support for KPIs such as code quality, test coverage or availability/ maintenance. However, standard KPIs such as mean time between failure (=MTBF) can be programmed with Kusto queries.
-Azure Application Insights sends web requests to your application at regular intervals from points around the world. It can alert you if your application isn't responding, or if it responds too slowly (https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-alerts[Link]).
+Azure Application Insights sends web requests to your application at regular intervals from points around the world. It can alert you if your application isn't responding, or if it responds too slowly https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-alerts[as described here].
 
-Kusto queries across multiple application insights or log analytic workspaces are possible. App insight or log analytic workspaces must then be referenced with an additional identifier (App Insights: `app('<identifier>')`; Log Analytics: (`workspace('<qualifier>')`) as shown in the samples below. Various options for identifiers exist such as name and guid (https://azure.microsoft.com/en-us/blog/query-across-resources/[Link]):
+Kusto queries across multiple application insights or log analytic workspaces are possible. App insight or log analytic workspaces must then be referenced with an additional identifier (App Insights: `app('<identifier>')`; Log Analytics: (`workspace('<qualifier>')`) as shown in the samples below. Various options for identifiers exist such as name and guid https://azure.microsoft.com/en-us/blog/query-across-resources/[as described here]:
 ```
 // Cross-Kusto app insights example
 union app('mmsportal-prod').requests, app('AI-Prototype/Fabrikam/fabrikamprod').requests, requests
@@ -48,7 +49,7 @@ union Update, workspace("b438b4f6-912a-46d5-9cb1-b44069212ab4").Update
 | where UpdateState == "Needed"
 | summarize dcount(Computer) by Classification
 ```
-Azure Data Explorer is a service for large scale analysis of telemetry. Large refers large amount of data or high frequency of time series data (https://iterationinsights.com/article/azure-data-explorer-3-scenarios/[Link]).  
+Azure Data Explorer is a service for large scale analysis of telemetry. Large refers large amount of data or high frequency of time series data https://iterationinsights.com/article/azure-data-explorer-3-scenarios/[as described here].  
 --
 * *Visualization/ Alerting (Monitoring Plane)*
 +
@@ -59,9 +60,9 @@ Natively Azure monitor provides as *dashboarding* options (1) Azure dashboards a
 
 ** *Trigger*: Results from Kusto queries can be used as trigger.
 ** *Action Groups:* Assigning same action (=Action Group) to different triggers
-** *Smart Groups (Preview as of 24.08.2021):* Groups alerts that are triggered simultanously by using artificial intelligence (https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-smartgroups-overview[Link])
-** *Action Rules (Preview as of 24.08.2021)*: Allows to suppress (e.g. due to maintenance), scope and filter alerts (https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-action-rules?tabs=portal[Link])
-** *Reporting*: Existing report for SLA/ Outages by using predefined Azure Monitor workbooks from gallery (https://docs.microsoft.com/en-us/azure/azure-monitor/app/sla-report[Link])
+** *Smart Groups (Preview as of 24.08.2021):* Groups alerts that are triggered simultanously by using artificial intelligence https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-smartgroups-overview[as described here]
+** *Action Rules (Preview as of 24.08.2021)*: Allows to suppress (e.g. due to maintenance), scope and filter alerts https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-action-rules?tabs=portal[as described here]
+** *Reporting*: Existing report for SLA/ Outages by using predefined Azure Monitor workbooks from gallery https://docs.microsoft.com/en-us/azure/azure-monitor/app/sla-report[as described here]
 
 Application Insight comes with the following tools for *exploration and root cause analysis*:
 
@@ -69,16 +70,16 @@ Application Insight comes with the following tools for *exploration and root cau
 ** Smart Detection => warn you when anomalies in performance or utilization patterns
 ** Usage Analysis => features of your application are most frequently used
 ** Release annotations => visual indicators in your Application Insights charts of new builds and other events. Possible to correlate changes in application performance to code releases.
-** Cross-component transaction diagnostics => The unified diagnostics experience automatically correlates server-side telemetry from across all your Application Insights monitored components into a single view. It doesn't matter if you have multiple resources with separate instrumentation keys. Application Insights detects the underlying relationship and allows you to easily diagnose the application component, dependency, or exception that caused a transaction slowdown or failure. (https://docs.microsoft.com/en-us/azure/azure-monitor/app/transaction-diagnostics[Link])
+** Cross-component transaction diagnostics => The unified diagnostics experience automatically correlates server-side telemetry from across all your Application Insights monitored components into a single view. It doesn't matter if you have multiple resources with separate instrumentation keys. Application Insights detects the underlying relationship and allows you to easily diagnose the application component, dependency, or exception that caused a transaction slowdown or failure https://docs.microsoft.com/en-us/azure/azure-monitor/app/transaction-diagnostics[as described here].
 ** Snapshot Debugger => collect a snapshot of a live application in case of an exception, to analyze it at a later stage.
-** Correlation => Special fields are provided to convey global identifiers appearing in every request (https://docs.microsoft.com/en-us/azure/azure-monitor/app/correlation[Link])
+** Correlation => Special fields are provided to convey global identifiers appearing in every request https://docs.microsoft.com/en-us/azure/azure-monitor/app/correlation[as described here].
 
 Azure Monitor has also extensive integration features. This includes:
 
 * Integrating telemetry from other Azure services (e.g. Azure Security Center also forwards to Azure Monitor)
 * Integrating external data sources (e.g. Blobs by using Kusto external operator)
 * Integrating third party tools such as Prometheus for Azure Kuberenetes
-* Exposing telemtry as data sources for external third party (e.g. Log Analytics Workspaces for Grafana) (https://docs.microsoft.com/en-us/azure/azure-monitor/partners[Link])
+* Exposing telemtry as data sources for external third party (e.g. Log Analytics Workspaces for Grafana) https://docs.microsoft.com/en-us/azure/azure-monitor/partners[as described here]
 --
 
 The following picture summarizes potential Azure services/ features that might be potentially relevant: 
@@ -96,7 +97,7 @@ Two main decision must be made: (1) storage of telemetry and (2) push versus pul
 
 The number of app insights/ log analytic workspaces needs to be determined per environment. Production should be kept separate already for compliance/ resilience reasons. Dev/ test environments are rather a question mark. Subsuming dev/ test environments into a single monitoring plane is benefecial for the monitoring consumer, since he then has to check only a single place. That also means you need an additional mechanism inferring the environment for later drill down or root cause analysis. Additional custom attributes are recommended if possible. Separate App Insights/ Log Analytic instances per environment require another one for a consolidated dev/ test view.
 
-Microsoft recommends a single app insights resource in the following cases (https://docs.microsoft.com/en-us/azure/azure-monitor/app/separate-resources[Link]):
+Microsoft recommends a single app insights resource in the following cases https://docs.microsoft.com/en-us/azure/azure-monitor/app/separate-resources[as described here]:
 
 ** For application components that are deployed together. Usually developed by a single team, managed by the same set of DevOps/ITOps users.
 ** If it makes sense to aggregate Key Performance Indicators (KPIs) such as response durations, failure rates in dashboard etc., across all of them by default (you can choose to segment by role name in the Metrics Explorer experience).
@@ -193,7 +194,7 @@ Telemetry can either be stored internally inside the monitoring plane or externa
 Telemetry can be *pulled* from the monitoring plane. This is limited to metrics but faster than pushing. *Pushing* can be necessary if the telemetry is not available in Azure monitor out of the box or pulling from the monitored resources is not possible. Pushing can be done as follows:
 
 * *Resource diagnostic*: Useful to push resource specific telemtry.
-* *Health diagnostic*: Resource Health tracks the health of your resources for specific known issues. With diagnostic settings configured on subscription level you can send that data to Log Analytics workspace. You will need to send the ResourceHealth/ Service Health categories (https://cloudadministrator.net/2021/01/13/tracking-issues-with-resource-health-and-log-analytics/[Health-Overall] https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema[Possible-Categories]).
+* *Health diagnostic*: Resource Health tracks the health of your resources for specific known issues. With diagnostic settings configured on subscription level you can send that data to Log Analytics workspace. You will need to send the ResourceHealth/ Service Health categories (https://cloudadministrator.net/2021/01/13/tracking-issues-with-resource-health-and-log-analytics/[Source Health-Overall] https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema[Source Possible-Categories]).
 --
 * *Analysis/ Diagnosis (Monitoring Plane)*
 +
@@ -222,10 +223,10 @@ Kusto queries across multiple application insights or log analytic workspaces ar
 
 Log Analytics comes with the following tools for *exploration and root cause analysis*:
 
-** *Table based access* allows you to define different permissions per log table. This is done using custom roles where you define the tables as part of the resource type as such (https://msandbu.org/deep-dive-azure-monitor-and-log-analytics/[Link]).
+** *Table based access* allows you to define different permissions per log table. This is done using custom roles where you define the tables as part of the resource type https://msandbu.org/deep-dive-azure-monitor-and-log-analytics/[as described here].
 ** *Additional management solutions*: They have to be installed per werkspace. An example is the ITSM Connector used to automatically create incidents or work items when Alerts are created within Log Analytics. Such as System Center Service Manager or Service Now.
-** *Log analytics agent managentment*: agent collects telemetry from Windows and Linux virtual machines in any cloud, on-premises machines, and those monitored by System Center Operations Manager and sends it collected data to your Log Analytics workspace in Azure Monitor. The Log Analytics agent also supports insights and other services in Azure Monitor such as VM insights, Azure Security Center, and Azure Automation (https://docs.microsoft.com/en-us/azure/azure-monitor/agents/log-analytics-agent[Link]).
-** *Service Map* automatically discovers application components on Windows and Linux systems and maps the communication between services. Service Map shows connections between servers, processes, inbound and outbound connection latency, and ports across any TCP-connected architecture, with no configuration required other than the installation of an agent (https://docs.microsoft.com/en-us/azure/azure-monitor/vm/service-map[Link]).
+** *Log analytics agent managentment*: agent collects telemetry from Windows and Linux virtual machines in any cloud, on-premises machines, and those monitored by System Center Operations Manager and sends it collected data to your Log Analytics workspace in Azure Monitor. The Log Analytics agent also supports insights and other services in Azure Monitor such as VM insights, Azure Security Center, and Azure Automation https://docs.microsoft.com/en-us/azure/azure-monitor/agents/log-analytics-agent[as described here].
+** *Service Map* automatically discovers application components on Windows and Linux systems and maps the communication between services. Service Map shows connections between servers, processes, inbound and outbound connection latency, and ports across any TCP-connected architecture, with no configuration required other than the installation of an agent https://docs.microsoft.com/en-us/azure/azure-monitor/vm/service-map[as described here].
 --
 * *Visualization/ Alerting (Monitoring Plane)*
 +
