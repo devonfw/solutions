@@ -73,4 +73,13 @@
     border-radius: .8rem;
     text-align: center;
   }
+  .search-bar #search-field-solutions{
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 6px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+    width: 165px;
+  }
 }
