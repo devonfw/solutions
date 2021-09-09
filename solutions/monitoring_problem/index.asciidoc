@@ -1,5 +1,4 @@
 //Category=Monitoring
-//Platform=Azure
 //Maturity level=Advanced
 
 :toc: macro
@@ -92,42 +91,4 @@ The following patterns are not dicussed here:
 
 * Provisioning of the monitoring plane and the monitored resourves
 
-The next chapter describes on platform level the monitoring support of various platforms along with concrete solutions for the outlined perspectives.  Monitoring services/ features for specific resources such as containers are out of scope. They are described together with the specific resource type.
-
-=== Azure as Platform
-
-This chapter lists major features/ concrete services for monitoring of the Azure platform. A detailed discussion of services is part of the solution design in the subsequent chapters. Major features per stage of the monitoring pipeline are as follows:
-
-* *Data Sources/ Instrumention*
-+
---
-Telemetry in Azure is split in logs and metrics. Logs contain non-structured text entries whereas metric is a value measured at a certain time. Dimensions are additional characterisitics of the measured metric.
-
-The major logs/ metrics are one of the following categories: (1) Activity logs, (2) resource logs (former diagnostic logs) and (3) Azure Active Directory (=AAD) related logs. Activity logs track actions on Azure Resource Manager level such as creation, update or deletion of Azure resources. Resource logs track operations within a resource such as reading secrets from a key vault after it has been created.
---
-* *Monitoring Plane*
-+
---
-The services used for processing depend on the perspective. A major stop for a unified end-to-end monitoring is Azure Monitor. It unifies the former separate services Application Insights and Log Analytics as features. Application Insights is focusing at application monitoring whereas Log Analytics started as part of the operation management suite targeting infrastructure monitoring. Both come with their own repository for storing the telemetry. In the future a Log Analytic Workspace will be the central place for collecting data from infrastructure and application perspective. 
-
-Telemetry can either be (1) forwarded *(=pushed)* to the monitoring plane or (2) *pulled* from the monitoring plane.
-*Pushing* can be necessary if the telemetry is not available in Azure monitor out of the box or pulling from the monitored resources is not possible. Monitored resources have to be instrumented to forward telemetry to the monitoring consumer for later processing within the monitoring plane. App insight requires linking via instruentation keys. Log Analytic workspaces require diagnostic settings. Possible targets are only log analytics workspace, event hub or azure blob storage. Telemetry that can be forwarded is predefined. Fine granular selection of metrics/ logs is not always possible.
-*Pulling* reads telemetry such as metrics directly from the monitored resource. Logs cannot be read directly and require pushing. Compared to pushing this method is also faster.
-
-Both features cover health and performance *perspectives*. Cost management is covered by Azure Cost Management. The major services for monitoring compliance are Azure Security Center and Azure Sentinel (Larger enterprise scope compared to Azure Security Center with SIEM and SOAR capabilities).
-
-Azure monitor provides various options for *visualizations* but also other services are possible. Dashboards like features provide a single pane of control across a number resources. Kusto is the major language for analyzing logs and metrics e.g. as part of the *root cause analysis*. Additional features of app insights/ log analytics complement the language.
-
-*Alert* thresholds can be dynamic and actions can be grouped in action groups for multiple reuse. Dynamic Thresholds continuously learns the data of the metric series and tries to model it using a set of algorithms and methods https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-dynamic-thresholds[as described here]. Alerts can be grouped dynamically to reduce noise and filtered/ scoped to reduce false alarms.
-
-Various options for *archiving* exist in Azure such as Logic Apps. A cheap archive is usually Azure blob storage. Policies can be used to automatically delete archived blobs. Removal of ingested telemetry is configurable by setting the retention period accordingly in Log Analytics/ App Insights.
---
-* *Improving Feedback Loop (Plane/ Resources)*
-+
---
-The platform allows to track track end-user behavior and engagement. Impact Analysis helps to prioritize which areas to focus on to improve the most important KPIs https://docs.microsoft.com/en-us/learn/modules/route-system-feedback/3-monitoring-status-dashboards[as described here]. Autoscaling is provided by Azure monitor and other Azure services directly.
---
-
-Azure monitor can *integrate* with and forward telemetry from various sources. Some services like Azure Security center forward telemtry to Azure monitor.
-IT service management tools such as ServiceNow or System Center Service Manager can integrate with Azure monitoring tools.
-Azure provides the standard *compliance mechanisms* also for monitoring which ensure authentication/ authorization (via Azure Active Directory), compliance for data at-rest and in-transit.
+For solutions with a certain technology see the specific guides on platform and concrete service level.
