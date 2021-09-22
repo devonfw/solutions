@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Solution Provisioning Azure Native
+== Provisioning Solution Azure Native
 === Overview
 
 The cloud native provisioning service in Azure is Azure DevOps formerly known as Team Foundation Server (TFS). Azure DevOps covers the full CI/ CD requiremenzs including project management. Due to its extensive extension features you can also replace features with other alternatives (see also under variations).
@@ -25,9 +25,13 @@ This service provides settings (key-value pairs) and feature toggles. Native int
 Azure Active Directory provides the service principal the pipelines run with.
 * Monitoring
 +
-Azure DevOps generates metrics to check the health pipelines and displays te state in the Azure DevOps portal. However no built-in forwarding to App Insights independent from the deployed application exists. Continous monitoring assumes Web Applications.
-Check out the pattern monitoring how monitoring for infrastructure/ application code can be achieved. 
-Essential is that a monitoring consumer gets a single control plane across multiple environments.
+--
+Azure DevOps generates metrics to check the health pipelines and displays te state in the Azure DevOps portal. However no built-in forwarding to App Insights independent from the deployed application exists. The following options are available:
+
+** Continous monitoring: Monitoring which assumes Web Applications.
+** Rest API to read service health information manually as explained https://docs.microsoft.com/en-us/rest/api/azure/devops/status/?view=azure-devops-rest-6.0[here]. Check out the pattern monitoring cloudnative how polling and forwarding to azure monitor can be achieved.
+** audit streaming is similar to diagnostic settings (In preview as of 21.09.2021). It allows to configure a constant forwarding of telemetry to selected targets as described https://docs.microsoft.com/en-us/azure/devops/organizations/audit/auditing-streaming?view=azure-devops[here].
+--
 * Structural elements to model environments
 
 The picture illustrates the setup with the major dependencies:
@@ -58,7 +62,8 @@ The service comes with hosted git repositories inside that service. You can also
 * Testing
 +
 --
-Azure DevOps supports the following testing by defining test suites with test cases (https://docs.microsoft.com/en-us/azure/devops/test/create-test-cases?view=azure-devops[Link]):
+Azure DevOps supports the following testing by https://docs.microsoft.com/en-us/azure/devops/test/create-test-cases?view=azure-devops[defining test suites with test cases]:
+
 
 * *Planned manual testing*. Manual testing by organizing tests into test plans and test suites by designated testers and test leads.
 * *User acceptance testing*. Testing carried out by designated user acceptance testers to verify the value delivered meets customer requirements, while reusing the test artifacts created by engineering teams.
@@ -69,7 +74,7 @@ Tests can also be integrated in pipelines. Pipelines support a wide range of fra
 --
 * Each organization contains one or more projects
 
-Your business structure should act as a guide for the number of organizations, projects, and teams that you create in Azure DevOps (https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Link]). Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
+Your business structure should act as a guide for the number of organizations, projects, and teams that you create in https://docs.microsoft.com/en-us/azure/devops/user-guide/plan-your-azure-devops-org-structure?bc=%2Fazure%2Fdevops%2Fget-started%2Fbreadcrumb%2Ftoc.json&toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops[Azure DevOps]. Each organization gets its own free tier of services (up to five users for each service type) as follows. You can use all the services, or choose just what you need to complement your existing workflows.
 
 * Azure Pipelines: One hosted job with 1,800 minutes per month for CI/CD and one self-hosted job
 * Azure Boards: Work item tracking and Kanban boards
@@ -77,7 +82,7 @@ Your business structure should act as a guide for the number of organizations, p
 * Azure Artifacts: Package management
 * Testing: Continuous test integration throughout the project life cycle
 
-Adding multiple projects makes sense in the following cases (https://docs.microsoft.com/en-us/azure/devops/organizations/projects/about-projects?view=azure-devops[Link]):
+Adding multiple projects makes sense in the following cases (see https://docs.microsoft.com/en-us/azure/devops/organizations/projects/about-projects?view=azure-devops[azure projects]):
 
 * To prohibit or manage access to the information contained within a project to select groups
 * To support custom work tracking processes for specific business units within your organization
@@ -85,7 +90,7 @@ Adding multiple projects makes sense in the following cases (https://docs.micros
 * To support testing customization activities or adding extensions before rolling out changes to the working project
 * To support an Open Source Software (OSS) project
 
-Adding teams instead of projects is recommended over projects for the following reasons (https://docs.microsoft.com/en-us/azure/devops/boards/plans/agile-culture?view=azure-devops[Link]):
+Adding teams instead of projects is recommended over projects due to https://docs.microsoft.com/en-us/azure/devops/boards/plans/agile-culture?view=azure-devops[agile culture]:
 
 * Visibility: It's much easier to view progress across all teams
 * Tracking and auditing: It's easier to link work items and other objects for tracking and auditing purposes
@@ -137,7 +142,7 @@ schedules:
     include:
     - 'refs/heads/master'
 ```
-Pull request (PR) triggers cause a pipeline to run whenever a pull request is opened with one of the specified target branches, or when changes are pushed to such a pull request. In Azure Repos Git, this functionality is implemented using branch policies. To enable pull request validation in Azure Git Repos, navigate to the branch policies for the desired branch, and configure the Build validation policy for that branch. For more information, see Configure branch policies. Draft pull requests do not trigger a pipeline even if you configure a branch policy. Building pull requests from Azure Repos forks is no different from building pull requests within the same repository or project. You can create forks only within the same organization that your project is part of. (https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/azure-repos-git?view=azure-devops&tabs=yaml#pr-triggers[Link])
+Pull request (PR) triggers cause a pipeline to run whenever a pull request is opened with one of the specified target branches, or when changes are pushed to such a pull request. In Azure Repos Git, this functionality is implemented using branch policies. To enable pull request validation in Azure Git Repos, navigate to the branch policies for the desired branch, and configure the Build validation policy for that branch. For more information, see Configure branch policies. Draft pull requests do not trigger a pipeline even if you configure a branch policy. Building pull requests from Azure Repos forks is no different from building pull requests within the same repository or project. You can create forks only within the same organization that your project is part of (see https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/azure-repos-git?view=azure-devops&tabs=yaml#pr-triggers[PR triggers]).
 To trigger a pipeline upon the completion of another pipeline, specify the triggering pipeline as a pipeline resource. The following example has two pipelines - app-ci (the pipeline defined by the YAML snippet), and security-lib-ci (the triggering pipeline referenced by the pipeline resource). We want the app-ci pipeline to run automatically every time a new version of security-lib-ci is built.
 ```YAML
 # this is being defined in app-ci pipeline
@@ -214,10 +219,10 @@ catch {
     return "Failed"
 }
 ```
-Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
+Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (scope is e.g. a single microservice and code includes the libraries needed).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault. 
 
-*Recreation of resources in short intervals* might cause pipelines to fail.Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
+*Recreation of resources in short intervals* might cause pipelines to fail. Even if resources are deleted they might still exist in the background (even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
 
 As part of the *configuration* Azure DevOps provides the possibility to provide various settings that are used for development such as enforcing pull requests instead of direct pushes to the repo.
 The major configuration mechanisms in YAML are variables, parameters and variable groups. Variable groups bundle multiple settings as key value pairs. Parameters are not possible in a variable section (Dynamic inclusion of variable groups is possible via file switching). If they are declared on top level they have to be passed when the pipeline is called programmatically or manually by the user.
@@ -388,7 +393,7 @@ The following features of Azure DevOps can be replaced with alternatives:
 The following alternatives on service level exist:
 
 * https://docs.microsoft.com/en-us/azure/lab-services/[Azure Lab Services] for Dev/ Test scenarios
-* Kubernetes
+* https://kubernetes.io[Kubernetes]
 ** Azure DevSpaces (Deprecated) in favor of “Bridge-to-kubernetes” for Dev/ Test scenarios
 ** Bridge-to-Kubernetes
 

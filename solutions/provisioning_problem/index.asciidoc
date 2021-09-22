@@ -10,12 +10,17 @@ toc::[]
 == Provisioning
 === Context & Problem
 
-This document describes patterns to automate the deployment of an application to a target environment. The major players in this documentation are (1) the process as a whole (aka provisioning), (2) automation code and (3) application/ infra code to be deployed.  
+This document describes patterns to automate the deployment of an application to a target environment. The major players in this documentation are (1) the process as a whole (aka provisioning), (2) automation code and (3) application/ infra code to be deployed. Additionally a third aspect is _cross functionalities_ (3) that affect the automation and the application/infra code such as compliance.  
 
 * *Automation code:*
 +
 --
-The automation code is about automating parts of deployment cycle. In an ideal world this covers the entire code development cycle from opening the first branch to the final deployment. Possible activities in this cycle are: (1) quality gates, (2) build and (3) deployment.
+The automation code is about automating parts of deployment cycle. In an ideal world this covers the entire code development cycle from opening the first branch to the final deployment. Possible activities in this cycle are:
+
+** quality gates
+** build
+** deployment
+
 *Quality gates* refer to testing or approval. Approval might include a manual approval to deploy to sensitive environments like production or enforcing a review before the commit through a pull request. Failing a quality gate should stop the workflow to proceed. Ideally they are maximizing application code coverage and kick in as early as possible.
 From a timeline perspective major events that are kicking off actions from the automation code are:
 
@@ -34,10 +39,10 @@ Pipelines are built in a modular way which also adds intermediate steps such as 
 Pipelines must ensure *traceability* of the performed actions across the entire chain including source code repo, the targeted environment or intermediate stores. This includes a versioning schema for built artefacts. Branches in source repos must be tagged to be able to reconstruct the code behind a versioned artefact.
 --
 
-* *Application code/ infra:*
+* *Application/ infra code:*
 +
 --
-The base for automation code activities is the code creating/ updating the infrastructure and the application on top. Focus in this documentation is the interaction between automation code and application/ infra code. This includes:
+The base for automation code activities is the code creating or updating the infrastructure and the application on top. Focus in this documentation is the interaction between automation code and application/ infra code. This includes:
 
 * Programming approach (Language or UI) for deploying infrastructure and application code
 * Interaction standard problems between automation code and application/ infra code
@@ -77,21 +82,21 @@ The following standard problems will be addressed in subsequent paragraphs:
 --
 Regarding pipelines the folloqing aspects will be detailed:
 
-* Modeling environments
-* Pipeline Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
-* Orchestration 
-* Traceability (Versioning, Tagging)
+** Modeling environments
+** Pipeline Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
+** Orchestration 
+** Traceability (Versioning, Tagging)
 --
 * Infra/ Application code (Programming approach,
 Interaction standard problems)
 * Provisioning 
 +
 --
-* Organizational Mapping
-* Integration
-* Code Repository (Automation/ Infra & App Code)
-* Configuration
-* Compliance
+** Organizational Mapping
+** Integration
+** Code Repository (Automation/ Infra & App Code)
+** Configuration
+** Compliance
 --
 
 For the following aspectcs check out the other defined patterns:

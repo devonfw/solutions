@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Solution Provisioning GitHub Actions
+== Provisioning Solution GitHub Actions
 === Overview
 
 GitHub was recently acquired by Microsoft. Microsoft announced that new features will be first incorporated into GitHub instead of Azure DevOps. This announcements shows the future strategic shift from Microsoft away from Azure DevOps to GitHub. The subset of features for implementing pipelines is called GitHub Actions. A pipeline is also called a workflow. So far GitHub Actions are limited to repositories within GitHub.
@@ -27,9 +27,7 @@ Changes at in the repo can be automatically pushed to an App Configuration insta
 Azure Active Directory provides the service principal the pipelines run with. The essential values are stored as GitHub secrets. From there you can use them as in your workflows as described https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure[here].
 * Monitoring
 +
-GitHub Actions generates metrics to check the health pipelines and displays te state in the Azure DevOps portal. GitHub Actions provides the Checks API to output statuses, results, and logs for a workflow which you can use for download as described https://stackoverflow.com/questions/64459114/downloading-github-actions-workflow-logs-using-github-api[here].However no built-in forwarding to App Insights independent from the deployed application exists. Continous monitoring assumes Web Applications.
-Check out the pattern monitoring how monitoring for infrastructure/ application code can be achieved. 
-Essential is that a monitoring consumer gets a single control plane across multiple environments.
+GitHub Actions generates metrics to check the health pipelines and displays te state in the Azure DevOps portal. GitHub Actions provides the Checks API to output statuses, results, and logs for a workflow which you can use for download as described https://stackoverflow.com/questions/64459114/downloading-github-actions-workflow-logs-using-github-api[here]. An azure service without much overhead would be Azure Automation which allows to store and run scripts for polling.
 * Structural elements to model environments
 
 The picture illustrates the setup with the major dependencies:
@@ -88,7 +86,7 @@ Implicit Chaining for *orchestration* is possible by using trigger condition. Ca
 
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault. 
 
-*Recreation of resources in short intervals* might cause pipelines to fail.Even if resources are deleted they might still exist in the background (Even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
+*Recreation of resources in short intervals* might cause pipelines to fail. Even if resources are deleted they might still exist in the background (even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
 
 As part of the *configuration* GitHub Actions provide the following configuration mechanisms:
 
