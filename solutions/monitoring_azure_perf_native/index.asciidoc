@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Solution Performance Monitoring Azure Native
+== Monitoring Solution Performance Azure Native
 === Application Monitoring
 ==== Overview
 
@@ -24,7 +24,7 @@ Telemetry can be *pulled* from the monitoring plane. This is limited to metrics 
 
 * *Diagnostic setting*
 * *App Insights Instrumentation/ Linking*: Linked App Insights must be specified for the monitored resource. Some Azure Services such as Azure App Service come with a built-in App Insight integration. However, other services only provide diagnostic settings instead such as API management.
-* *Manual forwarding*: E.g. by scheduled process using the APIs provided by Azure Monitor for App Insights and Log Analytics.
+* *Manual forwarding*: E.g. by scheduled process using the APIs provided by Azure Monitor for App Insights and Log Analytics. A lightweight Azure service for polling services to be monitored is Azure Automation. It allows to host and running scripts. 
 App Insights/ log analytics also provide APIs to manual forward data. However this APIs have some constraints:
 
 ** timestamp cannot be set freely (Both)

@@ -8,8 +8,11 @@ toc::[]
 :idseparator: -
 
 == Provisioning Platforms
+
 === Azure
+
 ==== Automation code
+
 ===== Modelling Environments
 
 Azure provides the following structural elements to model an environment:
@@ -24,7 +27,12 @@ An environment can be linked to another environment. Linking an environment to m
 
 The programming approach can be either UI driven or *programmatic*. Pipeline programming languages such as YAML structure the actions to be performed by the pipeline and provide basic mechansims such as downloading code from the repo, parameter handling, stating triggers and triggering other programming languages. These other languages are then used to setup infrastructure such as terraform or deploying application code.
 
-Azure allows to *trigger* pipelines upon (1) a push to repo, (2) a pull request to repo, (3) a schedule and (4) a pipeline completion (https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops[Link]).
+Azure allows to https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops[*trigger* pipelines] upon:
+
+* a push to repo
+* a pull request to repo
+* a schedule
+* a pipeline completion
 
 The platform allows to *pass parameters* by various mechanisms to pipelines(Explicit per user input, programmatically). Parameters can be passed by group identifier or explicitly as key value pairs. Complex structured objects as known from object programming languages are not directly possible (Require parsing of files with object structure). Parametrization might be constrained by the used service in certain areas.
 
@@ -55,20 +63,26 @@ In that case the complete workflow is not explicitly coded in a dedicated pipeli
 
 * Creating a dedicated orchestration pipeline
 +
-An additional pipeline triggers in this scenario other pipelines acting as building blocks. Pipelines can run separately (Just run the deployment) or as part of a bigger workflow (=create environment from scratch).
+An additional pipeline triggers in this scenario other pipelines acting as building blocks. Pipelines can run separately (just run the deployment) or as part of a bigger workflow (e.g. create environment from scratch).
 
-Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (Scope = e.g. a single microservice; Code = libraries needed).
+Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (scope is e.g. a single microservice and code includes the libraries neede).
 Orchestrated pipelines must pass data between them. The recommended method is to use key vault.
 
 *Recreation of resources in short intervals* can cause pipelines to fail since the previously deleted resource still exists in the background.(Even although soft delete is not applicable). Whether Azure really deleted everything depends on the service. For instance Azure API management seemed to be affected by that problem.
 
 ===== Traceability
 
-*Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as incrementing numbers (https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[Link]). Linking the code in the repo to a certain version depends on used repository. 
+*Traceability* requires an identifier for referencing artefacts. A standard schema is a semantic version. The platform only supports partial support for number generation such as https://ychetankumarsarma.medium.com/build-versioning-in-azure-devops-pipelines-94b5a79f80a0[incrementing numbers]. Linking the code in the repo to a certain version depends on used repository. 
 
 ==== Infrastructure/ Application code
 
-A *programming language* is either "declarative" or "imperative". Declarative programming languages state the target state and it is the job of the declarative programming language how to get there. The following rules are applied to achieve that: (1) Create a resource if not there, (2) update an existing resource if different properties, (3) delete resource if not there. Imperative programming languages state the how. The internal delta calculation needs to be explicitly programmed here. If possible declarative programming languages are recommended due to automatic delta calculation. Typical case is infrastructure.
+A *programming language* is either "declarative" or "imperative". Declarative programming languages state the target state and it is the job of the declarative programming language how to get there. The following rules are applied to achieve that:
+
+* create a resource if not there
+* update an existing resource if different properties
+* delete resource if not there
+
+Imperative programming languages state the how. The internal delta calculation needs to be explicitly programmed here. If possible declarative programming languages are recommended due to automatic delta calculation. Typical case is infrastructure.
 
 Typical declarative options are shown in detail in the table below. The overall recommendation is to go for terraform. Major reasons for downvoting Bicep/ ARM:
 
@@ -114,15 +128,15 @@ Configuration for provisioning is required in various areas:
 * *Repository:* E.g. relevant repos/ branching
 * *Pipelines:* Parameters pipelines run with such as the technical user name or settings required by the built/ deployed code.
 
-Concrete features used for the above three points depend on the used services. A general storage for sensitive data (Keys, secrets, certificates) in Azure is always Azure Key Vault.
+Concrete features used for the above three points depend on the used services. A general storage for sensitive data (keys, secrets, certificates) in Azure is always Azure Key Vault.
 
 ===== Compliance
 
-The standard concept for role-based access controls is called RBAC in Azure. It assigns principals (=humans or technical accounts) permissions for a certain resource. Regarding provisioning the following users are relevant:
+The standard concept for role-based access controls is called RBAC in Azure. It assigns principals (humans or technical accounts) permissions for a certain resource. Regarding provisioning the following users are relevant:
 
-* Technical user (=service principal) the pipelines are running with
+* Technical user (service principal) the pipelines are running with
 * Users for administrating the provisioning service
 
 Azure Active Directory is the central service in Azure that defines and controls all principals (human/ service) per tenant.
 
-Granularity of roles that can be granted depend on the service. The boundaries in which users exist/ permissions can be assigned is also service specific.
+Granularity of roles that can be granted depend on the service. The boundaries in which users exist or permissions can be assigned is also service specific.

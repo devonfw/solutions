@@ -7,8 +7,8 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Monitoring
-=== Azure as Platform
+== Monitoring Platforms
+=== Azure
 
 This chapter lists major features/ concrete services for monitoring of the Azure platform. This architecture pattern builds on the general problem description for monitoring. A detailed discussion of services is part of the solution design in the subsequent chapters. Major features per stage of the monitoring pipeline are as follows:
 
