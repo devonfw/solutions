@@ -28,7 +28,7 @@ Azure Active Directory provides the service principal the pipelines run with.
 --
 Azure DevOps generates metrics to check the health pipelines and displays te state in the Azure DevOps portal. However no built-in forwarding to App Insights independent from the deployed application exists. The following options are available:
 
-** Continous monitoring: Monitroing which assumes Web Applications.
+** Continous monitoring: Monitoring which assumes Web Applications.
 ** Rest API to read service health information manually as explained https://docs.microsoft.com/en-us/rest/api/azure/devops/status/?view=azure-devops-rest-6.0[here]. Check out the pattern monitoring cloudnative how polling and forwarding to azure monitor can be achieved.
 ** audit streaming is similar to diagnostic settings (In preview as of 21.09.2021). It allows to configure a constant forwarding of telemetry to selected targets as described https://docs.microsoft.com/en-us/azure/devops/organizations/audit/auditing-streaming?view=azure-devops[here].
 --
