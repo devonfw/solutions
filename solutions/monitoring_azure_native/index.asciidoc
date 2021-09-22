@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Monitoring Solution Performance Azure Native
+== Monitoring Solution Azure Native
 === Application Monitoring
 ==== Overview
 
