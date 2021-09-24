@@ -92,7 +92,7 @@ There are two approaches to using contracts for communications:
 - *Code first*: Code is written directly and documentation is generated from there.
 
 Which approach is better depends on your project setup.
-While code first often fells more lightweight and brings less over head, for more complex project setup the formality of the contract could be very beneficial.
+While code first often feels more lightweight and brings less over head, for a more complex project setup the formality of the contract could be very beneficial.
 
 Contracts can be used both for synchronous or asynchronous communications, for example https://www.openapis.org/[Open Api] has become the standard for REST contracts and https://www.asyncapi.com/[Async Api] is growing in adoption for the asynchronous needs.
 
