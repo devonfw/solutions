@@ -1,0 +1,130 @@
+//Category=Microservice Platforms, Kubernetes
+//Maturity level=Initial
+
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+== Microservice Platforms Introduction
+=== Context & Problem
+==== Overview
+
+Microservice orchestration is the automatic process of managing or scheduling the work of individual microservices of an application within a cluster. The platform provides an automated process of managing, scaling, and maintaining microservices of an application.
+The container orchestration platform Kubernetes is the current de facto standard (Docker swarm and others are nowadays neglectable compared to Kubernetes). Containers are units that packages up code and all its dependencies like libraries so that the application can be started quickly and runs reliably, regardless of the infrastructure.
+https://avinetworks.com/glossary/container-orchestration/[Container orchestration] tools automate the management of various tasks that software teams encounter in a container’s lifecycle, including the following: Container deployment, scaling, load balancing and traffic routing, network and container configuration, allocation of resources, gathering of insights, provisioning, scheduling, distribution of containers to physical hosts, service discovery, health monitoring, cluster management (Link).
+
+==== Introduction to Kubernetes
+
+To achieve the above goals a rough understanding of the Kubernetes structure is important.
+The control plane is responsible for managing your container workload. All action in Kubernetes goes through the api-server which receives and executes commands. The workload is defined by the target state you define in so called objects. A https://stackoverflow.com/questions/52309496/difference-between-kubernetes-objects-and-resources[Kubernetes object] is a "record of intent" - once you create the object, the Kubernetes system will constantly work to ensure that object exists. Those definitions can exist in manifest files, or be obtained from the api-server.
+
+Pods are the smallest, most basic deployable objects in Kubernetes. A Pod represents a single instance of a running process in your cluster. Pods contain one or more containers. When a Pod runs multiple containers, the containers are managed as a single entity and share the Pod's resources. However, to make life considerably easier, you don’t need to manage each Pod directly. Instead, you can use workload resources that manage a set of pods on your behalf such as a "deployment". These resources configure controllers that make sure the right number of the right kind of pod are running, to match the state you specified (See https://kubernetes.io/docs/concepts/workloads/[here] for concepts implementing workflows).
+
+Two major extensions can be distinguished. There is a certain overlap between both with both having a different focus. Service meshes focus at core container orchestration functionality. The other class are extensions that focus at supporting typical application patterns such as publish subscribe. Infrastructure from programming perspective falls into two categories:
+
+* Platform orchestration support: Provided by Kubernetes and service meshes
+* Application platform support: Provided by additional tools such as DAPR
+
+The picture below summarizes the major aspects:
+
+image::problem_context.png[alt=Container orchestration Problem Context,width=925, height=666]
+
+==== Standard Problems
+
+This chapter focus at problems that are unique due to the microservice focus. Links to documentation of microservice agnostic parts are given below. An example for a problem with microservice specifics and agnostic parts is provisioning. Creating the orchestration infrastructure is conceptually not different from other resources that are created with a pipeline. However, the additional container build step is specific to microservices based on a container orchestration platform.
+
+The following standard problems regarding the *orchestration platform* support will be addressed in subsequent paragraphs:
+
+* Deployment
++
+--
+On orchestration platform level special options exist how to create various environments. For general aspects of provisioning see the pattern "Provisioning".
+--
+* Scaling
++
+--
+Targets of scaling can be the underlying nodes (=VMs) of the orchestration cluster and the pods per node. Scaling can be manual by stating a target number of components or automatic e.g. depending on load.
+--
+* Load balancing/traffic routing
++
+--
+This is core strategy for maximizing availability and scalability, load balancing distributes network traffic among multiple backend services efficiently. A range of options for load balancing external traffic to pods exists in the Kubernetes context, each with its own benefits and tradeoffs. https://avinetworks.com/glossary/kubernetes-load-balancer/[Basic options are]:
+
+** Load Balancing with kube-proxy: Simple but not fair if clients send with different frequency
+** Kubernetes Endpoints API: Load balancer uses Kubernetes API to track availability of pods
+** Ingress Load Balancer: Most popular and allows for sophisticated load balancing rules
+
+The above list only shows the major hooks/ solutions that are available in Kubernetes. https://blog.envoyproxy.io/introduction-to-modern-network-load-balancing-and-proxying-a57f6ff80236[More variations] are possible if basic functions are taken into account:
+
+** Backend discovery
+** Health Checking
+** Distribution algorithm such as round robin
+** Protocol level e.g. OSI layer 7 or layer 4 only
+--
+* https://kubernetes.io/docs/concepts/cluster-administration/networking/[Networking]
++
+--
+Networking is a central part of Kubernetes, but it can be challenging to understand exactly how it is expected to work. There are 4 distinct networking problems to address:
+
+** Tightly coupled container-to-container communications: this is solved by ** Pods and localhost communications.
+** Pod-to-Pod communications: this is the primary focus of this document.
+** Pod-to-Service communications: this is covered by services.
+** External-to-Service communications: this is covered by services.
+
+Kubernetes uses the following model to organize networking. Every Pod gets its own IP address. This means you do not need to explicitly create links between Pods and you almost never need to deal with mapping container ports to host ports. Pods on a node can communicate with all pods on all nodes without NAT. Kubernetes IP addresses exist at the Pod scope - containers within a Pod share their network namespaces - including their IP address and MAC address. This means that containers within a Pod can all reach each other’s ports on localhost.
+--
+* Configuration
++
+--
+Configuration has various dimensions:
+
+** Sensitive versus non-sensitive information
+** Orchestration platform versus application settings
+** Automatic deployment of configuration settings versus manual
+--
+* Scheduling
++
+--
+In Kubernetes, scheduling refers to making sure that Pods are matched to Nodes so that the kubelet can run them. Preemption is the process of terminating Pods with lower Priority so that Pods with higher Priority can schedule on Nodes. https://kubernetes.io/docs/concepts/scheduling-eviction/[Eviction] is the process of terminating one or more Pods on Nodes.
+
+https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/[Factors] that need to be taken into account for scheduling decisions include individual and collective resource requirements, hardware / software / policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and so on.
+--
+* Service discovery
++
+--
+https://platform9.com/blog/kubernetes-service-discovery-principles-in-practice/[Service discovery] is the actual process of figuring out how to connect to a service (Link). The https://microservices.io/patterns/service-registry.html[approach] can be either (1) client or (2) server driven. 
+
+In case of *client-side discovery* the client is responsible for determining which service instance it should connect to. It does that by contacting a service registry component, which keeps records of all the running services and their endpoints. When a new service gets added or another one dies, the Service Registry is automatically updated. It is the client’s responsibility to load-balance and distribute its request load on the available services.
+
+In the *server-side discovery* a load-balancing layer exists in front of the service instances. The client connects to the well-defined URL of the load balancer and the latter determines which backend service it shall route the request too. Because a Pod can be moved or rescheduled to another Node, any internal IPs that this Pod is assigned can change over time. If we were to connect to this Pod to access our application, it would not work on the next re-deployment. To make a Pod reachable to external networks or clusters without relying on any internal IPs, we need another layer of abstraction. Services provide network connectivity to Pods that work uniformly across clusters.  Each service exposes an IP address, and may also expose a DNS endpoint — both of which will never change. Internal or external consumers that need to communicate with a set of pods will use the service’s IP address, or its more generally known DNS endpoint. In this way, the service acts as the glue for connecting pods with other pods. 
+--
+* Application services
++
+--
+Standard services on application level include:
+
+** Service-to-Service invocation
+** State management
+** *Publish & Subscribe*: This pattern allows microservices to communicate with each other using messages. The producer or publisher sends messages to a topic without knowledge of what application will receive them. This involves writing them to an input channel. Similarly, a consumer or subscriber subscribes to the topic and receive its messages without any knowledge of what service produced these messages. This involves receiving messages from an output channel. An intermediary message broker is responsible for copying each message from an input channel to an output channels for all subscribers interested in that message. This pattern is especially useful when you need to decouple microservices from one another.
+** *Resource & Binding Triggers:* Using bindings, you can trigger your app with events coming in from external systems, or interface with external systems.
+** Secrets
+--
+
+The following standard problems regarding the resources to be deployed will be addressed in subsequent paragraphs:
+
+* Deployment
++
+--
+Deploying containers comes with the following specifics: building of containers, storing them in a registry and proper configuration.
+--
+* Compliance
++
+--
+Compliance affects the building of containers and the running solutions such as restricting communication between containers.
+--
+* Monitoring
++
+--
+You can examine application performance in a Kubernetes cluster by examining the containers, pods, services, and the characteristics of the overall cluster. Kubernetes provides detailed information about an application’s resource usage at each of these levels. This information allows you to evaluate your application’s performance.
+--
