@@ -1,0 +1,77 @@
+//Category=Enduser Managment
+//Platform=Azure
+//Maturity level=Advanced
+
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+== Enduser management
+=== Context & Problem
+
+This document describes patterns to manage the endusers of applications including authentication and authorization. Applications are assumed to be web applications. From a data modeling perspective the major entities are the application and its endusers.
+
+Application scenarios can range from relatively simple (Just the users with a few additional data) to very complex:
+
+* *Simple:* User and an application with a few extra attributes.
+* *Middle:* Users with different scopes. Global users are independent from the app whereas app specific users are targeted to a certain application only (See https://stackoverflow.com/questions/46879039/azure-ad-b2c-for-supporting-multiple-apps[here] for details).
+* *Very complex*
++
+--
+Online marketing (also known as internet marketing or web marketing) includes all marketing activities that are carried out online to achieve marketing goals, from brand awareness to closing an online business. Factors that make it complex:
+
+** *State change:* Various events can trigger state changes in such a scenario. Targeting users with marketing content usually requires consent by the user. Expiry or explicit withdrawal must be reflected in those systems.
+** *Business partners* as endusers: Business partners have to go through a much more complicated process before being verified. This might also include backoffice activities that trigger further state changes. Leaving the business or closing of business triggers state changes in the associated users.
+** *Guest user:* To maximize online-business users should also allowed to do business although they may not yet fully registered in the system.
+** *API:* Systems should have a clear defined API to shield calling applications from implementation details and allowing changing of underlying platform. An API also simplifies versioning.
+** *Integration:* Certain aspects such as authentication might split across multiple systems. Systems have to communicate in such a scenario and might have to be able to receive signals to move forward in the processing flow.
+** *Data modeling:* Complex scenarios have a much more complex data model which might include arbitrary attributes and own custom entities.
+--
+
+Technically enduser management can be integrated into the application itself or factored out into a separate service. The pictures below indicate the basic options:
+
+1. *Inside Application:* In this model the persistence layer also hosts the additional enduser data. All required functionality such as authentication/ authorization is provided by the application.
+2. *Factored out (Same platform as app):* In that case the enduser management is factored out in a separate service within the same platform as the application.
+3. *Factored out (Different platform as app):* In that case the enduser management is factored out in a separate service using a platform, that differs from the application platform.
+4. *Hybrid:* Mixture of options 1 to 3.
+
+As shown enduser management can be split across systems. For the components used the standard considerations from the software lifecycle apply. This includes operational aspects such as monitoring and provisioning. Especially testing is challenging since the functionality requires user interaction which is not available in automated tests.
+
+The picture below shows a logical architecture of a complex scenario:
+
+image::enduser_mgmt.PNG[Enduser management,width=757px,height=360px]
+
+=== Standard Problems
+
+The following standard problems will be addressed in subsequent paragraphs. The problems result from all described application scenarios:
+
+* Entire process enduser management
++
+--
+The folowing challenges exist regarding the entire process:
+
+** *Implementation (Testing):* Testing is a challenge since the tested functionality requires user interaction.
+** *Implementation (Provisioning):* Automatic deployment pipelines should be preferred. The challenge might rise from the fact that the developers reside in a different organizational boundary than the endusers of the application.
+** *Operations (Monitoring):* The user interactions must be monitored end-to-end across enduser management and the pplication. This might be challenging if enduser management is factored out in a separate service.
+--
+* Application
++
+--
+The application must be able to access enduser information regarding authentication/ authorization.
+The application must manage sign in, out and up. Changes in the enduser management must be reflected by the application also if the user has not initiated a certain action. 
+--
+* Enduser managment
++
+--
+A service must able to handle the following challenges:
+
+** *API:* A clear definition of the interfaces would preferable. This also allows to address versioning and abstraction of the underlying enduser management implementation.
+** *Flows:* Flows refer to a sequence of actions mainly related to authorization and authentication. The flows are highly asyncronous due to  possible blocking enduser interaction. E.g. if the user has to confirm his identity with an EMail verification link.
+** *External:* Bidrectional communication is required if functionality is split across systems. E.g. if the backoffice approval is factored out in a different systems that requires adjusting the state of the enduser. 
+** *Custom logic:* It must be possible to incorporate custom logic e.g. to get additional data such as loyalty id.
+** *Data store:* Endusers state must be persisted along with all asscociated information.
+** *Scheduling:* Consent by the enduser might be limited to a certain expiry date. Expiry usually requires state changes of the enduser in the enduser management service. 
+** *On behalf of:* Especially if business partners as endusers are involved it is common that others do things on behalf of others. E.g. if the owner (=enduser) of a business partner organization invites employees.
+** *Access Reviews:* Endusers you have been granted access might not be there anymore. E.g. because they have left their home organization. In that case system support is helpful that allows to determine which users are still active.
+--
