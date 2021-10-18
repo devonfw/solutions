@@ -129,6 +129,7 @@ When you need a container platform with orchestration support due to a higher nu
 The solution is to deploy the containerized application to an Azure Kubernetes Service. Focus of that chapter are designing, building, monitoring and deploying containerized applications. Recommendations for a concrete setup are given in the next chapter.
 
 The services that (can) complement Kubernetes:
+
 * Designing
 +
 --
@@ -201,7 +202,7 @@ Tools like Prometheus-Grafana are popular as they make the management of metrics
 
 By https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-prometheus-integration[integrating with Azure Monitor], a Prometheus server is not required. You just need to expose the Prometheus metrics endpoint through your exporters or pods (application), and the containerized agent for Container insights can scrape the metrics for you.
 
-image::problem_context.png[alt=Monitoring Container Insights,width=1706, height=632]
+image::mon_cnt_insights.png[alt=Monitoring Container Insights,width=1706, height=632]
 --
 
 ==== Variations
