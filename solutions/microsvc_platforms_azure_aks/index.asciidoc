@@ -187,6 +187,7 @@ Azure provisioning services provide ways to trigger with native kubernetes means
 The most complex deployment scenario is a rolling update with breaking database changes. In that case pre and post Kubernetes deployment steps are required to https://stackoverflow.com/questions/48877182/kubernetes-rolling-deployments-and-database-migrations/48880687[handle the breaking database changes]. Such an update requires targeting specific components e.g. with a certain version. Labels are key/value pairs that are attached to objects, such as pods. They help in filtering out specific objects. Using a Selector, the client/user can identify a set of objects. Annotations are used to attach arbitrary non-identifying metadata to objects.
 
 The basic idea is to break down the breaking database change into multiple non-breaking steps. The https://stackoverflow.com/questions/48877182/kubernetes-rolling-deployments-and-database-migrations/48880687[steps below] refer to a renaming of a column:
+
 1. Add a db migration that inserts the new column
 2. Change the app so that all writes go to the old and new column
 3. Run a task that copies all values from the old to the new column
