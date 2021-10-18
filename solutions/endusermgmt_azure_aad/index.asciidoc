@@ -63,7 +63,7 @@ Azure User features can be combined with various other Azure services/ AAD featu
 
 The picture below summarizes the points:
 
-image::enduser_mgmt_app_aad.PNG[Enduser management with AAD,width=757px,height=360px]
+image::enduser_mgmt_app_aad.png[Enduser management with AAD,width=757px,height=360px]
 
 ==== Detailed AAD User Management Features
 
