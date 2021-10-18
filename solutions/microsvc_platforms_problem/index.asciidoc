@@ -110,17 +110,27 @@ Standard services on application level include:
 ** Secrets
 --
 
-The following standard problems regarding the resources to be deployed will be addressed in subsequent paragraphs:
+The following standard problems regarding *the applications to be deployed* will be addressed in subsequent paragraphs:
 
-* Deployment
+* Designing
 +
 --
-Deploying containers comes with the following specifics: building of containers, storing them in a registry and proper configuration.
+Mutiple options exist how many containers an application consists of. In the simplest case persistence is achieved by persistent volumes but also hosting entire databases on Kubernetes is possible. 
+--
+* Provisioning
++
+--
+Container images need to be built, stored in a registry and deployed. Additional challenges during built are for instance triggering dependent images if a base image is affected or enforcing quality gates such as security scans as part of the build pipelines. Deployments might even go beyond Kubernetes if you have for instance a rolling update with database changes.
 --
 * Compliance
 +
 --
-Compliance affects the building of containers and the running solutions such as restricting communication between containers.
+Compliance affects the building of containers and the running application such as restricting communication between containers.
+--
+* Configuration
++
+--
+Containers need to be configured. An additional challenge might therefore to inject environment specific values.
 --
 * Monitoring
 +
