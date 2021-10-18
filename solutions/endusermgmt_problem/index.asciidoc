@@ -40,7 +40,7 @@ As shown enduser management can be split across systems. For the components used
 
 The picture below shows a logical architecture of a complex scenario:
 
-image::enduser_mgmt.PNG[Enduser management,width=757px,height=360px]
+image::enduser_mgmt.png[Enduser management,width=757px,height=360px]
 
 === Standard Problems
 
