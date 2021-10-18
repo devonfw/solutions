@@ -90,18 +90,6 @@ The following additional extra tools can be used in conjunction with Kubernetes:
 DAPR is a distributed framework that provides application services to applications such as publish subscribe as described here.
 Open Service Mesh (OSM) add-on for Azure Kubernetes Service (AKS) is now available in public preview as of 10.09.2021. OSM implements Service Mesh Interface to provide the most common service mesh features as described here.
 --
-* Deployment
-+
---
-Instead of having to write separate YAML files for each application manually, you can simply create a Helm chart and let Helm deploy the application to the cluster for you. Helm charts contain templates for various Kubernetes resources that combine to form an application. A Helm chart can be customized when deploying it on different Kubernetes clusters. Helm charts can be created in such a way that environment or deployment-specific configurations can be extracted out to a separate file so that these values can be specified when the Helm chart is deployed. For example, you need not have separate charts for deploying an application in development, staging, and production environments.
---
-* Compliance
-+
---
-For security reasons and improvement of Helm charts, it is useful to make use of at least one Helm linting tool to ensure your deployments are valid and versioned correctly.
-
-Why choosing Polaris as Linting Tool: For helm chart linting, there are several tools like Polaris, kube-score or config-lint available. With Polaris, checks and rules are already given by default, whereby other tools need a lot of custom rules configuration and are therefore more complex to setup. Polaris runs a variety of checks to ensure that Kubernetes pods and controllers are configured using best practices, helping to avoid problems in the future. Polaris can be either installed inside a cluster or as a command-line tool to analyze Kubernetes manifests statically.
---
 * Configuration
 +
 --
@@ -245,18 +233,7 @@ Why choosing Polaris as Linting Tool: For helm chart linting, there are several 
 * Configuration
 +
 --
-Tools for accessing sensitive information:
-
-** *FlexDriver:* Meet rigorous compliance requirements with secrets centrally stored outside of clusters. Access application-specific keys, secrets, and certificates natively within Kubernetes from Azure Key Vault. Mount Azure Key Vault stores via flexvolume driver https://github.com/Azure/kubernetes-keyvault-flexvol
-
-** *Azure Key Vault to Kubernetes (akv2k8s):* Used for our applications, to make Azure Key Vault secrets, certificates and keys available to use in a secure way. The goals of Azure Key Vault to Kubernetes are to avoid a direct program dependency for getting secrets, secure and low risk to transfer Azure Key Vault secrets and transparently inject secrets into applications. Per default secrets, configurations and certificates can be easily read and accessed by users in Kubernetes and access to them can only be restricted by setting access rights. This will be avoided and is a huge benefit of using akv2k8s with a simple setup of Azure Key Vault and the option to set more detailed restrictions and configurations.
-
-** https://github.com/Azure/secrets-store-csi-driver-provider-azure/[secrets-store-csi-driver] better rated than (akv2k8s). If you want to get from multiple keyvaults secrets using multiple identities you had to have multiple instances of akv2k8s running. And secret store csi driver is more mature in general.
-
-Tools for synchronizing configuration:
-
-** ArgoCD: Continuous Delivery for Kubernetes: ArgoCD is a leader developed by Intuit and synchronizes changes in the code of applications, photos and cluster definitions, so the Git - repository, to the cluster. The solution is open source software, kept relatively simple and is one of the most important and oldest tools on the market.
-** Flux: Integration of Flux CD into the workflow: Flux basically does the same job as ArgoCD, i.e. synchronizes the repository and cluster in the course of continuous delivery. Flux is also open source and kept simple - the special thing: It comes from the GitOps inventor Weaveworks.
+See under infrastructure.
 --
 
 === When to use
