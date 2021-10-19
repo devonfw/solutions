@@ -245,4 +245,4 @@ See under infrastructure.
 
 === When to use
 
-When you want to deploy containerized applications to a platform with orchestration in Azure.
+When you want to deploy containerized applications to Azure Kubernetes Service.
