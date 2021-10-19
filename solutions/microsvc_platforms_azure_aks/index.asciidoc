@@ -109,7 +109,7 @@ Tools for synchronizing configuration:
 
 === When to use
 
-When you need a container platform with orchestration support due to a higher number of microservices in Azure.
+When you need a container platform with orchestration support due to a higher number of microservices in Azure. Additional built in functionality that comes with Azure Red Hat OpenShift is not required or does not fit into your requirements (e.g. because you want to use a different tooling or need more flexibility.)
 
 === Application
 ==== Overview
@@ -136,7 +136,7 @@ AKS can connect with databases via wrapper objects such as Services  or database
 --
 Configmaps are useful to store non-critical data in key-value pair format. They can also be used to inject env vars into pods. Secrets are useful to store sensitive data in key value pair format. They can also be used to inject env vars into pods. You can optionally specify how much of each resource a container needs. The most common resources to specify are CPU and memory (RAM).
 --
-* Security
+* Compliance
 +
 --
 A https://kubernetes.io/docs/tasks/configure-pod-container/security-context/[security context] defines privilege and access control settings for a pod. Examples are: 
