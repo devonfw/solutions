@@ -254,7 +254,7 @@ For the following features other tools can be used:
 
 Workflows/ Repos can be created by porting from Azure DevOps. Besides Azure DevOps pipelines and Azure DevOps Repos additional features/ settings exist, which need to be considered such as Azure DevOps artefacts. The picture below summarizes the starting point.
 
-image::mig_ado_scope.png[Migration Scope, width=1706, height=806]
+image::mig_ado_scope.png[Migration Scope, width=853, height=403]
 
 The migration approach detailed below tries to fulfill the following constraints:
 
@@ -263,11 +263,11 @@ The migration approach detailed below tries to fulfill the following constraints
 
 To account for an incremental approach the pipelines are migrated first and the repo including its settings afterwards. The new GitHub workflow is created on the Azure DevOps side and copied over to GitHub Actions for execution. This helps to minimize parallel infrastructure in GitHub until Azure DevOps repos are fully migrated. The  picture below illustrate the first stage (Placement of remote executioner is just one possible example):
 
-image::mig_ado_stage_mig_pl.png[Migration Stage "Migrate Pipelines", width=1728, height=684]
+image::mig_ado_stage_mig_pl.png[Migration Stage "Migrate Pipelines", width=864, height=342]
 
 In the second step the Azure DevOps Repo is moved to GitHub. All related settings are migrated. Not required components such as the remote executioner can be dropped. The  picture below illustrate the second stage:
 
-image::mig_ado_stage_mig_rep.png[Migration Stage "Migrate Repo", width=1671, height=679]
+image::mig_ado_stage_mig_rep.png[Migration Stage "Migrate Repo", width=835, height=340]
 
 The subsequent paragraphs detail the introduced two steps:
 
