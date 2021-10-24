@@ -267,7 +267,7 @@ image::mig_ado_stage_mig_pl.png[Migration Stage "Migrate Pipelines", width=864, 
 
 In the second step the Azure DevOps Repo is moved to GitHub. All related settings are migrated. Not required components such as the remote executioner can be dropped. The  picture below illustrate the second stage:
 
-image::mig_ado_stage_mig_rep.png[Migration Stage "Migrate Repo", width=835, height=340]
+image::mig_ado_stage_mig_repo.png[Migration Stage "Migrate Repo", width=835, height=340]
 
 The subsequent paragraphs detail the introduced two steps:
 
