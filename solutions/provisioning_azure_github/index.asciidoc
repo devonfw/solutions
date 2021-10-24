@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-image::ms_guild_logo.PNG[Migration Stage "Migrate Pipelines", width=116, height=53, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
+image::ms_guild_logo.png[Migration Stage "MS Guild Logo", width=116, height=53, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
 
 == Provisioning Solution GitHub Actions
 === Overview
