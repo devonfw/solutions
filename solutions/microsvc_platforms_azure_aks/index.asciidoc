@@ -45,6 +45,10 @@ Higher availability using redundancies across availability zones, protecting app
 For infrastructure monitoring see "Monitoring". For infrastructure monitoring specific pages in Azure Monitor exist which will be described here.
 --
 
+The picture below summarizes some of the services mentioned above:
+
+image::aks_overview.png[AKS Overview, width=794, height=568]
+
 ==== Detailed Native Setup
 
 AKS comes with the following additional features regarding the *orchestration platform*: 
