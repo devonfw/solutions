@@ -46,6 +46,6 @@ The Azure platform supports enduser management as follows:
 ** *Operations (Monitoring):* Azure provides Azure Monitor for monitoring the enduser management service from the application perspective. Monitoring the AAD service from infrastructure perspective is more difficult.
 --
 
-= Credits
+== Credits
 
 image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
