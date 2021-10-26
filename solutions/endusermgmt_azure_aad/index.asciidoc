@@ -101,7 +101,7 @@ The core service is Azure AD. A direct monitoring with Azure Services is hard si
 The Microsoft 365 Service Health Dashboard (SHD) doesn't send notifications about Azure AD service outages and only shows this information in a dashboard, which administrators have to pull up and analyze (link to https://www.manageengine.com/microsoft-365-management-reporting/azure-active-directory-monitoring-tool.html[Source]).
 --
 
-= Credits
+== Credits
 
 image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
 
