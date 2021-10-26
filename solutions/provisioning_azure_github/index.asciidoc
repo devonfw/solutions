@@ -291,6 +291,6 @@ Using GitHub makes sense in the following scenarios:
 * Your code repository is GitHub and absence of projects for project management is not a problem or can be replaced with something else such as Azure DevOps
 
 
-= Credits
+== Credits
 
 image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
