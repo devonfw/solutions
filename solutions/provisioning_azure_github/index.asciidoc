@@ -7,6 +7,8 @@ toc::[]
 :idprefix:
 :idseparator: -
 
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
+
 == Provisioning Solution GitHub Actions
 === Overview
 
@@ -32,7 +34,7 @@ GitHub Actions generates metrics to check the health pipelines and displays te s
 
 The picture illustrates the setup with the major dependencies:
 
-image::complementing_svcs_github.PNG[Complementing Services, width=594, height=335]
+image::complementing_svcs_github.png[Complementing Services, width=594, height=335]
 
 === Pattern Details
 ==== Geting Started
@@ -73,7 +75,28 @@ Github only allows a *programming approach* for pipelines. YAML organizes pipeli
 Artefacts can be passed between pipelines by uploading and downloading them from GitHub as shown https://github.com/actions/upload-artifact[here].
 * Variables
 +
-Variables can have different scopes. To pass variables between steps you two ways are possble (https://www.edwardthomson.com/blog/github_actions_15_sharing_data_between_steps.html[set-env], https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions[set as output]). Direct support for enum like variables do not yet exist or workarounds are needed as described https://github.community/t/can-action-inputs-be-arrays/16457[here].
+--
+Variables can have different scopes.  Two ways are possible to pass variables between steps (https://www.edwardthomson.com/blog/github_actions_15_sharing_data_between_steps.html[set-env], https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions[set as output]). Direct support for enum like variables do not yet exist or workarounds are needed as described https://github.community/t/can-action-inputs-be-arrays/16457[here].
+
+Variables can be simple key value pairs only. Values can be string and other basic types such as bool. Strings can contain structured json to accommodate more complex structures as shown below:
+```
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: set output
+      id: set
+      run: |
+         echo ::set-output name=json_var::'[{ "name": "test", "client_payload": "111" }, { "name": "test2", "client_payload": "222" }] '
+    - name: use output
+      run: |
+        echo $json_var | jq '.[].name'
+      env:
+        json_var: ${{ steps.set.outputs.json_var}}
+```
+--
 * Obtaining client secret
 +
 Scripting languages such as terraform might require the client secret for embedded scripting blocks. Due to the direct encoding as GitHub secrets this is not a problem.
@@ -93,25 +116,25 @@ As part of the *configuration* GitHub Actions provide the following configuratio
 * *Workflow* input parameters
 +
 --
-Parameters and variables can be simple key value pairs only. Values can be string and other basic types such as bool. Strings can contain structured json to more complex structures as shown below:
+When using the `workflow_call` keyword, you can optionally specify inputs that are passed to the called workflow from the caller workflow. Inputs for reusable workflows are specified with the same format as action inputs.
 ```
 on:
-  push:
+  workflow_call:
+    inputs:
+      username:
+        description: 'A username passed from the caller workflow'
+        default: 'john-doe'
+        required: false
+        type: string
+  
 jobs:
-  build:
+  print-username:
     runs-on: ubuntu-latest
+
     steps:
-    - name: set output
-      id: set
-      run: |
-         echo ::set-output name=json_var::'[{ "name": "test", "client_payload": "111" }, { "name": "test2", "client_payload": "222" }] '
-    - name: use output
-      run: |
-        echo $json_var | jq '.[].name'
-      env:
-        json_var: ${{ steps.set.outputs.json_var}}
+      - name: Print the input name to STDOUT
+        run: echo The username is ${{ inputs.username }}
 ```
-Input parameters refer to the input parameters of a workflow.
 --
 * *Action* can use variables as input. Outputs (=string) of a step/ job can be used in subsequent steps/ jobs.
 * *Environments*
@@ -169,7 +192,7 @@ GitHUb Actions *can integrate* with various external tools. Pipelines can be cal
 
 For *compliance* GitHub provides various settings as described https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions[here].
 Secrets can be configured at the organization, repository, or environment level, and allow you to store sensitive information in GitHub. They should not contain structured content like JSON since they are reacted to avoid display in logs.
-You can use the CODEOWNERS feature to control how changes are made to your workflow files. For example, if all your workflow files are stored in .github/workflows, you can add this directory to the code owners list, so that any proposed changes to these files will first require approval from a designated reviewer.
+You can use the CODEOWNERS feature to control how changes are made to your workflow files. For example, if all your workflow files are stored in `.github/workflows`, you can add this directory to the code owners list, so that any proposed changes to these files will first require approval from a designated reviewer.
 You should ensure that untrusted input does not flow directly into workflows, actions, API calls, or anywhere else where they could be interpreted as executable code. In addition, there are other less obvious sources of potentially untrusted input, such as branch names and email addresses, which can be quite flexible in terms of their permitted content. For example, `zzz";echo${IFS}"hello";#` would be a valid branch name. A pull request with title of a"; ls $GITHUB_WORKSPACE" would for instance list the directory if the workflow would be as follows:
 ```
  - name: Check PR title
@@ -183,8 +206,8 @@ You should ensure that untrusted input does not flow directly into workflows, ac
           exit 1
           fi
 ```
-To help you manage the risk of dangerous patterns as early as possible in the development lifecycle, the GitHub Security Lab has developed CodeQL queries that repository owners can integrate into their CI/CD pipelines.
-Actions can use the GITHUB_TOKEN by accessing it from the github.token context.  It's good security practice to set the default permission for the GITHUB_TOKEN to read access only for repository contents.
+To help you manage the risk of dangerous patterns as early as possible in the development lifecycle, the GitHub Security Lab has developed CodeQL queries that repository owners can integrate into their CI/CD pipelines. https://github.com/github/codeql-action[This action] runs GitHub's industry-leading semantic code analysis engine, CodeQL, against a repository's source code to find security vulnerabilities. It then automatically uploads the results to GitHub so they can be displayed in the repository's security tab.
+Actions can use the GITHUB_TOKEN by accessing it from the github.token context. It's good security practice to set the default permission for the GITHUB_TOKEN to read access only for repository contents.
 
 The following *repository* structure shows a conceptual breakdown that covers most aspects:
 
@@ -220,12 +243,46 @@ Pipelines for automating app code deployment.
 Captures shared aspects between infrastructure and application code such as publishing key vault secrets for a pipeline or triggering another pipeline.
 
 === Variations
+==== Possible Other Third Party 
 
 For the following features other tools can be used:
 
 * *Project management* support can be added by using other tools such as Azure DevOps.
 * *Artefacts* can be stored also in other systems
 
+==== Migrate from Azure DevOps
+
+Workflows/ Repos can be created by porting from Azure DevOps. Besides Azure DevOps pipelines and Azure DevOps Repos additional features/ settings exist, which need to be considered such as Azure DevOps artefacts. The picture below summarizes the starting point.
+
+image::mig_ado_scope.png[Migration Scope, width=853, height=403]
+
+The migration approach detailed below tries to fulfill the following constraints:
+
+* No big bang introduction of GitHub Actions but incremental approach
+* Minimizing parallel infrastructure in GitHub until migration is fully finished
+
+To account for an incremental approach the pipelines are migrated first and the repo including its settings afterwards. The new GitHub workflow is created on the Azure DevOps side and copied over to GitHub Actions for execution. This helps to minimize parallel infrastructure in GitHub until Azure DevOps repos are fully migrated. The  picture below illustrate the first stage (Placement of remote executioner is just one possible example):
+
+image::mig_ado_stage_mig_pl.png[Migration Stage "Migrate Pipelines", width=864, height=342]
+
+In the second step the Azure DevOps Repo is moved to GitHub. All related settings are migrated. Not required components such as the remote executioner can be dropped. The  picture below illustrate the second stage:
+
+image::mig_ado_stage_mig_repo.png[Migration Stage "Migrate Repo", width=835, height=340]
+
+The subsequent paragraphs detail the introduced two steps:
+
+1. Migrate Azure DevOps Pipelines to GitHub workflows
++
+--
+Azure DevOps Pipeline can call GitHub Workflows. This can be used to recreate GitHub Workflows without adjusting the interface of the Azure DevOps pipelines. https://github.com/samsmithnz/AzurePipelinesToGitHubActionsConverter[Tools] exist that allow at least partially to automatically translate the yaml code.
+
+Azure DevOps Artefacts can be migrated to https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts[GitHub artefacts], that can be also uploaded and downloaded for reuse.
+--
+2. Migrate Azure DevOps Repos to GitHub
++
+--
+An Azure DevOps repo can be imported into GitHub as described https://docs.github.com/en/github/importing-your-projects-to-github/importing-source-code-to-github/importing-a-git-repository-using-the-command-line[here].
+--
 
 
 === When to use

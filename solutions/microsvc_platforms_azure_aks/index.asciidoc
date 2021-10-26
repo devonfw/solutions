@@ -1,6 +1,13 @@
 //Platform=Azure
 //Maturity level=Initial
 
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
+
 == Azure Microservice Platforms Solution AKS
 === Infrastructure
 ==== Overview
@@ -37,6 +44,10 @@ Higher availability using redundancies across availability zones, protecting app
 --
 For infrastructure monitoring see "Monitoring". For infrastructure monitoring specific pages in Azure Monitor exist which will be described here.
 --
+
+The picture below summarizes some of the services mentioned above:
+
+image::aks_overview.png[AKS Overview, width=794, height=568]
 
 ==== Detailed Native Setup
 
@@ -107,7 +118,7 @@ Tools for synchronizing configuration:
 ** *Flux:* Flux basically does the same job as ArgoCD, i.e. synchronizes the repository and cluster in the course of continuous delivery. Flux is also open source and kept simple - the special thing: It comes from the GitOps inventor Weaveworks.
 --
 
-=== When to use
+==== When to use
 
 When you need a container platform with orchestration support due to a higher number of microservices in Azure. Additional built in functionality that comes with Azure Red Hat OpenShift is not required or does not fit into your requirements (e.g. because you want to use a different tooling or need more flexibility.)
 
@@ -243,6 +254,6 @@ Why choosing Polaris as Linting Tool: For helm chart linting, there are several 
 See under infrastructure.
 --
 
-=== When to use
+==== When to use
 
 When you want to deploy containerized applications to Azure Kubernetes Service.
