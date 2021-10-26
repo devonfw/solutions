@@ -1,5 +1,5 @@
 //Category=Storage
-//Products=types of Cloud Storage
+//Product=Storage
 //Maturity level=Initial
 
 = Cloud Storage
