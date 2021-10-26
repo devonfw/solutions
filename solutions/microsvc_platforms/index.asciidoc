@@ -10,8 +10,6 @@ toc::[]
 == Microservice Platforms
 === Azure
 
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
-
 This chapter lists major features/ concrete services for microservices platforms within Azure. A detailed discussion of services is part of the solution design based on a certain service.
 
 Azure provides the following container platforms:
@@ -33,3 +31,7 @@ It provides highly available, fully managed OpenShift clusters as *orchestration
 --
 
 Regarding *the applications to be deployed* Azure comes also with its own Azure container reistry (ACR).
+
+= Credits
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
