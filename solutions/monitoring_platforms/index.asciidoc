@@ -10,8 +10,6 @@ toc::[]
 == Monitoring Platforms
 === Azure
 
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
-
 This chapter lists major features/ concrete services for monitoring of the Azure platform. This architecture pattern builds on the general problem description for monitoring. A detailed discussion of services is part of the solution design in the subsequent chapters. Major features per stage of the monitoring pipeline are as follows:
 
 * *Data Sources/ Instrumention*
@@ -47,3 +45,7 @@ The platform allows to track track end-user behavior and engagement. Impact Anal
 Azure monitor can *integrate* with and forward telemetry from various sources. Some services like Azure Security center forward telemtry to Azure monitor.
 IT service management tools such as ServiceNow or System Center Service Manager can integrate with Azure monitoring tools.
 Azure provides the standard *compliance mechanisms* also for monitoring which ensure authentication/ authorization (via Azure Active Directory), compliance for data at-rest and in-transit.
+
+= Credits
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
