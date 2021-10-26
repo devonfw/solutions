@@ -1,4 +1,4 @@
-//Category=Microservice Platforms, Kubernetes
+//Category=Microservice Platforms; Kubernetes
 //Maturity level=Initial
 
 :toc: macro
