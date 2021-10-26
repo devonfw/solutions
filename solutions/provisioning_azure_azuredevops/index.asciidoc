@@ -406,6 +406,6 @@ Azure DevOps makes sense if you want to provision to Azure due to its tight inte
 * Your code repository is not GitHub and Azure DevOps provides integrations for it (GitHub Actions are a better alternative if your code repos are already on GitHub.)
 * You need a full blown provisioning service and plan to use the integrated repos that come with Azure DevOps
 
-= Credits
+== Credits
 
 image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
