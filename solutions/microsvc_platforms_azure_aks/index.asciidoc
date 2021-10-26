@@ -6,8 +6,6 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
-
 == Azure Microservice Platforms Solution AKS
 === Infrastructure
 ==== Overview
@@ -257,3 +255,7 @@ See under infrastructure.
 ==== When to use
 
 When you want to deploy containerized applications to Azure Kubernetes Service.
+
+= Credits
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
