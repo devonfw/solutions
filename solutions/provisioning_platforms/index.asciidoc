@@ -11,8 +11,6 @@ toc::[]
 
 === Azure
 
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
-
 ==== Automation code
 
 ===== Modelling Environments
@@ -142,3 +140,8 @@ The standard concept for role-based access controls is called RBAC in Azure. It 
 Azure Active Directory is the central service in Azure that defines and controls all principals (human/ service) per tenant.
 
 Granularity of roles that can be granted depend on the service. The boundaries in which users exist or permissions can be assigned is also service specific.
+
+
+= Credits
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
