@@ -7,8 +7,6 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
-
 == Monitoring Solution Azure Native
 === Application Monitoring
 ==== Overview
@@ -247,3 +245,7 @@ See application monitoring.
 ==== When to use
 
 This solution assumes that your infrastructure monitoring plane is in Azure and that your monitored resources are located in Azure.
+
+= Credits
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
