@@ -246,6 +246,6 @@ See application monitoring.
 
 This solution assumes that your infrastructure monitoring plane is in Azure and that your monitored resources are located in Azure.
 
-= Credits
+== Credits
 
 image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
