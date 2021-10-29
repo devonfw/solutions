@@ -115,6 +115,10 @@ function createBtns(totalPage, current) {
     }
 }
 
+window.onpopstate = (event) =>{
+    window.location.reload();
+}
+
 function clickBtn(current) {
     let parameters = getParameters();
     let pageArr = parameters.get('page');
