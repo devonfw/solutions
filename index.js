@@ -115,8 +115,8 @@ function createBtns(totalPage, current) {
     }
 }
 
-window.onpopstate = (event) =>{
-    window.location.reload();
+window.onpopstate = () =>{
+    search();          
 }
 
 function clickBtn(current) {
