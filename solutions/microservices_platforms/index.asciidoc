@@ -34,7 +34,7 @@ Regarding *the applications to be deployed* Azure comes also with its own Azure 
 
 The picture below summarizes major points:
 
-image::monitoring_azure.png[Microservice PLatforms Azure Overview, width=965, height=573]
+image::microservices_azure.png[Microservice Platforms Azure Overview, width=965, height=573]
 
 == Credits
 
