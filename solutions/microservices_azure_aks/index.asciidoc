@@ -6,7 +6,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Azure Microservice Platforms Solution AKS
+== Azure Microservice Platform Solution AKS
 === Infrastructure
 ==== Overview
 

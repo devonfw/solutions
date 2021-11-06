@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Provisioning Solution Azure Native
+== Azure Provisioning Solution Azure DevOps
 === Overview
 
 The cloud native provisioning service in Azure is Azure DevOps formerly known as Team Foundation Server (TFS). Azure DevOps covers the full CI/ CD requiremenzs including project management. Due to its extensive extension features you can also replace features with other alternatives (see also under variations).

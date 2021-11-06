@@ -6,7 +6,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Monitoring
+== Monitoring Introduction
 === Context & Problem
 ==== Terminology
 
@@ -38,7 +38,7 @@ Providing a control plane requires a monitoring pipeline that should be implemen
 
 The picture below summarizes the aspects:
 
-image::monitoring.png[Monitoring,width=757px,height=360px]
+image::monitoring.png[Monitoring,width=1018 px,height=569px]
 
 ==== Standard Problems
 

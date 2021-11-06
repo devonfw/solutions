@@ -41,10 +41,14 @@ Microsoft provides AAD libraries that wrap the required functionalities includin
 --
 The Azure platform supports enduser management as follows:
 
-** *Implementation (Testing):* No special support from Azure exists.
+** *Implementation (Testing):* User flows can be tested separatly without being incorporated into an application. No additional support beyond that feature exists.
 ** *Implementation (Provisioning):* Automatic deployment pipelines should be preferred. The challenge might rise from the fact that the developers reside in a different organizational boundary than the endusers of the application.
 ** *Operations (Monitoring):* Azure provides Azure Monitor for monitoring the enduser management service from the application perspective. Monitoring the AAD service from infrastructure perspective is more difficult.
 --
+
+The picture below summarizes major aspects mentioned before:
+
+image::endusermgmt_azure.png[Enduser management Azure summary,width=914px,height=560px]
 
 == Credits
 

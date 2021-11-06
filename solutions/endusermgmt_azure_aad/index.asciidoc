@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Enduser Management Solution Azure Active Directory
+== Azure Enduser Management Solution Azure Active Directory
 === Overview Azure Active Directory
 
 The central control instance for all users within Azure is Azure Active Directory (AAD). It comes with the following features/ services that can be sued for enduser management:
