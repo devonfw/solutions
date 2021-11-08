@@ -16,3 +16,5 @@ Please add the tag `Maturity level` and set it to one of the values `Initial`, `
 //Product=A cool product 2;Coolest product
 //Maturity level=Complete
 ```
+## Includes Folder
+The common solution snippets are placed in the `includes` folders. Each snippet has its own folder in the includes folder. The snippet folders should contain an asciidoc file and the files (e.g. images) used by this snippet.
