@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Enduser management
+== Enduser Management Introduction
 === Context & Problem
 
 This document describes patterns to manage the endusers of applications including authentication and authorization. Applications are assumed to be web applications. From a data modeling perspective the major entities are the application and its endusers.
@@ -40,7 +40,7 @@ As shown enduser management can be split across systems. For the components used
 
 The picture below shows a logical architecture of a complex scenario:
 
-image::enduser_mgmt.png[Enduser management,width=757px,height=360px]
+image::endusermgmt.png[Enduser management,width=757px,height=360px]
 
 === Standard Problems
 

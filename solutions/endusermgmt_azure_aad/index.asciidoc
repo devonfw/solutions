@@ -10,7 +10,7 @@ toc::[]
 == Enduser Management Solution Azure Active Directory
 === Overview Azure Active Directory
 
-The central control instance for all users within Azure is Azure Active Directory (AAD). It comes with the following features/ services that can be sued for enduser management:
+The central control instance for all users within Azure is Azure Active Directory (AAD). It comes with the following features/ services that can be used for enduser management:
 
 * AAD Business to Customer (B2C)
 +
@@ -63,7 +63,7 @@ Azure User features can be combined with various other Azure services/ AAD featu
 
 The picture below summarizes the points:
 
-image::enduser_mgmt_app_aad.png[Enduser management with AAD,width=757px,height=360px]
+image::endusermgmt_app_aad.png[Enduser management with AAD,width=757px,height=360px]
 
 ==== Detailed AAD User Management Features
 

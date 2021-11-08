@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Provisioning
+== Provisioning Introduction
 === Context & Problem
 
 This document describes patterns to automate the deployment of an application to a target environment. The major players in this documentation are (1) the process as a whole (aka provisioning), (2) automation code and (3) application/ infra code to be deployed. Additionally a third aspect is _cross functionalities_ (3) that affect the automation and the application/infra code such as compliance.  

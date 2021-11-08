@@ -10,7 +10,7 @@ toc::[]
 == Provisioning Solution GitHub Actions
 === Overview
 
-GitHub was recently acquired by Microsoft. Microsoft announced that new features will be first incorporated into GitHub instead of Azure DevOps. This announcements shows the future strategic shift from Microsoft away from Azure DevOps to GitHub. The subset of features for implementing pipelines is called GitHub Actions. A pipeline is also called a workflow. So far GitHub Actions are limited to repositories within GitHub.
+GitHub was recently acquired by Microsoft. Microsoft announced that new features will be first incorporated into GitHub instead of Azure DevOps. This announcements shows the future strategic shift from Microsoft away from Azure DevOps to GitHub. The subset of features for implementing pipelines is called GitHub Actions. A pipeline is also called a workflow. So far GitHub Actions are limited to repositories within GitHub ((Running GitHub Actions in Azure requires manual installation of the required software on an Azure VM).
 
 * Azure Key Vault for storing secrets/ exchange of settings
 +
