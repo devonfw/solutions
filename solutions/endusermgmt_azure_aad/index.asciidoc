@@ -36,7 +36,7 @@ The relevant AAD features are as follows:
 * AAD Application registration
 +
 --
-Applications need to be registered for usage within Azure B2C and B2B. App registration contain settings per Applications such as redirect URLs. See https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-spa[here] for an example of an SPA web application.
+Applications need to be registered for usage within Azure B2C and B2B. Registration is mandatory for Azure B2C. https://docs.microsoft.com/en-us/azure/active-directory-b2c/session-behavior?pivots=b2c-user-flow[B2B session settings] define whether a user has access to certain applications only or a wider scope such as single-sign-on for all app registrations in the B2C tenant. For B2B it is only mandatory if users are invited per application (https://docs.microsoft.com/en-us/azure/active-directory/external-identities/add-users-administrator[Scopes] user group and tenant don't require an app registration). App registration contain settings per Applications such as redirect URLs. See https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-spa[here] for an example of an SPA web application.
 --
 * AAD User Management feature
 +
