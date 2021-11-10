@@ -1,0 +1,60 @@
+//Category=Microservice Platforms, Kubernetes, AKS, ACI, ARO
+//Platform=Azure
+//Maturity level=Complete
+
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+== Microservice Platforms
+=== Azure
+
+This chapter lists major features/ concrete services for microservices platforms within Azure. A detailed discussion of services is part of the solution design based on a certain service.
+
+Azure provides the following container platforms:
+
+* Azure Kubernetes Service (AKS)
++
+--
+It represents a hosted Kubernetes service. Additional features on  *orchestration platform* include the integration with other Azure services such as Azure Active Directory concepts.
+--
+* Azure Container Instance (ACI)
++
+--
+This service is intended to run single containers without native orchestration support. However, it can be integrated into Kubernetes.
+--
+* Azure Red Hat OpenShift (ARO)
++
+--
+It provides highly available, fully managed OpenShift clusters as *orchestration platform* on demand, monitored and operated jointly by Microsoft and Red Hat. Kubernetes is at the core of Red Hat OpenShift. OpenShift brings added-value features to complement Kubernetes, making it a turnkey container platform as a service (PaaS) with a significantly improved developer and operator experience.
+--
+* Azure Container Apps (in preview as of 07.11.2021)
++
+--
+Azure Container Apps allows to build serverless microservices based on containers. https://docs.microsoft.com/en-us/azure/container-apps/compare-options[Distinctive features] of Container Apps include:
+
+** Optimized for running general purpose containers, especially for applications that span many microservices deployed in containers.
+** Powered by Kubernetes and open-source technologies like Dapr, KEDA, and envoy.
+** Supports Kubernetes-style apps and microservices with features like service discovery and traffic splitting.
+** Enables event-driven application architectures by supporting scale based on traffic and pulling from event sources like queues, including scale to zero.
+** Support of long running processes and can run background tasks.
+** All Container Apps are Kubernetes compatible.
+
+Azure Container Apps doesn't provide direct access to the underlying Kubernetes APIs. If you require access to the Kubernetes APIs and control plane, you should use Azure Kubernetes Service. However, if you would like to build Kubernetes-style applications and don't require direct access to all the native Kubernetes APIs and cluster management, Container Apps provides a fully managed experience based on best-practices.
+--
+* Azure Spring Cloud
++
+--
+https://docs.microsoft.com/en-us/azure/container-apps/compare-options[Azure Spring Cloud] makes it easy to deploy Spring Boot microservice applications to Azure without any code changes. The service manages the infrastructure of Spring Cloud applications so developers can focus on their code. Azure Spring Cloud provides lifecycle management using comprehensive monitoring and diagnostics, configuration management, service discovery, CI/CD integration, blue-green deployments, and more. If your team or organization is predominantly Spring, Azure Spring Cloud is an ideal option.
+--
+
+Regarding *the applications to be deployed* Azure comes also with its own Azure container reistry (ACR).
+
+The picture below summarizes major points:
+
+image::microservices_azure.png[Microservice Platforms Azure Overview, width=965, height=582]
+
+== Credits
+
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
