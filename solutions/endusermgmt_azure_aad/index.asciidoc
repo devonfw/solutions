@@ -1,13 +1,13 @@
 //Category=Enduser Management
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
 
-== Enduser Management Solution Azure Active Directory
+== Enduser Management Solutions - Azure Active Directory
 === Overview Azure Active Directory
 
 The central control instance for all users within Azure is Azure Active Directory (AAD). It comes with the following features/ services that can be used for enduser management:

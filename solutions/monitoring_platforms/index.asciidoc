@@ -1,6 +1,6 @@
 //Category=Monitoring
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]

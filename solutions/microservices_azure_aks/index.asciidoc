@@ -1,12 +1,12 @@
 //Platform=Azure
-//Maturity level=Initial
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
 
-== Microservice Platforms Solution Azure Kubernetes Service
+== Microservice Platforms Solutions - Azure Kubernetes Service
 === Infrastructure
 ==== Overview
 
@@ -86,7 +86,7 @@ The principle of least privilege should be applied to how traffic can flow betwe
 * Provisioning
 +
 --
-Environments can be created by logical isolation (namespaces) or phyiscal (multiple clusters). Logical is usually recommended for non dev/test whereas pysical for prod.
+Environments can be created by logical isolation (namespaces) or phyiscal (multiple clusters). Logical is usually recommended for dev/test whereas pysical for prod.
 --
 
 ==== Variations

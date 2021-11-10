@@ -1,6 +1,6 @@
 //Category=Microservice Platforms, Kubernetes, AKS, ACI, ARO
 //Platform=Azure
-//Maturity level=Initial
+//Maturity level=Complete
 
 :toc: macro
 toc::[]

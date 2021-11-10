@@ -1,13 +1,13 @@
 //Category=Monitoring
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
 
-== Monitoring Solution Azure Native
+== Monitoring Solutions - Azure Native
 === Application Monitoring
 ==== Overview
 

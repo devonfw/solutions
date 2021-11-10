@@ -1,13 +1,13 @@
 //Category=Provisioning
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
 
-== Provisioning Solution GitHub Actions
+== Provisioning Solutions - GitHub
 === Overview
 
 GitHub was recently acquired by Microsoft. Microsoft announced that new features will be first incorporated into GitHub instead of Azure DevOps. This announcements shows the future strategic shift from Microsoft away from Azure DevOps to GitHub. The subset of features for implementing pipelines is called GitHub Actions. A pipeline is also called a workflow. So far GitHub Actions are limited to repositories within GitHub ((Running GitHub Actions in Azure requires manual installation of the required software on an Azure VM).
