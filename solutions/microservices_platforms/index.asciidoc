@@ -1,4 +1,4 @@
-//Category=Microservice Platforms, Kubernetes, AKS, ACI, ARO
+//Category=Microservice Platforms;Kubernetes;AKS;ACI;ARO
 //Platform=Azure
 //Maturity level=Complete
 
