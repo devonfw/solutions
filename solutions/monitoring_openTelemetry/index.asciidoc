@@ -44,7 +44,7 @@ In addition, extensions (https://github.com/open-telemetry/opentelemetry-collect
 
 === Deployment
 
-You can find a template for an OpenTelemetry Kubernetes deployment in the link:https://github.com/devonfw/architectures/tree/master/solutions/monitoring_openTelemetry/helm[GitHub repository of this article] with deployment files for an OpenTelemetry agent and collector and for Jaeger, VictoriaMetrics, and Grafana.
+You can find a template for an OpenTelemetry Kubernetes deployment in the link:https://github.com/devonfw/architectures/tree/master/solutions/monitoring_openTelemetry/helm[GitHub repository of this article] with deployment files for an OpenTelemetry agent and collector as well as Jaeger, VictoriaMetrics, and Grafana.
 For an example of how to use these files, see the link:https://github.com/devonfw-sample/devon4quarkus-reference[devon4j Quarkus reference application].
 
 === Related documentations
