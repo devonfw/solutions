@@ -1,6 +1,6 @@
 //Category=Monitoring
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
@@ -9,8 +9,15 @@ toc::[]
 
 == Monitoring Platforms
 === Azure
+==== Overview
 
-This chapter lists major features/ concrete services for monitoring of the Azure platform. This architecture pattern builds on the general problem description for monitoring. A detailed discussion of services is part of the solution design in the subsequent chapters. Major features per stage of the monitoring pipeline are as follows:
+This chapter lists major features/ concrete services for monitoring of the Azure platform. This architecture pattern builds on the general problem description for monitoring. The picture below summarizes major services and concepts that are discussed in detail in the next chpater.
+
+image::monitoring_azure.png[Monitoring Azure Overview, width=1071, height=531]
+
+==== Monitoring Pipeline
+
+Major features per stage of the monitoring pipeline are as follows:
 
 * *Data Sources/ Instrumention*
 +

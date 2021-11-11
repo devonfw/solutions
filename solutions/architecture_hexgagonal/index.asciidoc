@@ -31,7 +31,7 @@ With appropriate architecture that is technology agnostic the customer should ex
 === The proposed solution is
 
 ==== addressing your business
-This solution is most valuable for medium- to high-complexity software systems.
+This solution is most valuable for medium-complexity to high-complexity software systems.
 Expected benefits are measured as further development and maintenance costs as presented on the following pseudo-graph by Martin Fowler (see bibliography for source).
 
 image::quality-fowler.png[Quality vs long term maintenance costs by M. Fowler]

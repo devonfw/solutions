@@ -1,6 +1,6 @@
 //Category=Provisioning
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
@@ -10,6 +10,12 @@ toc::[]
 == Provisioning Platforms
 
 === Azure
+
+==== Overview
+
+This chapter lists major features/ concrete services for provisioning of the Azure platform. This architecture pattern builds on the general problem description for monitoring. The picture below summarizes major services and concepts that are discussed in detail in the next chpater.
+
+image::provisioning_azure.png[Provisioning Azure Overview, width=966, height=526]
 
 ==== Automation code
 

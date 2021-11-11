@@ -1,16 +1,16 @@
 //Category=Enduser Management
 //Platform=Azure
-//Maturity level=Advanced
+//Maturity level=Complete
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
 
-== Enduser Management Solution Azure Active Directory
+== Enduser Management Solutions - Azure Active Directory
 === Overview Azure Active Directory
 
-The central control instance for all users within Azure is Azure Active Directory (AAD). It comes with the following features/ services that can be sued for enduser management:
+The central control instance for all users within Azure is Azure Active Directory (AAD). It comes with the following features/ services that can be used for enduser management:
 
 * AAD Business to Customer (B2C)
 +
@@ -26,7 +26,7 @@ This feature started with the idea to give external users access to Azure resour
 Currently there is a lot of movement in this area. Microsoft was already porting features from B2C to B2B. The new external identities marks the shift towards even more integration between the two. Currently it refers to two things: (1) the new umbrella term unifying the so far separate B2B/ B2C features and (2) additional features that were added to AAD B2B. According to https://www.microsoftpartnercommunity.com/atvwr79957/attachments/atvwr79957/UK_Area_db/387/2/External%20Identities.pdf[this source] this might mean a unified service offering that combines the B2B and B2C features.
 According to feedback from the microsoft product group it probably does not mean a a new separate service that unifies the existing B2B and B2C. The majority is voting for creatin an option within AAD B2B to group the users in a logical container within a tenant. The current hassle could be then avoided that comes with the different B2C one.
 
-=== Enduser Mgmt Application Level
+=== Enduser Management Application Level
 ==== Overview
 
 The solution is to use one of the introduced AAD features and the following platform features. The focus of this chapter is to introduce the relevant features. Recommendations for a concrete setup are given in the next chapter.
@@ -36,7 +36,7 @@ The relevant AAD features are as follows:
 * AAD Application registration
 +
 --
-Applications need to be registered for usage within Azure B2C and B2B. App registration contain settings per Applications such as redirect URLs. See https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-spa[here] for an example of an SPA web application.
+Applications need to be registered for usage within Azure B2C and B2B. Registration is mandatory for Azure B2C. https://docs.microsoft.com/en-us/azure/active-directory-b2c/session-behavior?pivots=b2c-user-flow[B2B session settings] define whether a user has access to certain applications only or a wider scope such as single-sign-on for all app registrations in the B2C tenant. For B2B it is only mandatory if users are invited per application (https://docs.microsoft.com/en-us/azure/active-directory/external-identities/add-users-administrator[Scopes] user group and tenant don't require an app registration). App registration contain settings per Applications such as redirect URLs. See https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-spa[here] for an example of an SPA web application.
 --
 * AAD User Management feature
 +
@@ -63,7 +63,7 @@ Azure User features can be combined with various other Azure services/ AAD featu
 
 The picture below summarizes the points:
 
-image::enduser_mgmt_app_aad.png[Enduser management with AAD,width=757px,height=360px]
+image::endusermgmt_app_aad.png[Enduser management with AAD,width=757px,height=360px]
 
 ==== Detailed AAD User Management Features
 
@@ -90,7 +90,7 @@ The AAD supports the following:
 
 Authentication can be done by an external identity provider.
 
-=== Enduser Mgmt Infrastructure Level
+=== Enduser Management Infrastructure Level
 
 The core service is Azure AD. A direct monitoring with Azure Services is hard since the infrastructure monitoring tools also require Azure AD authentication. Possible native tools are:
 
