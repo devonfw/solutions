@@ -32,7 +32,7 @@ GitHub Actions generates metrics to check the health pipelines and displays te s
 
 The picture illustrates the setup with the major dependencies:
 
-image::complementing_svcs_github.png[Complementing Services, width=594, height=335]
+image::complementing_svc_github.png[Complementing Services, width=594, height=335]
 
 === Pattern Details
 ==== Geting Started
