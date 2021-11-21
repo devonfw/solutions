@@ -25,7 +25,7 @@ The above example shows a reference architecture of multiple hosts (environments
 . Traces and logs are automatically collected at each JAX-RS service. Other additionally defined metrics, traces or logs are also collected.
 . These applications send data directly to a otel-agent configured to use fewer resources. An otel-agent is a collector instance running with the application or on the same host as the application.
 . The agent then forwards the data to a collector that receives data from multiple agents. Collectors on this layer typically are allowed to use more resources and queue more data.
-. The collector then sends the data to the appropriate backend, in the solution provided by Jaeger, Zipkin or VictoriaMetrics. The Victoria backend serves metrics while Jaeger and Zipkin are two alternatives for tracing._
+. The collector then sends the data to the appropriate backend, in the solution provided by Jaeger, Zipkin or VictoriaMetrics. The VictoriaMetrics backend serves metrics while Jaeger and Zipkin are two alternatives for tracing.
 . Additionally all the telemetry data can be visualized in a tool like Grafana.
 
 The OpenTelemetry collector is an instance that makes it possible to receive telemetry data, optionally transform it and send the data on. Receiving, transforming and sending data is done via pipelines. A pipeline consists of a set of receivers, a set of optional processors and a set of exporters.
@@ -44,7 +44,7 @@ In addition, extensions (https://github.com/open-telemetry/opentelemetry-collect
 
 === Deployment
 
-You can find a template for an OpenTelemetry Kubernetes deployment in the link:https://github.com/devonfw/architectures/tree/master/solutions/monitoring_openTelemetry/helm[GitHub repository of this article]. with deployment files for Jaeger, Zipkin, Prometheus, VictoriaMetrics, and Grafana.
+You can find a template for an OpenTelemetry Kubernetes deployment in the link:https://github.com/devonfw/architectures/tree/master/solutions/monitoring_openTelemetry/helm[GitHub repository of this article] with deployment files for an OpenTelemetry agent and collector as well as Jaeger, VictoriaMetrics, and Grafana.
 For an example of how to use these files, see the link:https://github.com/devonfw-sample/devon4quarkus-reference[devon4j Quarkus reference application].
 
 === Related documentations
