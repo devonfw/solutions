@@ -37,3 +37,4 @@ spec:
       targetPort: 3000
   selector:
     component: grafana
+ 

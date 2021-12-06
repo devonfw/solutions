@@ -2,18 +2,20 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  annotations:
+     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: {{ .Values.ingress.application.host }}
+  - host: {{ .Values.ingress.victoriametrics.host }}
     http:
       paths:
       - path: "/"
         pathType: Prefix
         backend:
             service:
-              name: {{ .Values.application.service.name }}
+              name: victoriametrics
               port:
-                number: {{ .Values.ingress.application.port }}
+                number: {{ .Values.ingress.victoriametrics.port }}
   - host: {{ .Values.ingress.jaeger.host }}
     http:
       paths:
