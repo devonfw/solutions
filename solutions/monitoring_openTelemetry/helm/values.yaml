@@ -11,6 +11,7 @@ application:
     port: "application-service-port"
 
 # Ingress configuration
+# adding azure HTTP Application Routing ZoneName in host
 ingress:
   application:
     host: "application.1399f2c255cf44ac8c5a.westeurope.aksapp.io"

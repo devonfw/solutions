@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  #adding azure addon annotation for http application routing 
   annotations:
      kubernetes.io/ingress.class: addon-http-application-routing
 spec:
