@@ -23,14 +23,14 @@ jobs:
         run: |
             cd scripts
             npm install
+            npm install @actions/core
+            npm install @actions/github
             cd ../
           
       - name: Select Changed Files
         id: changedfiles
         run: | 
             cd scripts
-            npm install @actions/core
-            npm install @actions/github
             node changedFilesArchitectures.js
             cd ../
         env:
@@ -40,6 +40,8 @@ jobs:
       - name: Setup matrix combinations
         id: setup-matrix-combinations
         run: |
+          echo
+        
           dirs=()
           for changed_file in ${{ steps.changedfiles.outputs.changedFiles }}; do
             dir="$(echo $changed_file | cut -d/ -f2)"
@@ -53,6 +55,14 @@ jobs:
           done
           echo ::set-output name=matrix-combinations::{\"include\":[$MATRIX_PARAMS_COMBINATIONS]}
           
+          if [ "$MATRIX_PARAMS_COMBINATIONS" == "" ]; then
+            echo leer
+            MATRIX_PARAMS_COMBINATIONS=$MATRIX_PARAMS_COMBINATIONS'{"solution": "'noChange'"}'
+            echo ::set-output name=matrix-combinations::{\"include\":[$MATRIX_PARAMS_COMBINATIONS]}
+          else
+            echo voll
+          fi
+
     outputs:
       matrix-combinations: ${{ steps.setup-matrix-combinations.outputs.matrix-combinations }}
       
@@ -72,6 +82,7 @@ jobs:
         with:
           repository: devonfw/devonfw.github.io
           ref: develop
+          submodules: true
           
       - name: Add new architectures
         uses: actions/checkout@v2
@@ -95,6 +106,11 @@ jobs:
           chmod +x architectures/scripts/copyPomFiles.sh
           architectures/scripts/copyPomFiles.sh
 
+      - name: Copy pom files for tutorials
+        run: |
+          chmod +x wiki-tutorials/scripts/copyPomFiles.sh
+          wiki-tutorials/scripts/copyPomFiles.sh
+
       - name: npm install for architectures
         run: |
           cd architectures/scripts
@@ -107,10 +123,18 @@ jobs:
           source: architectures/index.scss
           destination: architectures/index.css
           
+      - name: Compile sass for tutorials
+        uses: gha-utilities/sass-build@v0.4.2
+        with:
+          source: wiki-tutorials/index.scss
+          destination: wiki-tutorials/index.css
+          
       - name: Remove files that are breaking the build
         run: |
           rm architectures/README.md || true
           rm architectures/index.scss || true
+          rm wiki-tutorials/README.md || true
+          rm wiki-tutorials/index.scss || true
 
       - name: Build
         run: mvn -s ./.m2/unblock-rubygem-proxy-settings.xml clean package
@@ -124,18 +148,28 @@ jobs:
         run: cp -avr architectures/target/generated-docs/ target/generated-docs/website/pages/architectures/
           
       - name: Run image generate
-        run: |                           
-              mv target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}/index.html  target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}/${{ matrix.solution }}.html
-              cd target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}
-              
-              npm install --global pageres-cli
-              pageres ${{ matrix.solution }}.html 1280x800 --format=png --filename="${{ matrix.solution }}"
+        run: |
+        
+              if [ "${{ matrix.solution }}" == "noChange" ]; then
+                echo ${{ matrix.solution }}
+              else
+                if [[ -d "target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}" ]]; then
+                  mv target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}/index.html  target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}/${{ matrix.solution }}.html
+                  cd target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}
+
+                  npm install --global pageres-cli
+                  pageres ${{ matrix.solution }}.html 1280x800 --format=png --filename="${{ matrix.solution }}"
+                else
+                  echo No Directory
+                fi
+              fi
               
       - name: Artifact build upload
         uses: actions/upload-artifact@v2
         with: 
           name: my-artifact
           path: target/generated-docs/website/pages/architectures/solutions/${{ matrix.solution }}/${{ matrix.solution }}.png
+          if-no-files-found: ignore
           
           
           
@@ -144,29 +178,12 @@ jobs:
       needs: build
       runs-on: ubuntu-latest
       steps:
-      
-      
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: my-artifact
-          path: allArtifacts
-          
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{github.event.pull_request.head.repo.owner.login}}/${{github.event.pull_request.head.repo.name}}
-          event-type: my-event
-          client-payload: '{"prnumber": "${{ github.event.number }}", "checkrunid": "${{ github.run_id }}"}'
           
       - name: Upload Comment
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            The artifact is build and you can see it at: Actions - choose your workflow - below you can download your generated artifact
+            the artifact has been generated and you can find a preview of your change here: Actions - select your pull request workflow - scroll to the bottom, there you should be able to download the artifact (only works if something has been changed in solutions)
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
-      
-        
+          allow-repeats: true 
