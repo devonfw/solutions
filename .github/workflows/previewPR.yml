@@ -36,8 +36,10 @@ jobs:
         env:
           #PR_OWNER: ${{github.event.pull_request.head.repo.owner.login}}
           #PR_REPO: ${{github.event.pull_request.head.repo.name}}
-          PR_OWNER: devonfw
-          PR_REPO: solutions
+          #PR_OWNER: devonfw
+          #PR_REPO: solutions
+          PR_OWNER: ${{ github.repository_owner	}}
+          PR_REPO:  ${{ github.event.repository.name }}
         
       - name: Setup matrix combinations
         id: setup-matrix-combinations
