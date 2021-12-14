@@ -1,5 +1,4 @@
 #content {
-  display: flex;
   .filterspanel {
     padding-right: 5px;
     min-width: 180px;
@@ -32,14 +31,8 @@
     }
   }
   .resultspanel {
-    display: flex;
-    flex-flow: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    align-content: flex-start;
     margin-bottom: 80px;
     .solution {
-      flex-basis: 50%;
       padding: 10px;
       min-width: 200px;
       .solutionheadline {
@@ -59,9 +52,7 @@
     }   
   }
   #pagination {
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
+    text-align: center;
   }
   #pagination :hover{
     cursor: pointer;
@@ -75,9 +66,6 @@
   }
   .search-bar #search-field-solutions{
     content: " ";
-    position: absolute;
-    bottom: 100%;
-    left: 6px;
     border-style: solid;
     border-color: transparent transparent white transparent;
     width: 165px;
