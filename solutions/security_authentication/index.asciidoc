@@ -48,6 +48,10 @@ We recommend the following conventions:
 * this way you do not need any configuration or business knowledge inside your gateway as the routing can be implemented fully generic
 * use `app-id.` as a prefix to all permission groups/roles specific to your service to avoid name clashing in your central IAM
 
+=== Implementation hints
+* A Helm chart for the deployment of Keycloak in your Kubernetes environment can be found in the https://github.com/devonfw/solutions/blob/master/solutions/security_authentication/helm[GitHub repository of the devonfw solutions browser]
+* The https://github.com/devonfw-sample/devon4quarkus-reference/tree/master/documentation[devon4quarkus-product reference application] provides a documentation on how to integrate Keycloak into your Quarkus application to implement security mechanisms
+
 === Related documentations
 
 * https://github.com/devonfw/devon4j/blob/master/documentation/guide-access-control.asciidoc#authentication[devon4j authentication guide]
@@ -55,6 +59,7 @@ We recommend the following conventions:
 * https://oauth.net/2/[OAuth 2.0]
 * https://openid.net/connect/[OpenID Connect]
 * https://www.keycloak.org/docs/latest/securing_apps/[Keycloak's securing apps guide]
+
 
 
 === IAM solutions
