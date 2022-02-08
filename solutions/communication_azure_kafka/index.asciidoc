@@ -9,8 +9,6 @@ toc::[]
 :idseparator: -
 
 == Apache Kafka on Microsoft Azure
-:icons: image
-:iconsdir: .
 
 === Options for running Apache Kafka on Microsoft Azure
 image::options.png[Kafka options]
@@ -113,17 +111,17 @@ Kafka on [red]#*VM*# is only recommended as a first step, to try out Kafka.
 
 |*High Availability*
 |Managed by Customer
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
 
 |*Ease of Setup*
 |Simple for Single broker, gets unmanageeable for bigger clusters
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
 |Operators make it relatively easy. K8s knowledge required
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
 
 |*Cost*
 |Dependent on the VM type you choose
@@ -133,25 +131,25 @@ Kafka on [red]#*VM*# is only recommended as a first step, to try out Kafka.
 |Cost for 1 Cluster approx. $2.90/hour
 
 |*Apache Kafka Compatability*
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
 |Most features work OOTB, some does not work
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
 |Up to Kafka 2.1.0 supported
 
 |*Scalability*
 |Managed by Customer
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
 |Operators help with scaling
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
 
 |*Managed Service*
-^.^|icon:check-no[width=20]
-^.^|icon:check-yes[width=20]
+^.^|image:check-no.png[width=20]
+^.^|image:check-yes.png[width=20]
 |Managed by Customer
-^.^|icon:check-yes[width=20]
-^.^|icon:check-yes[width=20]
+^.^|image:check-yes.png[width=20]
+^.^|image:check-yes.png[width=20]
 
 |*Primary Use Case*
 |Easy first step in Cloud
