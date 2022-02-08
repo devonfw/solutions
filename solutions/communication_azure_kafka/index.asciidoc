@@ -8,14 +8,15 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-= Apache Kafka on Microsoft Azure
-:icons:
+== Apache Kafka on Microsoft Azure
+:icons: image
+:iconsdir: .
 
-== Options for running Apache Kafka on Microsoft Azure
-image::images/options.png[Kafka options]
+=== Options for running Apache Kafka on Microsoft Azure
+image::options.png[Kafka options]
 
 [#EventHub]
-=== Event Hub
+==== Event Hub
 Azure Event Hubfootnote:[https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview] supports Apache Kafka producer and consumer APIs
 
 [green]#+ Simplest option# +
@@ -23,7 +24,7 @@ Azure Event Hubfootnote:[https://docs.microsoft.com/en-us/azure/event-hubs/event
 [red]#- No Kafka streams#
 
 [#AKS]
-=== AKS
+==== AKS
 Kafka on Kubernetes (AKS) using Operatorsfootnote:[e.g. https://strimzi.io/ or Confluent Operator]
 
 * rack awareness to spread brokers across availability zones
@@ -40,10 +41,10 @@ Kafka on Kubernetes (AKS) using Operatorsfootnote:[e.g. https://strimzi.io/ or C
 
 
 [#ConfluentCloud]
-=== Confluent Cloud
+==== Confluent Cloud
 Confluent Cloudfootnote:[https://docs.microsoft.com/en-us/azure/partner-solutions/apache-kafka-confluent-cloud/overview] is now integrated in Azure Marketplace
 
-image::images/confluent-resource.png["Confluent Resource", width=400, link=images/confluent-resource.png]
+image::confluent-resource.png["Confluent Resource", width=400, link=images/confluent-resource.png]
 
 * https://docs.confluent.io/cloud/current/get-started/index.html[QuickStart]
 * You need to sign up for an account with Confluent in addition to the Azure account
@@ -55,8 +56,8 @@ image::images/confluent-resource.png["Confluent Resource", width=400, link=image
 *** determines the source of any issues in your cluster
 ** Confluent Metric API, and e.g. Prometheus and Grafana
 +
-image:images/confluent-cluster-overview.png["Confluent Cluster Overview", width=300, link=images/confluent-cluster-overview.png]
-image:images/confluent-data-flow.png["Confluent Data Flow", width=300, link=images/confluent-data-flow.png]
+image:confluent-cluster-overview.png["Confluent Cluster Overview", width=300, link=images/confluent-cluster-overview.png]
+image:confluent-data-flow.png["Confluent Data Flow", width=300, link=images/confluent-data-flow.png]
 +
 
 
@@ -66,7 +67,7 @@ image:images/confluent-data-flow.png["Confluent Data Flow", width=300, link=imag
 [red]#- No BYOK for data encryption#
 
 [#HDInsight]
-=== HDInsight
+==== HDInsight
 Azure HDInsightfootnote:[https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-introduction] is a fully-managed cloud distribution of Hadoop Components. It supports many open-source frameworks like Apache Spark, Hive, Apache Storm, R Server, Apache HBase and of course Apache Kafka. It provides 99.99% SLA on Kafka uptime & uses Azure Managed Disks as the backing store for Kafka brokers (providing up to 16TB of storage per broker).
 
 * Security:
@@ -84,9 +85,9 @@ Azure HDInsightfootnote:[https://docs.microsoft.com/en-us/azure/hdinsight/kafka/
 [red]#- Dedicated cluster also means higher cost for compute and storage#
 
 
-image::images/hdinsight-kafka.png["Kafka on HDIs´nsight", width=300, link=images/hdinsight-kafka.png]
+image::hdinsight-kafka.png["Kafka on HDInsight", width=300, link=images/hdinsight-kafka.png]
 
-== Comparison
+=== Comparison
 There is no “one size fits all” solution, of course. +
 Agraj Mangal from Microsoft provides a nice comparison (see table below).
 
@@ -164,4 +165,4 @@ Kafka on [red]#*VM*# is only recommended as a first step, to try out Kafka.
 
 * *Main Source:* __Agraj Mangal__, https://itnext.io/apache-kafka-in-azure-6985ccdce89f
 
-image::images/ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
+image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]
