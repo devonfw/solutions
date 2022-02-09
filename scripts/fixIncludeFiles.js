@@ -23,7 +23,7 @@ function readFromFilename(file) {
     let includeFileRegex = /include::((.*?\/([^\/\\[]+))\/([^\/\\[]+\.asciidoc))/isg;
 
     while ((regexMatch = includeFileRegex.exec(fileContent)) !== null) {
-        fileContent = fileContent.replace("include::" + regexMatch[1], "include::../" + regexMatch[1]);
+        fileContent = fileContent.replace("include::" + regexMatch[1], "include::../" + regexMatch[1]); 
     }
     fs.writeFileSync(file, fileContent, {encoding: 'utf-8'});
 }
