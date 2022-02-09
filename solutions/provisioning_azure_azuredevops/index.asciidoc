@@ -10,7 +10,7 @@ toc::[]
 
 include::../../includes/provisioning_problem/index.asciidoc[]
 
-include::../../includes/provisioning_platforms/index.asciidoc[]
+include::../../includes/provisioning_platforms/index.asciidoc[] 
 
 == Provisioning Solutions - Azure DevOps
 === Overview
