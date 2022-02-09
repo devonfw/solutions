@@ -21,16 +21,17 @@ function copyIncludeFiles(solutionsDir, outputDir) {
 function readFromFilename(file, outputDir) {
     let regexMatch = null;
     let fileContent = fs.readFileSync(file, { encoding: "utf-8" });
-    let includeFileRegex = /include::.*\/([^\/\\]+)\/([^\/\\]+\.asciidoc).*$/isg;
+    let includeFileRegex = /include::((.*?\/([^\/\\[]+))\/([^\/\\[]+\.asciidoc))/isg;
 
     while ((regexMatch = includeFileRegex.exec(fileContent)) !== null) {
-        let snippetDir = path.join(__dirname, '../includes/', regexMatch[1]);
-        let includeFile = snippetDir + '/' + regexMatch[2];
+        let snippetDir = path.join(path.dirname(file), regexMatch[2]);
+        let includeFile = path.join(snippetDir, regexMatch[4]);
 
         readFromFilename(includeFile, outputDir);
         fsEx.copySync(snippetDir, outputDir);
-        fs.unlinkSync(outputDir + '/' + regexMatch[2]);
+        fileContent = fileContent.replace("include::" + regexMatch[1], "include::./" + regexMatch[3] + "/" + regexMatch[4]);
     }
+    fs.writeFileSync(file, fileContent, {encoding: 'utf-8'});
 }
 
 if (process.argv.length > 3) {
