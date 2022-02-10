@@ -11,7 +11,7 @@ function fixIncludeFiles(solutionsDir, includeDir) {
         if (!fileStats.isFile()) {
             var indexAsciiDocFile = path.join("./", item, "index.asciidoc");
             if (fs.existsSync(indexAsciiDocFile)) {
-                readFromFilename(indexAsciiDocFile, includeDir);
+                readFromFilename(indexAsciiDocFile, path.resolve(includeDir));
             }
         }
     })
