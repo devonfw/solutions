@@ -74,7 +74,7 @@ only you have to do is to click on "Contributor License Agreement". It will send
 
 It can happen CLA does not work with the firefox browser, in this case simply change your browser.
 
-Note: The altenernate to Gitpod is to fork the repository and download it and modify the documents. To learn how to do refer the document https://github.com/firstcontributions/first-contributions#first-contributions[first contribution]
+Note: The altenernate to Gitpod is to fork the repository, download it and modify the documents. To learn how to do this, refer the document https://github.com/firstcontributions/first-contributions#first-contributions[first contribution]
 
 === Stack specific solution
 
