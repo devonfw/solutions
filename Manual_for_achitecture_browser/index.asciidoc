@@ -74,10 +74,8 @@ only you have to do is to click on "Contributor License Agreement". It will send
 
 It can happen CLA does not work with the firefox browser, in this case simply change your browser.
 
-[NOTE]
-====
-Gitpod is the way to edit online. But to modify locally using on your own editor, read https://github.com/firstcontributions/first-contributions#first-contributions[first contribution]
-====
+NOTE: Gitpod is the way to edit online. But to modify locally using on your own editor, read https://github.com/firstcontributions/first-contributions#first-contributions[first contribution]
+
 
 === Stack specific solution
 
