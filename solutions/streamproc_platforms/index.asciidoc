@@ -7,7 +7,7 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Provisioning Platforms
+== Stream Processing Platforms
 
 === Azure
 
