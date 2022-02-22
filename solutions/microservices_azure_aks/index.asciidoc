@@ -1,3 +1,5 @@
+//Category=Microservice Platforms;Kubernetes
+//Product=Azure Kubernetes Service;Azure Container Instances;Azure Red Hat OpenShift
 //Platform=Azure
 //Maturity level=Complete
 
@@ -5,6 +7,10 @@
 toc::[]
 :idprefix:
 :idseparator: -
+
+include::../../includes/microservices_problem/index.asciidoc[]
+
+include::../../includes/microservices_platforms/index.asciidoc[]
 
 == Microservice Platforms Solutions - Azure Kubernetes Service
 === Infrastructure

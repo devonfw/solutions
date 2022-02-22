@@ -1,12 +1,3 @@
-//Category=Microservice Platforms;Kubernetes
-//Product=Azure Kubernetes Service;Azure Container Instances;Azure Red Hat OpenShift
-//Platform=Azure
-//Maturity level=Complete
-
-:toc: macro
-toc::[]
-:idprefix:
-:idseparator: -
 
 == Microservice Platforms
 === Azure
@@ -56,6 +47,3 @@ The picture below summarizes major points:
 
 image::microservices_azure.png[Microservice Platforms Azure Overview, width=965, height=582]
 
-== Credits
-
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]

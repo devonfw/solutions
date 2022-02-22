@@ -1,11 +1,3 @@
-//Category=Enduser Management
-//Platform=Azure
-//Maturity level=Complete
-
-:toc: macro
-toc::[]
-:idprefix:
-:idseparator: -
 
 == Enduser Management Platforms
 === Azure
@@ -49,7 +41,3 @@ The Azure platform supports enduser management as follows:
 The picture below summarizes major aspects mentioned before:
 
 image::endusermgmt_azure.png[Enduser management Azure summary,width=914px,height=560px]
-
-== Credits
-
-image::ms_guild_logo.png[MS Guild Logo, width=160, height=75, align=right, link="https://forms.office.com/Pages/ResponsePage.aspx?id=Wq6idgCfa0-V7V0z13xNYal7m2EdcFdNsyBBMUiro4NUNllHQTlPNU9QV1JRRjk3TTAwVUJCNThTRSQlQCN0PWcu"]

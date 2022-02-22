@@ -7,6 +7,10 @@ toc::[]
 :idprefix:
 :idseparator: -
 
+include::../../includes/monitoring_problem/index.asciidoc[]
+
+include::../../includes/monitoring_platforms/index.asciidoc[]
+
 == Monitoring Solutions - Azure Native
 === Application Monitoring
 ==== Overview

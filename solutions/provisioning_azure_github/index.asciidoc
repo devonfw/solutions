@@ -1,11 +1,16 @@
 //Category=Provisioning
 //Platform=Azure
 //Maturity level=Complete
+//Product=GitHub Actions
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
+
+include::../../includes/provisioning_problem/index.asciidoc[]
+
+include::../../includes/provisioning_platforms/index.asciidoc[]
 
 == Provisioning Solutions - GitHub
 === Overview
