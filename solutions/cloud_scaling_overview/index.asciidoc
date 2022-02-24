@@ -1,0 +1,80 @@
+//Category=Scaling
+//Product=Scaling
+//Maturity level=Initial
+
+= Scalability in Cloud
+
+== Scalability in cloud
+
+Capacity planning is a challenge every engineering team faces when it comes to ensuring the right resources are in place to handle expected and unexpected traffic demands. You might end up investing too much for your infrastructure or it will be underrun which will affect your application performance. To avoid such problems, we should have scalable application. Cloud scalability makes it easy to handle this changing needs.  
+
+=== What is scalability?
+
+Cloud scalability in cloud computing refers to the ability to increase or decrease IT resources as needed to meet changing demand. Data storage capacity, processing power and networking can all be scaled using existing cloud computing infrastructure. Scalability is one of the biggest advantage of using cloud.
+
+Scalable application can handle changing workload in pre-planned manner.
+
+=== Benefits of cloud computing:
+
+* Convenience:
+It was taking weeks to months to scale an application on premise environment but with cloud it has become easy. We can add more resources on few clicks.
+* Cost saving:
+This helped users to reduce capex and changed it to opex. 
+* Better user experience:
+Scalable application gives better user experience and have increased performance. 
+* Disaster recovery: 
+With scalable cloud computing, you can reduce disaster recovery costs by eliminating the need for building and maintaining secondary data centres.
+
+=== Types of scalability:
+There are two types of scalability:
+
+*	Vertical scaling
+*	Horizontal scaling
+
+**Vertical scaling:**
+
+Adding a resources to existing server is referred as Vertical scaling. This can mean more memory (RAM), faster storage such as Solid State Drives (SSDs), or more powerful processors (CPUs). For vertical scaling, there is very little or no additional configuration you are required to do at the software level. But vertical scaling is limited to capacity of one machine beyond which you will get downtime. With vertical scaling we generally use the term such as “Scale up” if we added more resources or “scale down” if we reduce existing resources.
+
+**Horizontal scaling:**
+
+In Horizontal scaling you generally add more servers to spread the load across multiple machines. Horizontal scaling requires breaking a sequential piece of logic into smaller pieces so that they can be executed in parallel across multiple machines. Also, you might need to handle distribution of workload evenly by adding load balancer or managing software updates on multiple servers etc. With horizontal scaling we generally use terms such as “scale out” if we add more resources or “scale in” if we reduce some resources.
+
+=== What is Autoscaling?
+
+Autoscaling (sometimes spelled auto scaling or auto-scaling) is the process of automatically increasing or decreasing the computational resources delivered to a cloud workload based on need. The primary benefit of autoscaling, when configured and managed properly, is that your workload gets exactly the cloud computational resources it requires (and no more or less) at any given time. You pay only for the server resources you need when you need them.
+You can auto scale based on different factor like you can scale if demand increases or it can be scheduled or predictive scaling.
+
+Major public cloud provider offers autoscaling as a feature:
+
+*	In AWS, feature is called Auto Scaling Group
+*	Microsoft Azure provides Virtual Machine Scale Sets
+*	GCP provide instance groups
+
+Containers can be one of the option to scale your application in better way. Containers are small pieces of code that are meant to perform a specific function. In this way, a single machine can contain several apps used to perform a variety of functions: CPU, RAM, bandwidth, disk space, etc.
+You can use docker containers with some orchestration tools like Kubernetes. Kubernetes also have auto-scaling feature to manage changing demand of workloads.
+
+=== More References:
+
+https://docs.microsoft.com/en-us/azure/architecture/best-practices/auto-scaling
+
+https://docs.aws.amazon.com/autoscaling/
+
+https://cloud.google.com/compute/docs/autoscaler
+
+https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/scale-containers-serverless
+
+https://medium.com/swlh/how-to-autoscale-your-application-with-aws-ec2-instances-and-docker-containers-975ab1263454
+
+https://enterprisersproject.com/article/2021/3/kubernetes-autoscaling-explanation#:~:text=%22Kubernetes%20autoscaling%20helps%20optimize%20resource,down%20in%20line%20with%20demand.%22&text=When%20load%20decreases%2C%20Kubernetes%20can,conserving%20on%20resources%20and%20spending.%E2%80%9D
+
+https://spot.io/resources/kubernetes-autoscaling-3-methods-and-how-to-make-them-great/
+
+
+
+
+
+
+
+
+
+
