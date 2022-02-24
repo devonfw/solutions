@@ -54,7 +54,7 @@ The picture below summarizes some of the services mentioned above:
 image::aks_overview.png[AKS Overview, width=794, height=568]
 
 [.internal]
-solution_microservices_azure_aks_infra_detailed_native setup
+solution_microservices_azure_aks_infra_detailed_native_setup
 
 === Application
 ==== Overview
