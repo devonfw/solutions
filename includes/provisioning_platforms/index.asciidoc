@@ -82,27 +82,8 @@ A *programming language* is either "declarative" or "imperative". Declarative pr
 
 Imperative programming languages state the how. The internal delta calculation needs to be explicitly programmed here. If possible declarative programming languages are recommended due to automatic delta calculation. Typical case is infrastructure.
 
-Typical declarative options are shown in detail in the table below. The overall recommendation is to go for terraform. Major reasons for downvoting Bicep/ ARM:
-
-* ARM: difficult readability for humans
-* Bicep: Lack of support for testing based on plan and testing ecosystem since first added recently.
-
-Table with declarative programming language options:
-[options="header"]
-|=======================
-|Criteria|Bicep      |ARM | Terraform
-|Same syntax across clouds |- (Azure Only)     |- (Azure Only)   |+ (multi)
-|What if    |o (no complete prop list;only display of plan; unexpected delete)     |- (not available)   |+ (plan command)
-|Detection current    |o (Real anaylsis but time)     |+ (Real anaylsis)   |o (Statefile)
-|Testing/ static analysis    |o (Only via ARM)|+ (available)   |+ (available)
-|Human Readability    |+ |- |+
-|Reverse Engineering    |- (Extra ARM step + adjust) |o (adjust) |+ (Direct via Terraformer)
-|Latest features    |o (No embedded fallback) |+ (native) |o (Time lag but embedded fallback)
-|=======================
-
-The major options for imperative programming languages are Azure CLI, Powershell (Windows) or Linux based scripting. Azure CLI is recommended as prefered choice since it works on linux and windows based VMs.
-
-The created resources should follow a *uniform naming schema*. This requires naming to be factored out in a centralized module. Terraform supports factoring out common code in modules. However the backend must already exist and should also follow a naming convention. The recommendation is therefore to expose the common terraform module via an additional path that does not require a backend to determine the names for the azure resources representing the backend. 
+[.internal]
+provisioning_platforms_azure_dec_opt
 
 ==== Provisioning
 ===== Organizational Mapping

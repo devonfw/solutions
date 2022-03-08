@@ -8,6 +8,10 @@ toc::[]
 :idprefix:
 :idseparator: -
 
+include::../../includes/streamproc_problem/index.asciidoc[]
+
+include::../../includes/streamproc_platforms/index.asciidoc[]
+
 == Apache Kafka on Microsoft Azure
 
 === Options for running Apache Kafka on Microsoft Azure
