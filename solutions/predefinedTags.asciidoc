@@ -1,3 +1,0 @@
-//Category=Performance;Scaling;Provisioning;Deployment;Networking;Backup;Database;Storage;Availability;Disaster recovery;Analytics
-//Platform=AWS;Azure;Kubernetes
-You can put tags you want to create here but you do not have to.
