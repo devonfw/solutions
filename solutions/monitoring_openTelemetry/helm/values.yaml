@@ -1,0 +1,23 @@
+# Application configuration
+application:
+  # Configuration to get the metrics information
+  metrics:
+    jobname: "metrics-jobname"
+    url: "metrics-url"
+  
+  # Configuration of the application service
+  service:
+    name: "application-service-name"
+    port: "application-service-port"
+
+# Ingress configuration
+ingress:
+  application:
+    host: "application.localhost"
+    port: 8080
+  jaeger:
+    host: "jaeger.localhost"
+    port: 16686
+  grafana:
+    host: "grafana.localhost"
+    port: 3000

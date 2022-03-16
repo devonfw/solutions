@@ -1,0 +1,26 @@
+//Category=Monitoring
+//Product=cloudwatch;lambda;ses
+//Platform=AWS
+//Maturity level=Initial
+
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+= Customise your cloudwatch alerts 
+
+== You have the following problem to be solved
+Cloudwatch alarms give you the ability to notify you in case an alarm is triggered. The standard message layout of cloudwatch is very inflexible and not customisable. With this approach it is possible to fill HTML templates with further information, links and buttons to find the solution ASAP.
+
+=== The proposed solution enables the customer
+... to send out an customised e-mail template which looks more professional and has additional information compared to the standard cloudwatch alarm.
+
+=== Related Architectures and Alternatives
+See code here: https://github.com/AlessandroVol23/cloudwatch-custom-email-cdk
+
+=== Products & Services
+1. Cloudwatch Alarm: Some cloudwatch alarm
+2. SNS Topic which will be triggered by the cloudwatch alarm
+3. Lambda which will be called by the SNS topic
+4. SES will be used by the lambda to send out HTML emails

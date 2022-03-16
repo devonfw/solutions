@@ -1,0 +1,64 @@
+//Category=Stream Processing
+//Maturity level=Complete
+
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+== Stream Processing Introduction
+=== Context & Problem
+
+https://en.wikipedia.org/wiki/Complex_event_processing[Stream processing] is a method of tracking and analyzing (processing) streams of information (data) about things that happen (events) and deriving a conclusion from them. https://www.confluent.io/de-de/blog/making-sense-of-stream-processing/[Related words] also referring to the core of that technology are: Complex Event Processing (CEP) or Command and Query Responsibility Segregation (CQRS). Due to its benefits (see below) its also a vital technology in conjunction with real-time processing.
+
+The https://towardsdatascience.com/introduction-to-stream-processing-5a6db310f1b4[foundation of modern stream processing software] is a data structure called an append-only log. A log is just a sequence of binary records. An append-only log only allows for the addition of new elements to the end of the log. We can't insert new elements at arbitrary positions of the log, and we can't remove elements at will. Every element in a log has a sequence number, and newer elements have a higher sequence number than older elements. Element also known as "message". https://docs.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/stream-processing[Processing] may include querying, filtering, and aggregating elements. The picture below illustrates the concepts:
+
+image::arch_overview.png[Stream Processing,width=478 px,height=327 px]
+
+These often https://searchdatamanagement.techtarget.com/definition/stream-processing[go hand in hand] with other publish-subscribe frameworks used for connecting applications and data stores. For example, Apache Kafka is a popular open source publish-subscribe framework that simplifies integrating data across multiple applications.
+
+https://searchdatamanagement.techtarget.com/definition/stream-processing[Below] a few common streaming frameworks/ libraries are listed:
+
+* *Apache Kafka Streams* is a stream processing library for creating applications that ingest data from Kafka, process it and then publish the results back to Kafka as a new data source for other applications to consume.
+* *Samza* is a distributed stream processing tool that allows users to build stateful applications.
+* *Apache Storm supports* real-time computation capabilities like online machine learning, reinforcement learning and continuous computation.
+* *Delta Lake* supports stream processing and batch processing using a common architecture.
+
+https://www.upsolver.com/blog/batch-stream-a-cheat-sheet[In micro-batch processing], we run batch processes on much smaller accumulations of data - typically less than a minute's worth of data. This means data is available in near real-time. In practice, there is little difference between micro-batching and stream processing, and the terms would often be used interchangeably in data architecture descriptions and software platform descriptions. Microbatch processing is useful when we need very fresh data, but not necessarily real-time - meaning we can't wait an hour or a day for a batch processing to run, but we also don't need to know what happened in the last few seconds.
+
+https://www.confluent.io/fr-fr/blog/making-sense-of-stream-processing/[Benefits] are as follows:
+
+* *Loose coupling*
++
+--
+If you write data to the database in the same schema as you use for reading, you have tight coupling between the part of the application doing the writing (the "button") and the part doing the reading (the "screen"). We know that loose coupling is a good design principle for software. By separating the form in which you write and read data, and by explicitly translating from one to the other, you get much looser coupling between different parts of your application.
+--
+* *Read and write performance*
++
+--
+The decades-old debate over normalization (faster writes) vs. denormalization (faster reads) exists only because of the assumption that writes and reads use the same schema. If you separate the two, you can have fast writes and fast reads.
+--
+* *Scalability*
++
+--
+Event streams are great for scalability, because they are a simple abstraction (comparatively easy to parallelize and scale across multiple machines) and because they allow you to decompose your application into producers and consumers of streams (which can operate independently and can take advantage of more parallelism in hardware).
+--
+* *Flexibility and agility*
++
+--
+Raw events are so simple and obvious that a "schema migration" doesn't really make sense (you may just add a new field from time to time, but you don't usually need to rewrite historic data into a new format). On the other hand, the ways in which you want to present data to users are much more complex, and may be continually changing. If you have an explicit translation process between the source of truth and the caches that you read from, you can experiment with new user interfaces by just building new caches using new logic, running the new system in parallel with the old one, gradually moving people over from the old system, and then discarding the old system (or reverting to the old system if the new one didn't work). Such flexibility is incredibly liberating.
+--
+* *Error scenarios*
++
+--
+Finally, error scenarios are much easier to reason about if data is immutable. If something goes wrong in your system, you can always replay events in the same order, and reconstruct exactly what happened (especially important in finance, where auditability is crucial). If you deploy buggy code that writes bad data to a database, you can just re-run it after you fixed the bug, and thus correct the outputs. Those things are not possible if your database writes are destructive. 
+--
+
+=== Standard Problems
+
+https://docs.aws.amazon.com/whitepapers/latest/streaming-data-solutions-amazon-kinesis/stream-processing-challenges.html[Standard challenges] are:
+
+* You have to build a system that can cost-effectively collect, prepare, and transmit data coming simultaneously from thousands of data sources.
+* You need to fine-tune the storage and compute resources so that data is batched and transmitted efficiently for maximum throughput and low latency.
+* You have to deploy and manage a fleet of servers to scale the system so you can handle the varying speeds of data you are going to throw at it.
+* IoT devices are often produced by different manufacturers so the data can be quite different. This scenario of mixed devices and sensor data means the data schema can change unpredictably, potentially breaking data pipelines.

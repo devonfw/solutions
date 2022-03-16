@@ -1,0 +1,98 @@
+
+== Provisioning Introduction
+=== Context & Problem
+
+This document describes patterns to automate the deployment of an application to a target environment. The major players in this documentation are (1) the process as a whole (aka provisioning), (2) automation code and (3) application/ infra code to be deployed. Additionally a third aspect is _cross functionalities_ (3) that affect the automation and the application/infra code such as compliance.  
+
+* *Automation code:*
++
+--
+The automation code is about automating parts of deployment cycle. In an ideal world this covers the entire code development cycle from opening the first branch to the final deployment. Possible activities in this cycle are:
+
+** quality gates
+** build
+** deployment
+
+*Quality gates* refer to testing or approval. Approval might include a manual approval to deploy to sensitive environments like production or enforcing a review before the commit through a pull request. Failing a quality gate should stop the workflow to proceed. Ideally they are maximizing application code coverage and kick in as early as possible.
+From a timeline perspective major events that are kicking off actions from the automation code are:
+
+* Pull request/ commit (Only triggers quality gates that don't take too long)
+* Build
++
+They can be manually, scheduled (e.g. as part of a nightly build) or automatically started. Additional quality gates ensure code quality.
+* Deplyoment to target environment
++
+A typical quality gate for sensible environments such as production are manual approvals.
+
+The major construct is a *pipeline* that implements a certain activity or a combination. The trigger defines the condition that kick offs a pipeline. Kicking off a pipeline usually includes *parameters* such as the name of the target environment. The support of *different triggers* is essental to cover the entire lifecycle. Pipelines can be *implemented* using a UI driven or programatic approach.
+
+Pipelines are built in a modular way which also adds intermediate steps such as placing the built output in a *build artefact repository* for later deployment. It also introduces the need to *orchestrate* them into larger workflows such as creating an entire environment from scratch.
+
+Pipelines must ensure *traceability* of the performed actions across the entire chain including source code repo, the targeted environment or intermediate stores. This includes a versioning schema for built artefacts. Branches in source repos must be tagged to be able to reconstruct the code behind a versioned artefact.
+--
+
+* *Application/ infra code:*
++
+--
+The base for automation code activities is the code creating or updating the infrastructure and the application on top. Focus in this documentation is the interaction between automation code and application/ infra code. This includes:
+
+* Programming approach (Language or UI) for deploying infrastructure and application code
+* Interaction standard problems between automation code and application/ infra code
++
+Problems also depend on the chosen programing approach.
+
+Not relevant are:
+
+* Application code: Structuring in repo, programming language specifics and details of build mechanism
+* Specific deployment options of the platform services forming the infrastructure
+--
+
+* *Provisioning*
++
+--
+The process must work in a compliant way end-to-end. *Compliance* includes the general concern security and to adhere to constraints from the organization's perspective that need to be enforced.
+
+Provisoning should be subject to *monitoring* and must be able to adapt to the *organizational structure*.
+
+*Configuration* is also a cross concern that affects both sides. From the automation side this includes properties of the environment and settings of the involved automation code. The application specific settings are out of scope in this pattern description. However, provisioning must enable the application code to access settings.
+
+As shown automation does not only include pipelines but also additional configuration settings. Automation code must be able to access the infra/ app code for deployment. This pattern includes guidelines regarding options to store the code and how to structure it in a *repository*. Application code structure is treated as black box.
+
+In most cases enterprises have already existing technologies in place that might not be based on cloud of a certain provider. *Integration* with other third party offerings to cover functionally also from elsewhere is also important.
+--
+
+The picture below summarizes the major aspects:
+
+image::problem_context.png[alt=Provisioning Problem Context,width=451, height=257]
+
+=== Standard Problems
+
+The following standard problems will be addressed in subsequent paragraphs:
+
+* Automation code
++
+--
+Regarding pipelines the folloqing aspects will be detailed:
+
+** Modeling environments
+** Pipeline Implementation (Programing approaches, Triggers, Paramterization, Store Code, Quality Gates)
+** Orchestration 
+** Traceability (Versioning, Tagging)
+--
+* Infra/ Application code (Programming approach,
+Interaction standard problems)
+* Provisioning 
++
+--
+** Organizational Mapping
+** Integration
+** Code Repository (Automation/ Infra & App Code)
+** Configuration
+** Compliance
+--
+
+For the following aspectcs check out the other defined patterns:
+
+* Monitoring infrastructure and application code
+* General guidelines for structuring repositories (e.g. mono vs. multi-repo) 
+* General guidelines for defining landing zones
