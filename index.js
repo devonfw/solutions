@@ -202,7 +202,7 @@ function disableFilters(solutions) {
                 if (Object.hasOwnProperty.call(tag, tagValue)) {
                     console.log(filter + ":" + tagValue);
                     if (!activeValues.includes(tagValue)) {
-                        $('#tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_")).addClass("disabled").hide();;
+                        $('#tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_")).addClass("disabled").hide();
                     }
                 }
             }
