@@ -360,7 +360,7 @@ async function main() {
                     if (Object.hasOwnProperty.call(tag, tagValue) && (showMaturity || solutionFilterExists)) {
                         var tagDiv = $('<div class="tag" id="tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_") + '"></div>');
                         tagDiv.text(tagValue);
-                        tagDiv.prepend($('<span id="tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_") + '_checkbox" class="checkbox material-icons-sharp">check_box_outline_blank</span>'))
+                        tagDiv.prepend($('<input type="checkbox" id="tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_") + '_checkbox" class="checkbox material-icons-sharp form-check-input"></input>'))
                         tagDiv.click((e) => {
                             if (!$(e.currentTarget).hasClass("disabled")) {
                                 if (!parameters.delete(filter, tagValue)) {
