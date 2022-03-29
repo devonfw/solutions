@@ -185,7 +185,7 @@ function highlightSelected() {
 }
 
 function disableFilters(solutions) {
-    $(".disabled").removeClass("disabled");
+    $(".disabled").removeClass("disabled").show();;
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
             const tag = orderTag(tagsJson[filter]);
@@ -202,7 +202,7 @@ function disableFilters(solutions) {
                 if (Object.hasOwnProperty.call(tag, tagValue)) {
                     console.log(filter + ":" + tagValue);
                     if (!activeValues.includes(tagValue)) {
-                        $('#tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_")).addClass("disabled");
+                        $('#tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_")).addClass("disabled").hide();;
                     }
                 }
             }
