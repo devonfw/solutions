@@ -63,7 +63,10 @@
     border-radius: .8rem;
     text-align: center;
   }
-  .search-bar #search-field-solutions{
-	width: 90vw;
+  .search-bar {
+	  padding-right: 2rem;
+	  #search-field-solutions{
+		width: -webkit-fill-available;
+	  }
   }
 }
