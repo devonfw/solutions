@@ -1,4 +1,4 @@
-== AZURE: 
+== HTTP application routing in Azure: 
 The HTTP application routing add-on is designed to let you quickly create an ingress controller and access your applications. 
 This add-on is not currently designed for use in a production environment and is not recommended for production use. 
 
@@ -22,3 +22,27 @@ Following steps to enable HTTP application routing.
 
 	host: xxxxx.xxxxxx.xxxx.region.aksapp.io
 	
+== Nginx-ingress-controller-setup:
+
+Install Nginx ingress controller in kubernetes cluster by using helm chart.
+
+* Adding the Helm repository, if you’re installing the chart via the helm repository.
+
+	helm repo add bitnami https://charts.bitnami.com/bitnami
+
+* Upgrading the Chart
+
+	helm repo update
+
+* Installing the Chart
+If you have Helm, you can deploy the ingress controller with the following command:
+
+AWS - EKS:
+
+	helm upgrade --install nginx-ingress nginx-ingress-controller --set ingressClassResource.default=true --set containerSecurityContext.allowPrivilegeEscalation=false --repo https://charts.bitnami.com/bitnami --namespace nginx-ingress --create-namespace
+
+AZURE - AKS:
+
+	helm install nginx-stable nginx-stable/nginx-ingress --set controller.setAsDefaultIngress=true --namespace nginx-ingress --create-namespace 
+
+
