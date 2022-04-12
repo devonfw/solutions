@@ -44,5 +44,10 @@ AWS - EKS:
 AZURE - AKS:
 
 	helm install nginx-stable nginx-stable/nginx-ingress --set controller.setAsDefaultIngress=true --namespace nginx-ingress --create-namespace 
+	
+== Examples
+=== Providing Dynamic Values to Helm chart
+When installing Helm charts with the helm install command, the `--set` argument allows you to define value in a values.yaml file, `application.cloud` is deployment  environment, aws or azure, `ingress.application.host` is to set host value.
 
+	helm install otlp ./helm --set application.cloud="AWS" --set ingress.application.host="xxx.com"
 
