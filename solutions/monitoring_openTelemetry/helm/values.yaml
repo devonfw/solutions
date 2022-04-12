@@ -1,5 +1,6 @@
 # Application configuration
 application:
+  cloud: ""
   # Configuration to get the metrics information
   metrics:
     jobname: "metrics-jobname"
@@ -12,12 +13,17 @@ application:
 
 # Ingress configuration
 ingress:
+  aws:
+    annotations: {}
+  azure:
+    annotations: {
+      kubernetes.io/ingress.class: addon-http-application-routing 
+    }
+  #hostname should be passed on helm install
+  host: ""  
   application:
-    host: "application.1399f2c255cf44ac8c5a.westeurope.aksapp.io"
     port: 8080
   jaeger:
-    host: "jaeger.1399f2c255cf44ac8c5a.westeurope.aksapp.io"
     port: 16686
   grafana:
-    host: "grafana.1399f2c255cf44ac8c5a.westeurope.aksapp.io"
     port: 3000
