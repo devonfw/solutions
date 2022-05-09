@@ -1,0 +1,161 @@
+//Category=Kubernetes
+//Product=AWS Elastic Kubernetes Service;
+//Platform=AWS
+//Maturity level=Initial
+
+:toc: macro
+toc::[]
+:idprefix:
+:idseparator: -
+
+= Scaling micro-frontend apps - AWS Elastic Kubernetes Service
+
+== Context & Problem
+=== Microfrontends Introduction
+
+Consider developing a large enterprise application having numerous modules. It makes sense to go with a microservices approach for the backend. It also makes sense to follow a similar approach for the frontend. There are so many elements in the UI that each element can be developed in isolation by a dedicated team. For example, an e-commerce application will have a listing page for the products, a products page to view a single product, a cart element to manage all the products selected by the user, a checkout page to finally purchase the products, etc. Each element has its own identity, that is, it serves an independent purpose of the entire application. You can see how the different elements can be developed independently. You can also partition the application vertically and have dedicated teams for each vertical slice, taking care of its frontend, backend, database and deployment, rather than simply having frontend and backend teams as usual.
+
+There are different approaches to micro-frontend. They usually try to resolve the challenge of how to put together your independently developed elements and present it as a single application to the end user. One approach is to create reusable custom elements by following the https://developer.mozilla.org/en-US/docs/Web/Web_Components[Web Components] standard. In this appraoch you have different teams develop the custom element they are responsible for and put them together in an encapsulating application which is deployed as a single unit, for example using a docker container. You can follow https://github.com/devonfw/devon4ts/wiki/guide-angular-elements[this guide] to developing custom elements in Angular. One challenge with this approach is that when the demand for one of your micro-frontend app increases, you have to increase the number of containers serving your entire application. For example, considering the e-commerce application we mentioned earlier, the products page might get more hits than the checkout page. But even then you have to scale out the containers serving the entire application. This defeats the purpose of developing each element of your application independently.
+
+Another approach, which resolves the above challenge, is to deploy each micro-frontend app in its own container and serve them along different routes of your domain using Ingress. Given the above scenario, when the demand for products page gets higher, you can scale out the containers serving only the products page, rather than scaling out your entire application. 
+
+image::mfe-with-eks.svg[Micro front-end using EKS, width=700]
+
+For communication between the various micro apps, you can use the publish-subscribe model, query parameters or both in conjunction. This document will focus on this approach using Amazon EKS.
+
+
+=== AWS Elastic Kubernetes Service
+
+Kubernetes is a popular container orchestration tool, which helps in managing numerous containers working in parallel. One of their most useful benefit is scaling out your containers when demand is high. 
+
+AWS EKS is a managed Kubernetes service provided by Amazon. With EKS, you don’t need to install, operate, or maintain the Kubernetes control plane or the worker nodes. EKS provides high availability for both worker and master nodes. The control plane instance run across several Availabiliity Zones. EKS detects and replaces unhealthy nodes automatically and also  provides scalability and security to applications.
+
+AWS also provides Elastic Container Registry to hold your docker containers.
+
+
+== Solution
+
+The steps to deploy your micro frontends in AWS EKS can be summarized as follows: +
+1. Dockerize your micro apps +
+2. Push your docker images to a container registry +
+3. Create your Cluster and Worker Nodes +
+4. Configure kubectl to use Cluster +
+5. Deploy your apps on AWS EKS Cluster +
+
+=== Dockerize your micro apps
+
+You start with dockerizing your micro apps by creating a Dockerfile for each of them. Your Dockerfiles will look like the following if the apps are developed in Angular:
+
+```
+FROM node AS ui-build
+WORKDIR /usr/src/app
+COPY micro-app-1/ ./micro-app-1/
+RUN cd micro-app-1 && npm install @angular/cli && npm install && npm run build
+
+
+FROM nginx:alpine
+
+#!/bin/sh
+
+COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy from the stahg 1
+COPY --from=ui-build /usr/src/app/micro-app-1/dist/ /usr/share/nginx/html
+
+EXPOSE 4200 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+```
+
+Now you build your docker images using the `docker build` command.
+
+=== Push docker images to a container registry
+
+Once you have your docker images, you need to push them to a container registry. A container registry serves as a repository for your docker images. AWS Elastic Container Service is one such container registry.
+
+You can create a repository in AWS ECS either using the console or the AWS CLI. Follow https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html[this guide] to create a reposistory in ECS.
+
+Once you have your repository, tag your docker images with the repository URI using the `docker tag` command, and then push the image to the reposiroty using `docker push`.
+
+=== Create your Cluster and Worker Nodes
+
+Now that your docker images are in your repository, you are ready to https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html[create your cluster] followed by the worker nodes and the https://docs.aws.amazon.com/eks/latest/userguide/create-managed-node-group.html[node group]. Keep in mind that you also need to create appropriate roles for the cluster and the nodes. You can also use `eksctl` to create a cluster and a node group. `eksctl` abstracts away a lot of the steps need to manually create clusters, node groups, etc.
+
+=== Configure kubectl to use Cluster
+
+Once your cluster is setup, you can use the `update-kubeconfig` command of AWS CLI to connect to your cluster. As a pre-requistite to this step, you need to https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html[authenticate the cluster]. +
+The `update-kubeconfig` command should look like:
+```
+aws eks --region <region-code> update-kubeconfig --name <cluster-name>
+```
+
+=== Deploy your apps on AWS EKS Cluster
+Finally, you deploy your micro apps on your EKS cluster. The configuration file for your individual micro app should look something like this:
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: micro-app-1
+  name: micro-app-1-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: micro-app-1
+  template:
+    metadata:
+      labels:
+        app: micro-app-1
+    spec:
+      containers:
+      - image: image-repository-path/micro-app-1:v1
+        name: micro-app-1
+        ports:
+          - containerPort: 80 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-app-1-service
+  labels:
+    run: micro-app-1
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: micro-app-1
+```
+
+This specifies the deployment configuration for one of your many micro apps. The `Deployment` element specifies the docker image of you micro app to use and the number of replicas it should run, along with some other attributes. And the `Service` element specifies how to reach out to your app. Right now it cannot be communicated to from outside of your cluster. For reaching out to your app through a URL, you need to configure Ingress:
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: hostname.com
+    http:
+      paths:
+        - path: /path-1
+          backend:
+            serviceName: micro-app-1-service
+            servicePort: 80
+        - path: /path-2
+          backend:
+            serviceName: micro-app-2-service
+            servicePort: 80
+```
+
+This is how you can configure multiple routing rules in a single Ingress resource. Your individual micro-apps are now deployed in their respective container and are available through their respective URLs. And when the demand for one of the micro app raises, you can scale it out individually rather than scaling out your entire application.
