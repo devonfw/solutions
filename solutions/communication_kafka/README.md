@@ -50,4 +50,4 @@ What alternatives exist on the marked. Why have they not been considered. <- Onl
 This sample application demonstrates a ship booking service. Customers can book ships and multiple customers can book the same ships. The bookings can then be confirmed. Bookings can be cancelled by shipDamagedEvents that can be sent and received through kafka. The user is also able to see the booking status (PENDING, CONFIRMED, CANCELLED).
 
 The usage of this application can be visualized through the following use case:
-shipDamagedEvents will be sent to the topic "shipDamagedTopic" defined with spring-kafka to the kafka message broker. Application receives the shipDamagedEvents through the kafka message broker. This changes the booking status of the bookings with the damaged ship defined by shipDamagedEvents to "CANCELLED"
+shipDamagedEvents will be sent to the topic "shipDamagedTopic" defined with spring-kafka to the kafka message broker. Application receives the shipDamagedEvents through the kafka message broker. This changes the booking status of the bookings with the damaged ship defined by shipDamagedEvents to "CANCELLED".
