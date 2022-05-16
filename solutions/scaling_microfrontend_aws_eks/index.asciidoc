@@ -104,7 +104,7 @@ metadata:
     app: micro-app-1
   name: micro-app-1-deployment
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: micro-app-1
@@ -117,7 +117,7 @@ spec:
       - image: image-repository-path/micro-app-1:v1
         name: micro-app-1
         ports:
-          - containerPort: 80 
+          - containerPort: 80
 
 ---
 
