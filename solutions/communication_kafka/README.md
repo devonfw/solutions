@@ -50,4 +50,11 @@ What alternatives exist on the marked. Why have they not been considered. <- Onl
 This sample application demonstrates a ship booking service. Customers can book ships and multiple customers can book the same ships. The bookings can then be confirmed. Bookings can be cancelled by shipDamagedEvents that can be sent and received through kafka. The user is also able to see the booking status (PENDING, CONFIRMED, CANCELLED).
 
 The usage of this application can be visualized through the following use case:
+
 shipDamagedEvents will be sent to the topic "shipDamagedTopic" defined with spring-kafka to the kafka message broker. Application receives the shipDamagedEvents through the kafka message broker. This changes the booking status of the bookings with the damaged ship defined by shipDamagedEvents to "CANCELLED".
+
+![alt text](architecture.png "architecture diagram")
+
+The bookingService has two entities. The first one is "Customer" and the other one is "Booking". A customer can create bookings for ships and some of their containers. The bookings are saved in form of a list inside the Customer entity.
+
+When the booking is created for the first time, the booking status will be set to PENDING. Immediately after the creation, the booking will be sent to the booking topic. The shipService listens on the booking topic, ready to consume the incoming booking. The consummed booking will be checked for the available container. If the ship has enough available containers, the ship service reduces the available containers of the ship and sends the confirmation to the ship-booking topic. In the other case, if the ship doesn't have enough available containers, then the ship service also sends the rejection to the ship-booking topic. The bookingService consumes these messages and at the end, the booking status gets changed to the appropriate booking status (CONFIRMED or DENIED).
