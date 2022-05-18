@@ -1,6 +1,6 @@
 # Application configuration
 application:
-  cloud: ""
+  cloud: ""  # AWS or AZURE
   # Configuration to get the metrics information
   metrics:
     jobname: "metrics-jobname"
@@ -19,7 +19,7 @@ ingress:
     annotations: {
       kubernetes.io/ingress.class: addon-http-application-routing 
     }
-  #hostname should be passed on helm install
+  # hostname should be passed on helm install
   host: ""  
   application:
     port: 8080
