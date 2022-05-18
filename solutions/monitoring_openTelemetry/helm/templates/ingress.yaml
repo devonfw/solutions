@@ -2,11 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
-  #adding azure addon annotation for http application routing 
   annotations:
-    {{- if contains $.Values.application.cloud "AWS" }}
-      {{ toYaml .Values.ingress.aws.annotations | indent 2 }}
-    {{- end }}
     {{- if contains $.Values.application.cloud "AZURE" }}
       {{ toYaml .Values.ingress.azure.annotations | indent 2 }}
     {{- end }}
