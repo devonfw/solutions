@@ -25,17 +25,17 @@ function main(solutionsDir, outputFile, snippetLength) {
                 console.log("Before: " + imagePath);
 
                 if (imagePath != "") {
-                    sharp(`./solutions/${dirItem}/${imagePath}`)
+                    sharp(`./target/generated-docs/solutions/${dirItem}/${imagePath}`)
                         .resize({ width: 600 })
                         .toFile(`./target/generated-docs/solutions/${dirItem}/_previewImage.png`);
-                    imagePath = `./solutions/${dirItem}/_previewImage.png`;
+                    imagePath = `./solution/${dirItem}/_previewImage.png`;
                 }
 
                 console.log("After:" + imagePath);
                 
                 solutions[dirItem] = {
                     headline: headline,
-                    path: `solutions/${dirItem}`,
+                    path: `solution/${dirItem}`,
                     image: imagePath,
                     snippet: snippet
                 }

@@ -104,7 +104,7 @@ function renderSolutions(solutions, current) {
             countSolutions++;
             if (countSolutions >= startData && countSolutions <= endData) {
                 const solution = solutions[solutionKey];
-                var solutionDiv = $('<div id="solution_' + solutionKey + '" class="solution"></div>');
+                var solutionDiv = $('<div id="solution_' + solutionKey + '" class="solution col-12 col-md-6"></div>');
                 var solutionHeadlineDiv = $('<div id="solution_' + solutionKey + '_headline" class="solutionheadline"></div>');
                 var solutionHeadlineLink = $('<a id="solution_' + solutionKey + '_headline_link" class="solutionheadlinelink" href="' + solution.path + '"></a>');
                 solutionHeadlineLink.text(solution.headline);
@@ -185,7 +185,7 @@ function highlightSelected() {
 }
 
 function disableFilters(solutions) {
-    $(".disabled").removeClass("disabled");
+    $(".disabled").removeClass("disabled").show();;
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
             const tag = orderTag(tagsJson[filter]);
@@ -202,7 +202,7 @@ function disableFilters(solutions) {
                 if (Object.hasOwnProperty.call(tag, tagValue)) {
                     console.log(filter + ":" + tagValue);
                     if (!activeValues.includes(tagValue)) {
-                        $('#tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_")).addClass("disabled");
+                        $('#tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_")).addClass("disabled").hide();
                     }
                 }
             }
@@ -228,7 +228,7 @@ function orderTag(tag) {
 function searchOnClick() {
     let searchField = document.getElementById('search-field-solutions');
     let timer = null;
-    searchField.onkeypress = function (e) {
+    searchField.onkeydown = function (e) {
         if (timer) {
             clearTimeout(timer);
         }
@@ -329,13 +329,14 @@ async function main() {
     console.log(solutionsJson);
 
     $("head").append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">');
-    var paginationDiv = $('<div id="pagination" class = "pagination"></div>');
-    $("#content").append(paginationDiv);
-    var seachFieldDiv = '<div class="search-bar"><input id="search-field-solutions" type="search" class="form-control mr-sm-2" placeholder="Search by keyword(s)..." aria-label="Search" style="height: auto;"/>';
-    $('#content').append(seachFieldDiv);
+    var flexDiv = $('<div id="solutioncontent" class="row"></div>');
+    $("#content").append(flexDiv);
+
+    var seachFieldDiv = '<div class="search-bar col-12"><input id="search-field-solutions" type="search" class="form-control mr-sm-2" placeholder="Search by keyword(s)..." aria-label="Search" style="height: auto;"/>';
+    $('#solutioncontent').append(seachFieldDiv);
     var parameters = getParameters();
 
-    var filterspanel = $('<div id="filterspanel" class="filterspanel"></div>');
+    var filterspanel = $('<div id="filterspanel" class="filterspanel col-12 col-sm-3"></div>');
     var filterMaturityComplete = Object.keys(filterSolutions(solutionsJson, MATURITY_LEVEL, MATURITY_LEVEL_COMPLETE));
     for (const filter in tagsJson) {
         if (Object.hasOwnProperty.call(tagsJson, filter)) {
@@ -359,7 +360,7 @@ async function main() {
                     if (Object.hasOwnProperty.call(tag, tagValue) && (showMaturity || solutionFilterExists)) {
                         var tagDiv = $('<div class="tag" id="tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_") + '"></div>');
                         tagDiv.text(tagValue);
-                        tagDiv.prepend($('<span id="tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_") + '_checkbox" class="checkbox material-icons-sharp">check_box_outline_blank</span>'))
+                        tagDiv.prepend($('<input type="checkbox" id="tag_' + filter.replace(/[^a-zA-Z0-9]/g, "_") + '_' + tagValue.replace(/[^a-zA-Z0-9]/g, "_") + '_checkbox" class="checkbox material-icons-sharp form-check-input"></input>'))
                         tagDiv.click((e) => {
                             if (!$(e.currentTarget).hasClass("disabled")) {
                                 if (!parameters.delete(filter, tagValue)) {
@@ -379,9 +380,13 @@ async function main() {
             }
         }
     }
-    $("#content").append(filterspanel);
-    var resultspanel = $('<div id="resultspanel" class="resultspanel"></div>');
-    $("#content").append(resultspanel);
+    $("#solutioncontent").append(filterspanel);
+    var resultspanel = $('<div id="resultspanel" class="resultspanel col-12 col-sm-9 row align-content-start"></div>');
+    $("#solutioncontent").append(resultspanel);
+
+    var paginationDiv = $('<div id="pagination" class="col-12"></div>');
+    $("#solutioncontent").append(paginationDiv);
+
     for (const filterName of parameters.keys()) {
         if (filterName == 'search') {
             document.getElementById('search-field-solutions').value = parameters.get('search')[0];

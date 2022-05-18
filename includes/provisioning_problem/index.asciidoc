@@ -1,11 +1,3 @@
-//Category=Provisioning
-//Platform=Azure
-//Maturity level=Complete
-
-:toc: macro
-toc::[]
-:idprefix:
-:idseparator: -
 
 == Provisioning Introduction
 === Context & Problem

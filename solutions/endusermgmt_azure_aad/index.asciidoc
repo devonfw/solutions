@@ -7,6 +7,12 @@ toc::[]
 :idprefix:
 :idseparator: -
 
+= Enduser Management Solutions - Azure Active Directory
+
+include::../../includes/endusermgmt_problem/index.asciidoc[]
+
+include::../../includes/endusermgmt_platforms/index.asciidoc[]
+
 == Enduser Management Solutions - Azure Active Directory
 === Overview Azure Active Directory
 

@@ -1,1 +1,5 @@
-= Architectures
+= Solutions
+
+== Solutions
+
+Below you will find carefully harvested and proposed standard solutions of devonfw. Their central purpose is to standardize on green-field solutions as well as to foster discussion on why to do things differently. Broadening your knowledge about cloud reference architectures and further solution ideas, you might want to take a look at the https://aws.amazon.com/en/architecture/[AWS Well-Architected Framework and its reference architectures] as well as the https://docs.microsoft.com/en-en/azure/architecture/framework/[Azure Well-Architected Framework] and its https://docs.microsoft.com/de-de/azure/architecture/browse/[reference architectures].

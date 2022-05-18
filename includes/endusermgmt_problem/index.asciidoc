@@ -1,11 +1,3 @@
-//Category=Enduser Management
-//Platform=Azure
-//Maturity level=Advanced
-
-:toc: macro
-toc::[]
-:idprefix:
-:idseparator: -
 
 == Enduser Management Introduction
 === Context & Problem

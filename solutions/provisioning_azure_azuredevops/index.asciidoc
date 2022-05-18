@@ -1,11 +1,18 @@
 //Category=Provisioning
 //Platform=Azure
 //Maturity level=Complete
+//Product=Azure DevOps
 
 :toc: macro
 toc::[]
 :idprefix:
 :idseparator: -
+
+= Provisioning Solutions - Azure DevOps
+
+include::../../includes/provisioning_problem/index.asciidoc[]
+
+include::../../includes/provisioning_platforms/index.asciidoc[]
 
 == Provisioning Solutions - Azure DevOps
 === Overview
@@ -96,13 +103,8 @@ Adding teams instead of projects is recommended over projects due to https://doc
 * Tracking and auditing: It's easier to link work items and other objects for tracking and auditing purposes
 * Maintainability: You minimize the maintenance of security groups and process updates.
 
-The table below lists typical configurations along with their characteristics:
-[options="header"]
-|=======================
-|Criteria|1 project, N teams      |1 org, N projects/ teams | N orgs
-|General guidance |	Smaller or larger organizations with highly aligned teams | Good when different efforts require different processes (multi) | Legacy migration
-|Process    |Aligned processes across teams; team flexibility to customize boards, dashboards, and so on     |Different processes per prj;e.g. different work item types, custom fields   |same as many projects
-|=======================
+[.internal]
+solution_provisioning_azure_devops_struct
 
 ==== Remaining goals (Automation Code)
 
@@ -154,75 +156,10 @@ resources:
     trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
 ```
 
-Implicit Chaining for *orchestration* is possible by using trigger condition. Calling pipelines explicitly is so far only possible with scripting. The code snippet below shows an example:
-```Powershell
-#
-# Make call to schedule pipeline run
-#
+Implicit Chaining for *orchestration* is possible by using trigger condition. Calling pipelines explicitly is so far only possible with scripting.
 
-# Body
-$body = @{
-    stagesToSkip = @()
-    resources = @{
-        self = @{
-            refName = $branch_name
-        }
-    }
-    templateParameters = $params
-    variables = @{}
-}
-$bodyJson = $body | ConvertTo-Json
-# Uri extracted from the Azure DevOps UI
-# $org_uri and $prj_id contain names of current organization/ project
-# $pl_id denotes the internal pipeline id to be started
-$uri = "${org_uri}${prj_id}/_apis/pipelines/${pl_id}/runs?api-version=5.1-preview.1"
-
-# Output paramters
-Write-Host("--------  Call ${pl_name} --------")    
-Write-Host("Headers: ${headersJson}")
-Write-Host("Json body: ${bodyJson}")    
-Write-Host("Uri: ${uri}")    
-
-try 
-{
-    # Trigger pipeline
-    $result = Invoke-RestMethod -Method POST -Headers $headers -Uri $uri -Body $bodyJson
-    Write-Host("Result: ${result}")        
-
-    # Wait until run completed
-    $buildid = $result.id
-    $start_time = (get-date).ToString('T')
-    Write-Host("------------ Loop until ${pl_name} completed --------")
-    Write-Host("started runbuild ${buildid} at ${start_time}")   
-    
-    # Uri for checking state
-    $uri = "${org_uri}${prj_id}/_apis/pipelines/${pl_id}/runs/${buildid}?api-version=5.1-preview.1"
-
-    Do {
-        Start-Sleep -Seconds 60
-        $current_time = (get-date).ToString('T')
-
-        # Retrieve current state
-        $result = Invoke-RestMethod -Method GET -Headers $headers -Uri $uri
-        $status = $result.state
-        Write-Host("Received state ${status} at ${current_time}...")
-    } until ($status -eq "completed")
-
-    # return result
-    $pl_run_result = $result.result
-    Write-Host("Result: ${pl_run_result}")   
-    return $pl_run_result
-}
-catch { 
-    $excMsg = $_.Exception.Message
-    Write-Host("Exception text: ${excMsg}")
-    return "Failed"
-}
-```
-Orchestration must take dependencies into account. They might result from the deployed code or the scope of the pipeline (scope is e.g. a single microservice and code includes the libraries needed).
-Orchestrated pipelines must pass data between them. The recommended method is to use key vault. 
-
-*Recreation of resources in short intervals* might cause pipelines to fail. Even if resources are deleted they might still exist in the background (even although soft delete is not applicable). Programming languages can therefore get confused if pipelines recreate things in short intervals. Creating a new resource group can solve the problem since they are part of the tecnical resource id.
+[.internal]
+solution_provisioning_azure_devops_orch
 
 As part of the *configuration* Azure DevOps provides the possibility to provide various settings that are used for development such as enforcing pull requests instead of direct pushes to the repo.
 The major configuration mechanisms in YAML are variables, parameters and variable groups. Variable groups bundle multiple settings as key value pairs. Parameters are not possible in a variable section (Dynamic inclusion of variable groups is possible via file switching). If they are declared on top level they have to be passed when the pipeline is called programmatically or manually by the user.
