@@ -9,6 +9,7 @@
 Standardization of communication in a kubernetes cluster between different microservices. Subsequent monitoring with Prometheus and Grafana. 
 
 We used the following tools to solve the problem:
+
 * Rancher (Docker)
 * Kubernetes
 * Istio
