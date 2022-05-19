@@ -1,1 +1,23 @@
+//Category=Communication;Kubernetes;Microservice Platforms;Monitoring;
+//Product=Istio;Grafana;
+//Maturity level=Initial
 
+= Istio Microservice Monitoring
+
+== Core elements of the problem and its solution
+
+Standardization of communication in a kubernetes cluster between different microservices. Subsequent monitoring with Prometheus and Grafana. 
+
+We used the following tools to solve the problem:
+* Rancher (Docker)
+* Kubernetes
+* Istio
+* Grafana
+* Prometheus
+
+Our solution is tailored for when istio is running on the existing cluster and monitoring of the various microservices is attempted.
+
+
+== Introduction
+
+The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it.(In case istio isn't installed already: https://istio.io/latest/docs/setup/getting-started/#download)
