@@ -4,6 +4,7 @@
 
 = Istio Microservice Monitoring
 
+//Abstract
 == Core elements of the problem and its solution
 
 Standardization of communication in a kubernetes cluster between different microservices. Subsequent monitoring with Prometheus and Grafana. 
@@ -17,8 +18,12 @@ We used the following tools to solve the problem:
 * Prometheus
 
 Our solution is tailored for when istio is running on the existing cluster and monitoring of the various microservices is attempted.
+We are in an environment of docker, kubernetes, microservices and istio. The idea here is that a cluster consists of microservices and runs with docker over kubernetes.  Now, we want to maintain the communication between the individual microservices uniformly by default. In addition, we would like to find a way how we can monitor our cluster with the individual microservices and accordingly make some analyses via prometheus or grafana. Now we present a solution following for how we have implemented this scenario. Our final project was a cluster with three different namespaces: Istio, Application, Monitoring. On the Istio namespace the normal istio system is running. The application namespace runs all microservices and the monitoring namespace is where we want to do the monitoring.
 
 
+//Instruction and goals
 == Introduction
-
+Assumed is a kubernernetes cluster with istio installed and running microservices. We will continuously show how you can monitor your cluster with the microservices using prometheus/grafana and how you can split the tasks into different namespaces. 
 The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it.(In case istio isn't installed already: https://istio.io/latest/docs/setup/getting-started/#download)
+
+
