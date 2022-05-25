@@ -30,9 +30,9 @@ The prerequisite is that there is a Kubernetes cluster with microservices and is
 //TODO
 
 //Solution Strategy
-The setup of the namespace istio-system is indirectly already done, because istio is already installed on our system and therefore the namespace is created automatically. The next namespace where we don't have to care much is the application namespace, there we only have to add all our microservices which run in our cluster. 
+*The setup of the namespace istio-system is indirectly already done, because istio is already installed on our system and therefore the namespace is created automatically. The next namespace where we don't have to care much is the application namespace, there we only have to add all our microservices which run in our cluster. 
 Create Namespaces
-```CMD
+```Kubernetes
   kubectl label namespace  application istio-injection=enabled
 ```
 The namespace with the monitoring will be a bit more complex, because we have to adjust the config files of Prometheus and Grafana. We have oriented ourselves as it can be seen in this https://istiobyexample.dev/prometheus/[example]
