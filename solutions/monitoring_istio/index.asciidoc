@@ -24,7 +24,7 @@ We are in an environment of docker, kubernetes, microservices and istio. The ide
 //Instruction and goals
 == Introduction
 Assumed is a kubernernetes cluster with istio installed and running microservices. We will continuously show how you can monitor your cluster with the microservices using prometheus/grafana and how you can split the tasks into different namespaces. 
-The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it.(In case istio isn't installed already: https://istio.io/latest/docs/setup/getting-started/#download)
+The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it. In case istio isn't installed already check https://istio.io/latest/docs/setup/getting-started/#download[here]
 
 //Context and Scope
 //TODO
