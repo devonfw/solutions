@@ -31,7 +31,7 @@ The prerequisite is that there is a Kubernetes cluster with microservices and is
 //Solution Strategy
 (3) Shared: Configuration file vars-env-def-dev1.yaml
 ```CMD
-# Create Namespaces
+  #Create Namespaces
   kubectl label namespace  application istio-injection=enabled
   envNamePPE1SvcLevel: Full
   envNamePPE1BranchName: dev
