@@ -30,7 +30,7 @@ The prerequisite is that there is a Kubernetes cluster with microservices and is
 //TODO
 
 //Solution Strategy
-*The setup of the namespace *istio-system* is indirectly already done, because istio is already installed on our system and therefore the namespace is created automatically. The next namespace where we don't have to care much is the *application* namespace, there we only have to add all our microservices which run in our cluster.
+The setup of the namespace *istio-system* is indirectly already done, because istio is already installed on our system and therefore the namespace is created automatically. The next namespace where we don't have to care much is the *application* namespace, there we only have to add all our microservices which run in our cluster.
  Create Namespaces
 ```Kubernetes
   kubectl label namespace  application istio-injection=enabled
