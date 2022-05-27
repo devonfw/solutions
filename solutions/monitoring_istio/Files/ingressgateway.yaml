@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: frontend-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    # This setting is only for testing purposes on localhost
+    # because you wont be able to use http://$INGRESS_HOST:$INGRESS_PORT/
+    # in your browser
+    - "*"
+
+    # In your actual configurateion you would use the configuration below this comment
+    # and replace example.com with your actual domain
+
+    # - "httpbin.example.com"

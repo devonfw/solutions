@@ -2,6 +2,9 @@
 //Product=Istio;Grafana;
 //Maturity level=Initial
 
+// Variables
+:folder: https://github.com/MarvDan/architectures/tree/DanBranch/solutions/monitoring_istio/Files/
+
 = Istio Microservice Monitoring
 
 //Abstract
@@ -18,13 +21,13 @@ We used the following tools to solve the problem:
 * Prometheus
 
 Our solution is tailored for when istio is running on the existing cluster and monitoring of the various microservices is attempted.
-We are in an environment of docker, kubernetes, microservices and istio. The idea here is that a cluster consists of microservices and runs with docker over kubernetes.  Now, we want to maintain the communication between the individual microservices uniformly by default. In addition, we would like to find a way how we can monitor our cluster with the individual microservices and accordingly make some analyses via prometheus or grafana. Now we present a solution following for how we have implemented this scenario. Our final project was a cluster with three different namespaces: Istio, Application, Monitoring. On the Istio namespace the normal istio system is running. The application namespace runs all microservices and the monitoring namespace is where we want to do the monitoring.
+We are in an environment of docker, kubernetes, microservices and istio. The idea here is that a cluster consists of microservices and runs with docker over kubernetes.  Now, we want to maintain the communication between the individual microservices uniformly by default. In addition, we would like to find a way how we can monitor our cluster with the individual microservices and accordingly make some analyses via prometheus or grafana. Now we present a solution following for how we have implemented this scenario. Our final project was a cluster with three different namespaces: Istio, Application and Monitoring. On the Istio namespace the normal istio system is running and the solution was tested with the default demo https://istio.io/latest/docs/setup/additional-setup/config-profiles/[profile]. The application namespace runs all microservices and the monitoring namespace is where we want to do the monitoring.
 
 
 //Instruction and goals
 == Introduction
 Assumed is a kubernernetes cluster with istio installed and running microservices. We will continuously show how you can monitor your cluster with the microservices using prometheus/grafana and how you can split the tasks into different namespaces. 
-The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it. In case istio isn't installed already check https://istio.io/latest/docs/setup/getting-started/#download[here]
+The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it. In case istio isn't installed already check https://istio.io/latest/docs/setup/getting-started/#download[here]. It is not required to deploy the sample application allthough you will need a gateway that exposes your application to incoming traffic. If your existing application doesn't satisfy this requirement you can setup an istio ingress-gateway by following this https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/[link]. We provide a basic {folder}ingressgateway.yaml[ingressgateway.yaml] for this step but the configuration varies drastically depending on your specific application.
 
 //Context and Scope
 //TODO
@@ -33,7 +36,7 @@ The prerequisite is that there is a Kubernetes cluster with microservices and is
 The setup of the namespace *istio-system* is indirectly already done, because istio is already installed on our system and therefore the namespace is created automatically. The next namespace where we don't have to care much is the *application* namespace, there we only have to add all our microservices which run in our cluster.
  Create Namespaces
 ```Kubernetes
-  kubectl label namespace  application istio-injection=enabled
+  kubectl label namespace application istio-injection=enabled
 ```
 The namespace with the *monitoring* will be a bit more complex, because we have to adjust the config files of Prometheus and Grafana. We have oriented ourselves as it can be seen in this https://istiobyexample.dev/prometheus/[example]
  (1) Grafana Monitoring Namespace
