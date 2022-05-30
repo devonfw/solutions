@@ -43,13 +43,23 @@ The setup of the namespace *istio-system* is indirectly already done, because is
 ```Kubernetes
   kubectl label namespace application istio-injection=enabled
 ```
-The namespace with the *monitoring* will be a bit more complex, because we have to adjust the config files of Prometheus and Grafana. We have oriented ourselves as it can be seen in this https://istiobyexample.dev/prometheus/[example]
+The namespace with the *monitoring* will be a bit more complex, because we have to adjust the config files of Prometheus and Grafana. We have oriented ourselves as it can be seen in this https://istiobyexample.dev/prometheus/[example] +
  (1) Grafana Monitoring Namespace
 ```YAML
   TODO
-```
- (2) Prometheus Monitoring Namespace
+``` 
+ (2) Prometheus Monitoring Namespace 
+ 
 ```YAML
   TODO
 ```
+//TODO: Images
+
+The tools we used were Rancher, Kubernetes, Istio, Grafana and Prometheus. +
+Rancher because it ran docker and rancher provides you with a local kubernetes cluster https://rancher.com/docs/rancher/v2.6/en/[(more about Rancher)]. +
+Kubernetes to integrate the microservices into our cluster https://kubernetes.io/docs/home/[(more about Kubernetes)]. +
+Istio ultimately for all the communication and for generating the metrics that we want to evaluate for monitoring https://istio.io/latest/docs/[(more about Istio)]. +
+Grafana and Prometheus to collect and process the metrics collected by istio https://grafana.com/docs/[(more about Grafana)] and https://prometheus.io/docs/introduction/overview/[(more about Prometheus)].
+
+
 
