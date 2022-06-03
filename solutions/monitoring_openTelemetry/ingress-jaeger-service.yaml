@@ -22,12 +22,12 @@ spec:
   ipFamilyPolicy: SingleStack
   ports:
   - name: http
-    nodePort: 31161
+    nodePort: 31162
     port: 80
     protocol: TCP
     targetPort: http
   - name: https
-    nodePort: 31836
+    nodePort: 31839
     port: 443
     protocol: TCP
     targetPort: https
