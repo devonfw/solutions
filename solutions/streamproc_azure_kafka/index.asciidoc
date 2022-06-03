@@ -8,13 +8,17 @@ toc::[]
 :idprefix:
 :idseparator: -
 
-== Apache Kafka on Microsoft Azure
+= Stream Processing Solutions - Apache Kafka on Microsoft Azure
 
-=== Options for running Apache Kafka on Microsoft Azure
+include::../../includes/streamproc_problem/index.asciidoc[]
+
+include::../../includes/streamproc_platforms/index.asciidoc[]
+
+== Provisioning Solutions - Apache Kafka on Microsoft Azure
 image::options.png[Kafka options]
 
 [#EventHub]
-==== Event Hub
+=== Event Hub
 Azure Event Hubfootnote:[https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview] supports Apache Kafka producer and consumer APIs
 
 [green]#+ Simplest option# +
@@ -22,7 +26,7 @@ Azure Event Hubfootnote:[https://docs.microsoft.com/en-us/azure/event-hubs/event
 [red]#- No Kafka streams#
 
 [#AKS]
-==== AKS
+=== AKS
 Kafka on Kubernetes (AKS) using Operatorsfootnote:[e.g. https://strimzi.io/ or Confluent Operator]
 
 * rack awareness to spread brokers across availability zones
@@ -39,7 +43,7 @@ Kafka on Kubernetes (AKS) using Operatorsfootnote:[e.g. https://strimzi.io/ or C
 
 
 [#ConfluentCloud]
-==== Confluent Cloud
+=== Confluent Cloud
 Confluent Cloudfootnote:[https://docs.microsoft.com/en-us/azure/partner-solutions/apache-kafka-confluent-cloud/overview] is now integrated in Azure Marketplace
 
 image::confluent-resource.png["Confluent Resource", width=400, link=images/confluent-resource.png]
@@ -65,7 +69,7 @@ image:confluent-data-flow.png["Confluent Data Flow", width=300, link=images/conf
 [red]#- No BYOK for data encryption#
 
 [#HDInsight]
-==== HDInsight
+=== HDInsight
 Azure HDInsightfootnote:[https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-introduction] is a fully-managed cloud distribution of Hadoop Components. It supports many open-source frameworks like Apache Spark, Hive, Apache Storm, R Server, Apache HBase and of course Apache Kafka. It provides 99.99% SLA on Kafka uptime & uses Azure Managed Disks as the backing store for Kafka brokers (providing up to 16TB of storage per broker).
 
 * Security:

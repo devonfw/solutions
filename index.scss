@@ -9,14 +9,14 @@
         background-color: #4cbdec;
         color: white;
         padding: 5px;
-        font-weight: bold;
       }
       .filterpanelbody {
-        border: 1px solid #4cbdec;
+	    background-color: #f9f9f9;
+	    border-style: None;
         .tag {
           margin-top: 2px;
           padding-top: 2px;
-          border: 1px solid white;
+		  margin-left: 1.4rem;
           .material-icons-sharp {
             vertical-align: text-top;
           }
@@ -40,7 +40,6 @@
         padding: 5px;
         .solutionheadlinelink {
           color: white;
-          font-weight: bold;
         }
       }
       .solutionbody {
@@ -64,10 +63,13 @@
     border-radius: .8rem;
     text-align: center;
   }
-  .search-bar #search-field-solutions{
-    content: " ";
-    border-style: solid;
-    border-color: transparent transparent white transparent;
-    width: 165px;
+  .search-bar {
+	  padding-right: 2rem;
+	  #search-field-solutions{
+	    width: 80%;
+		width: -moz-available;          
+		width: -webkit-fill-available; 
+		width: fill-available;
+	  }
   }
 }
