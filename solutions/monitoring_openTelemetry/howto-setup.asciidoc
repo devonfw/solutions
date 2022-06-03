@@ -44,7 +44,7 @@ Here is a sample configuration
     port: 8080
 ----
 
-5. Now install helm
+5. Install helm chart.
 
 ----
 helm install otlp ./helm --namespace nginx-ingress
