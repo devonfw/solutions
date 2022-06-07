@@ -18,7 +18,7 @@ Standardization of communication in a kubernetes cluster between different micro
 
 We used the following tools to solve the problem:
 
-* Rancher (Docker)
+* Rancher Desktop (Docker)
 * Kubernetes
 * Istio
 * Grafana
@@ -253,8 +253,8 @@ See xref:Files/prometheus/deployment.yml[Prometheus] for full example
 //ADD IMAGE: Architecture from Namespaces and there workflow
 
 
-The tools we used were Rancher, Kubernetes, Istio, Grafana and Prometheus. +
-Rancher because it ran docker and rancher provides you with a local kubernetes cluster https://rancher.com/docs/rancher/v2.6/en/[(more about Rancher)]. +
+The tools we used were Rancher Desktop, Kubernetes, Istio, Grafana and Prometheus. +
+Rancher Desktop because it ran docker and rancher provides you with a local kubernetes cluster https://docs.rancherdesktop.io/[(more about Rancher)]. +
 Kubernetes to integrate the microservices into our cluster https://kubernetes.io/docs/home/[(more about Kubernetes)]. +
 Istio ultimately for all the communication and for generating the metrics that we want to evaluate for monitoring https://istio.io/latest/docs/[(more about Istio)]. +
 Grafana and Prometheus to collect and process the metrics collected by istio https://grafana.com/docs/[(more about Grafana)] and https://prometheus.io/docs/introduction/overview/[(more about Prometheus)].
@@ -282,7 +282,7 @@ You need to tell Kiali where to listen for Prometheus: The url consists of servi
 //Concrete Steps to create the solution
 
 // Not finished yet
-First of all, you need the prerequisites as described above. Then it makes sense to start and set up Rancher using "dockerd(moby)" and not "containerd" under the Kubernetes Setting - Container Runtime. Also note that there may be difficulties trying to start the cluster if you are connected via VPN. After Rancher has started the cluster add your microservices as you like. Important is to add them directly into the namespace: Application. 
+First of all, you need the prerequisites as described above. Then it makes sense to start and set up Rancher Desktop using "dockerd(moby)" and not "containerd" under the Kubernetes Setting - Container Runtime. Also note that there may be difficulties trying to start the cluster if you are connected via VPN. After Rancher Desktop has started the cluster add your microservices as you like. Important is to add them directly into the namespace: Application. 
 
 Create Namespace(*directly with istio enabled*): 
 ```KUBERNETES
