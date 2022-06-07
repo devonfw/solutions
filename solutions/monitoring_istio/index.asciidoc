@@ -29,7 +29,7 @@ We are in an environment of docker, kubernetes, microservices and istio. The ide
 
 //Instruction and goals
 == Introduction
-Assumed is a kubernernetes cluster with istio installed and running microservices. We will continuously show how you can monitor your cluster with the microservices using prometheus/grafana and how you can split the tasks into different namespaces. 
+Assumed is a kubernetes cluster with istio installed and running microservices. We will continuously show how you can monitor your cluster with the microservices using prometheus/grafana and how you can split the tasks into different namespaces. 
 The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it. In case istio isn't installed already check https://istio.io/latest/docs/setup/getting-started/#download[here]. Adapt the walkthrough of deploying the sample application to deploy your own application and you will need a gateway that exposes your application to incoming traffic. If your existing application doesn't satisfy this requirement you can setup an istio ingress-gateway by following this https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/[link] and adapt the configuration to your needs. We offer a basic xref:Files/ingressgateway.yaml[ingressgateway.yaml] for this step but the configuration varies drastically depending on your specific application. Configuring an istio-ingressgateway or any other gateway is most likely mandatory but out of scope for this solution. Therefor we only covered the bare minimum. 
 
 //Context and Scope
