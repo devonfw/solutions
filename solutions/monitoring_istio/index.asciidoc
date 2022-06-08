@@ -14,31 +14,51 @@ For most of your questions you might want to read the https://istio.io/latest/do
 //Abstract
 == Core elements of the problem and its solution
 
-Standardization of communication in a kubernetes cluster between different microservices. Subsequent monitoring with Prometheus and Grafana. 
+//Communication:  
+//Now, we want to maintain the communication between the individual microservices uniformly by default.
+
+Our solution is tailored for when istio is running on the existing cluster and monitoring of the various microservices is attempted.
+We are in an environment of docker, kubernetes, microservices and istio. The idea here is that a cluster consists of microservices and runs with docker over kubernetes.  In addition, we would like to find a way how we can monitor our cluster with the individual microservices and accordingly make some analyses via prometheus or grafana. Now we present a solution following for how we have implemented this scenario. Our final project was a cluster with three different namespaces: Istio, Application and Monitoring. On the Istio namespace the normal istio system is running and the solution was tested with the default demo https://istio.io/latest/docs/setup/additional-setup/config-profiles/[profile]. The application namespace runs all microservices and the monitoring namespace is where we want to do the monitoring.
 
 We used the following tools to solve the problem:
 
-* Rancher Desktop (Docker)
+* Docker
 * Kubernetes
 * Istio
 * Grafana
 * Prometheus
 
-Our solution is tailored for when istio is running on the existing cluster and monitoring of the various microservices is attempted.
-We are in an environment of docker, kubernetes, microservices and istio. The idea here is that a cluster consists of microservices and runs with docker over kubernetes.  Now, we want to maintain the communication between the individual microservices uniformly by default. In addition, we would like to find a way how we can monitor our cluster with the individual microservices and accordingly make some analyses via prometheus or grafana. Now we present a solution following for how we have implemented this scenario. Our final project was a cluster with three different namespaces: Istio, Application and Monitoring. On the Istio namespace the normal istio system is running and the solution was tested with the default demo https://istio.io/latest/docs/setup/additional-setup/config-profiles/[profile]. The application namespace runs all microservices and the monitoring namespace is where we want to do the monitoring.
-
 //Instruction and goals
 == Introduction
 Assumed is a kubernetes cluster with istio installed and running microservices. We will continuously show how you can monitor your cluster with the microservices using prometheus/grafana and how you can split the tasks into different namespaces. 
-The prerequisite is that there is a Kubernetes cluster with microservices and istio is already running on it. In case istio isn't installed already check https://istio.io/latest/docs/setup/getting-started/#download[here]. Adapt the walkthrough of deploying the sample application to deploy your own application and you will need a gateway that exposes your application to incoming traffic. If your existing application doesn't satisfy this requirement you can setup an istio ingress-gateway by following this https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/[link] and adapt the configuration to your needs. We offer a basic xref:Files/ingressgateway.yaml[ingressgateway.yaml] for this step but the configuration varies drastically depending on your specific application. Configuring an istio-ingressgateway or any other gateway is most likely mandatory but out of scope for this solution. Therefor we only covered the bare minimum. 
+
+== Prerequisites 
+* basic docker runs on your environment https://docs.docker.com/get-docker/[(docker install)]
+* kubernetes running with istio https://istio.io/latest/docs/setup/getting-started/[(istio install)]
+* you will need a gateway that exposes your application to incoming traffic 
+
+If your existing application doesn't satisfy this Prerequisites you can setup an istio ingress-gateway by following this https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/[link] and adapt the configuration to your needs + 
+
+We offer a basic xref:Files/ingressgateway.yaml[ingressgateway.yaml] for this step but the configuration varies drastically depending on your specific application. Configuring an istio-ingressgateway or any other gateway is most likely mandatory but out of scope for this solution. Therefor we only covered the bare minimum. 
+
+== Requirements
+* adapt the walkthrough of deploying the sample application to deploy your own application
+* split your cluster in 3 seperate namespaces (shown below)
+
+
+== Goals
+Our goal is to eventually have a cluster with 3 namespaces: Application, Istio, Monitoring. On the application namespace we want to run our standard microservices. The Istio namespace is simply for the standard istio namespace. The monitoring namespace is needed to monitor and analyze our cluster. It should be possible that the namespaces communicate with each other. In detail we want to intercept the metrics that istio creates from the microservices and then read and analyze them via our monitoring namespace. 
+Since this solution is tailored towards an existing application you may have gateways (like Kubernetes Virtual Service) configured that expose your application to outside traffic already. With Istio you can define traffic routes and destination rules inside your cluster. Monitoring with Istio will help you to analyze the performance of your cluster regardless of your gateway cofiguration. Just note that configuring an ingress-gateway will enable other benefits that are likely going to influence the monitoring of your application.
 
 //Context and Scope
 == Context and Scope
-Since this solution is tailored towards an existing application you may have gateways (like Kubernetes Virtual Service) configured that expose your application to outside traffic already. With Istio you can define traffic routes and destination rules inside your cluster. Monitoring with Istio will help you to analyze the performance of your cluster regardless of your gateway cofiguration. Just note that configuring an ingress-gateway will enable other benefits that are likely going to influence the monitoring of your application. 
+//TODO 
 
 //Solution Strategy
 == Solution Strategy
 The setup of the namespace *istio-system* is indirectly already done, because istio is already installed on our system and therefore the namespace is created automatically. The next namespace where we don't have to care much is the *application* namespace, there we only have to add all our microservices which run in our cluster.
+
+//TODO: IMAGE
  
 Create Namespaces
 ```Kubernetes
@@ -253,8 +273,9 @@ See xref:Files/prometheus/deployment.yml[Prometheus] for full example
 //ADD IMAGE: Architecture from Namespaces and there workflow
 
 
-The tools we used were Rancher Desktop, Kubernetes, Istio, Grafana and Prometheus. +
-Rancher Desktop because it ran docker and rancher provides you with a local kubernetes cluster https://docs.rancherdesktop.io/[(more about Rancher)]. +
+The tools we used for our local testing were Rancher Desktop, Kubernetes, Istio, Grafana and Prometheus. (instead of Rancher Desktop you can use anything that supports Docker) +
+Docker to build our Docker Images for the Kubernetes Cluster https://docs.docker.com/[(more about Docker)]. + 
+Rancher Desktop because it ran docker and rancher provides you with a local kubernetes cluster https://docs.rancherdesktop.io/[(more about Rancher Desktop)]. +
 Kubernetes to integrate the microservices into our cluster https://kubernetes.io/docs/home/[(more about Kubernetes)]. +
 Istio ultimately for all the communication and for generating the metrics that we want to evaluate for monitoring https://istio.io/latest/docs/[(more about Istio)]. +
 Grafana and Prometheus to collect and process the metrics collected by istio https://grafana.com/docs/[(more about Grafana)] and https://prometheus.io/docs/introduction/overview/[(more about Prometheus)].
@@ -282,7 +303,12 @@ You need to tell Kiali where to listen for Prometheus: The url consists of servi
 //Concrete Steps to create the solution
 
 // Not finished yet
-First of all, you need the prerequisites as described above. Then it makes sense to start and set up Rancher Desktop using "dockerd(moby)" and not "containerd" under the Kubernetes Setting - Container Runtime. Also note that there may be difficulties trying to start the cluster if you are connected via VPN. After Rancher Desktop has started the cluster add your microservices as you like. Important is to add them directly into the namespace: Application. 
+First of all, you need the prerequisites as described above. Then it makes sense to start and set up Docker.Now you can build the images for your microservices. After that you can add your microservices directly to the cluster.
+
+==== If you also use Rancher desktop pay attention to the following things:  
+Rancher Desktop using "dockerd(moby)" and not "containerd" under the Kubernetes Setting - Container Runtime. Also note that there may be difficulties trying to start the cluster if you are connected via VPN. After Rancher Desktop has started the cluster add your microservices as you like. 
+
+**Important is to add them directly into the namespace: Application.** 
 
 Create Namespace(*directly with istio enabled*): 
 ```KUBERNETES
