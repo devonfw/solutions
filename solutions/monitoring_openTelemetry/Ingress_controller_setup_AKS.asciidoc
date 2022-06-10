@@ -48,7 +48,7 @@ Install Nginx ingress controller in kubernetes cluster by using helm chart.
 
 2. Redeploy service with minor changes.
 
-   kubectl apply -f filename.yml -n nginx-ingress
+   kubectl apply -f nginx_controller_service.yml -n nginx-ingress
    
 3. Setup ingress host with nginx ingress controller service domain to access application using domain.
 
