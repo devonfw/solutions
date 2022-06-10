@@ -57,17 +57,79 @@ Cloud Storage is available in private, public and hybrid clouds.
 
 Majorly, below are main types of Cloud Storage:
 
-* Object Storage: It manages data as objects.  Each object includes the data in a file, its associated metadata, and an identifier. Objects store data in the format it arrives in and makes it possible to customize metadata in ways that make the data easier to access and analyze. Instead of being organized in files or folder hierarchies, objects are kept in repositories that deliver virtually unlimited scalability. Since there is no filing hierarchy and the metadata is customizable, object storage allows you to optimize storage resources in a cost-effective way.
-For example, S3(Simple Storage Service) in AWS, Blob Storage in Azure and Google Cloud Storage in GCP are object storage.
+|===
+|Storage |Description |Services
 
-* File Storage: The file storage method saves data in the hierarchical file and folder structure with which most of us are familiar. The data retains its format, whether residing in the storage system or in the client where it originates, and the hierarchy makes it easier and more intuitive to find and retrieve files when needed. File storage is commonly used for development platforms, home directories, and repositories for video, audio, and other files.
-For example, EFS and FSx are file storage services in AWS, azure file storage in Azure and Google Cloud Filestore in GCP.
+|Object storage
+a|* Data is stored as object. Each object includes the data in a file, its associated metadata, and an identifier.
+* Metadata can be customized and detailed.
+*	Objects store data in the format it arrives in
+*	Instead of files and folders data is stored in repositories.
+*	Provides unlimited scalability
+*	Cost effective option
+*	Use cases:
+  
+It’s a storage system well suited for static data, and its agility and flat nature means it can scale to extremely large quantities of data. The objects have     enough information for an application to find the data quickly and are good at storing unstructured data.
 
-* Block Storage: Block storage, sometimes referred to as block-level storage, is a technology that is used to store data files on Storage Area Networks (SANs) or cloud-based storage environments. Developers favor block storage for computing situations where they require fast, efficient, and reliable data transportation.Block storage breaks up data into blocks and then stores those blocks as separate pieces, each with a unique identifier. The SAN places those blocks of data wherever it is most efficient. 
-Block storage also decouples data from user environments, allowing that data to be spread across multiple environments. This creates multiple paths to the data and allows the user to retrieve it quickly.
-For example, EBS in AWS and Google Cloud Persistent Disks in GCP.
+*	Cons:
+ -	Object can't be modified
+ -	doesn't work well with traditional db
 
-Also, archival and database services can be considered for data storage
+
+|AWS- Simple storage service(S3)
+Azure- Blob storage
+GCP – Google cloud storage
+
+
+|File storage
+a|*	File storage method saves data in the hierarchical file and folder structure
+*	The data retains its format
+*	Easy to find and retrieve files when needed
+*	Single path exists for each file
+*	Use cases:
+File storage is commonly used for development platforms, home directories, and repositories for video, audio, and other files.
+*	Cons:
+  -	Inconsistency in data format.
+  -	The same information being kept in several different places (files)
+  -	Data inconsistency, a situation where various copies of the same data are conflicting, wastes storage space and duplicates effort.
+|AWS – 
+EFS and FSx Azure-
+Azure file storage 
+GCP-
+Google Cloud Filestore 
+
+
+|Block storage
+a|*	Block-level storage is a technology that is used to store data files on Storage Area Networks (SANs) or cloud-based storage environments.
+*	Block storage breaks up data into blocks and then stores those blocks as separate pieces, each with a unique identifier.
+*	Block storage also decouples data from user environments, allowing that data to be spread across multiple environments.
+*	Creates multiple paths to the data and allows the user to retrieve it quickly
+*	Use cases:
+  -	Developers block storage for computing situations where they require fast, efficient, and reliable data transportation.
+  -	It works well with enterprises performing big transactions and those that deploy huge databases, meaning the more data you need to store, the better off you’ll be with block storage.
+*	cons:
+  -	expensive
+  -	limited capability to handle metadata
+|EBS in AWS and Google Cloud Persistent Disks in GCP.
+
+|Database
+a|Each cloud provider have there own fully managed services.
+More about 
+
+* AWS database - https://aws.amazon.com/products/databases/
+* Azure database – 
+ https://azure.microsoft.com/en-in/product-categories/databases/
+* GCP -  https://cloud.google.com/docs 
+|
+
+|Archival
+|Archival storage services are used when user want to store data which is not frequently accessed. This are generally available at lowest cost. This service can be used for backing up data.
+|AWS – S3 Glacier
+Azure- Azure Archive storage
+GCP 
+GCP – Storage classes
+|===
+
 
 === Products & Services
 
