@@ -1,0 +1,63 @@
+== Steps to install Opentelemetry including `Jaeger` and `grafana` with your application.
+
+1. Install `nginx` in the `azure` environment. Login to `azure` using the command shell and execute the below commands.
+
+----
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install nginx-ingress bitnami/nginx-ingress-controller --set ingressClassResource.default=true --set containerSecurityContext.allowPrivilegeEscalation=false --namespace nginx-ingress --create-namespace
+----
+[start=2]
+2. Create two more services to get public ip/domain to configure `grafana` and `jaeger`. Use the below commands.
+----
+kubectl apply -f ingress-grafana-service.yaml --namespace nginx-ingress
+kubectl apply -f ingress-jaeger-service.yaml  --namespace nginx-ingress
+----
+
+While executing the above commands and if any port already used issue, configure different port in `ingress-xxx-service.yaml`
+
+[start=3]
+3. Configure the subdomain names for the application, `grafana` & `jaeger`.
+Login to the azure console and open "Public IP addresses"
+Select each IP addresses having names like `kubernetes-xxxx`.
+  Open configuration of each on of it and add the below names.
+    . `applicaiton`
+    . `grafana`
+    . `jaeger`
+    
+[start=4]
+4. Now open the `vlaues.yaml` file and add the hosts.
+
+Here is a sample configuration
+
+----
+jaeger:
+  name: "jaeger-all-in-one"
+  host: "jaeger.westeurope.cloudapp.azure.com"
+  port: 16686
+----
+Also configure the application container information:
+
+Here is a sample configuration
+
+----
+ image:
+    registry: "dockerregistry101"
+    repository: "azure_devops_image_store"
+    tag: "latest"
+    port: 8080
+----
+
+[start=5]
+5. Install `helm chart`.
+
+----
+helm install otlp ./helm --namespace nginx-ingress
+----
+
+Verify the the deployments in browser using the host names.
+
+
+
+
+
