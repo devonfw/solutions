@@ -34,13 +34,28 @@ Install Nginx ingress controller in kubernetes cluster by using helm chart.
 
 	helm repo update
 
-* Installing the Chart
-If you have Helm, you can deploy the ingress controller with the following command:
+* Nginx-ingress controller: Installing the Helm charts deploy the nginx ingress controller with the following command.
 
-AZURE - AKS:
+  helm install nginx-ingress bitnami/nginx-ingress-controller --set ingressClassResource.default=true --set containerSecurityContext.allowPrivilegeEscalation=false --namespace nginx-ingress --create-namespace
 
-	helm install nginx-stable nginx-stable/nginx-ingress --set controller.setAsDefaultIngress=true --namespace nginx-ingress --create-namespace 
-	
+== Create multiple nginx controller service for multi domain access.
+
+1. Import already existed nginx controller service in to yaml, modify service name and re-deploy service.
+
+    kubectl get svc nginx-ingress-nginx-ingress-controller -n nginx-ingress -o yaml > filename.yml
+
+ Note:  In Azure create Public IP addresses(domain) for nginx ingress service external IP.
+
+2. Redeploy service with minor changes.
+
+   kubectl apply -f filename.yml -n nginx-ingress
+   
+3. Setup ingress host with nginx ingress controller service domain to access application using domain.
+
+    host: xxx.xxx.xx.com
+    
+deploy and access application using domain.
+
 == Examples
 === Providing Dynamic Values to Helm chart
 When installing Helm charts with the helm install command, the `--set` argument allows you to define value in a values.yaml file, `application.cloud` is deployment  environment(AZURE), `ingress.host` is to set host value.
