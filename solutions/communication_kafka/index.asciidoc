@@ -1,0 +1,295 @@
+:toc:
+
+== Abstract
+
+The goal of documentation is to present the Spring Kafka functionalities
+in the context of microservices. The main focus would be how Kafka-based
+messaging solutions are implemented with Spring Boot. Furthermore, the
+documentation also provides information regarding the implementation of
+logging, tracing, and retry within an application.
+
+Spring Kafka, Docker, and Postman are the tools being used during the
+creation of this document. To run both Kafka message broker and
+Zookeeper, Docker image is used. For the app testing, we use Postman by
+sending already defined http requests to examine the expected outputs.
+
+== Introduction and Goals
+
+The goal of this solution is to provide guidance on how to use Kafka
+efficiently with spring boot leveraging the spring-kafka module.
+
+____
+The Spring for Apache Kafka (spring-kafka) project applies core Spring
+concepts to the development of Kafka-based messaging solutions. It
+provides a "template" as a high-level abstraction for sending messages.
+--
+https://spring.io/projects/spring-kafka[https://spring.io/projects/spring-kafka]
+____
+
+Basic concepts and functionalities of kafka can be found
+https://developer.confluent.io/what-is-apache-kafka/[here].
+
+In short, Apache Kafka was built to make real-time data available to all
+the applications that need to use it. Kafka models events as key/value
+pairs. These pairs are saved in an distributed append-only log in
+specific topics. This way Kafka can be used as a distributed pub/sub
+messaging system that replaces traditional message brokers like ActiveMQ
+and RabbitMQ.
+
+This soulution concentrates on the following aspects:
+
+* Configuration
+* Basic functionalities and Retry
+* Logging
+* Tracing
+
+== Context and Scope
+
+There are several common use cases for kafka (_further reading:
+https://kafka.apache.org/uses[https://kafka.apache.org/uses]_), such as:
+
+* Messaging
+* Website Activity Tracking
+* Metrics
+* Log Aggregation
+* Stream Processing
+* Event Sourcing
+
+The scope of this solution is limited to the implementation of the
+following functionalities in a spring boot application:
+
+* Logging
+* Monitoring
+* Tracing
+* Retry
+
+The tools that are set and implemented are as follow:
+
+* Spring Boot An extension of the popular Spring frameworks, but it has
+a few unique features that make it ideal for quickly developing web
+applications and microservices.
+* Spring Kafka Extends the simple and common Spring template programming
+model with a KafkaTemplate as well as Message-driven POJOs via
+@KafkaListener annotation.
+* Java / Kotlin
+* Spring Cloud Sleuth Provides Spring Boot auto-configuration for
+distributed tracing (_read more:
+https://spring.io/projects/spring-cloud-sleuth[https://spring.io/projects/spring-cloud-sleuth]_).
+
+== Solution Strategy
+
+=== Configuration
+
+This provides basic guidelines on how to set up prerequisites before
+implementing spring-kafka, such as defining the necessary dependencies
+and setting up specific spring-kafka configurations.
+
+To use `spring-kafka` in a project, add the following dependency to the
+`pom.xml` of a maven project:
+
+....
+<dependency>
+  <groupId>org.springframework.kafka</groupId>
+  <artifactId>spring-kafka</artifactId>
+</dependency>
+....
+
+For a gradle project add the following line to the dependencies in the
+`build.gradle` file:
+
+....
+implementation 'org.springframework.kafka:spring-kafka'
+
+....
+
+To set specific spring-kafka configurations, the spring boot
+`application.yml` can be used:
+
+....
+spring:
+  application:
+    name: shipkafka
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.LongSerializer"
+      value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
+    consumer:
+      key-deserializer: "org.apache.kafka.common.serialization.LongDeserializer"
+      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+....
+
+The Kafka broker is specified at `localhost:9092` in this example
+configuration.
+
+Spring-kafka uses the type String for keys and values per default. This
+behavior can be changed by setting the specific serializers and
+deserializers like in the example.
+
+To deserialize objects received in json, the specific object needs to be
+added to the trusted packages. In this example all packages of the
+application are trusted through the use of the wildcard `*`.
+
+=== Creating topics
+
+The spring-boot application can create topics automatically:
+
+....
+@Bean
+public NewTopic bookings() {
+   return TopicBuilder.name("bookings")
+         .partitions(2)
+         .compact()
+         .build();
+}
+....
+
+This creates a topic with the name `bookings` with two partitions and
+compact logging. Further options for `TopicBuilder` can be found
+https://docs.spring.io/spring-kafka/api/org/springframework/kafka/config/TopicBuilder.html[here].
+
+=== Sending messages
+
+The class `KafkaTemplate` simplifies the sending of messages to the
+broker. It can be autowired.
+
+....
+private final KafkaTemplate<Long, Object> longTemplate;
+....
+
+This defines a template for sending messages with a `Long` key and an
+object as a value. The Object will be serialized as json as specified in
+the `application.yml`.
+
+The class has the methods `send()` for sending messages. The different
+methods can be looked up in the
+https://docs.spring.io/spring-kafka/api/org/springframework/kafka/core/KafkaTemplate.html[class
+documentation].
+
+....
+longTemplate.send(topic, key, message);
+....
+
+This sends a message with a key to the specified topic.
+
+=== Receiving messages
+
+Receiving messages from a topic is simplified with the
+https://docs.spring.io/spring-kafka/reference/html/#annotation-properties[`@KafkaListener`]
+annotation.
+
+....
+@KafkaListener(id = "bookings", topics = "bookings", groupId = "ship")
+public void listenBookings(Booking booking){
+    ...
+}
+....
+
+In this example messages of the type Booking are consumed from the
+`bookings` topic.
+
+=== Retry
+
+Failures in a distributed system may happen, i.e. failed message
+process, network errors, runtime exceptions. Therefore, the retry logic
+implementation is something essential to have.
+
+It is important to note that Retries in Kafka can be quickly implemented
+at the consumer side. This is known as Simple Blocking Retries. To
+accomplish visible error handling without causing real-time disruption,
+Non-Blocking Retries and Dead Letter Topics are implemented.
+
+Non-Blocking Retries can easily be added to a listener:
+
+....
+@RetryableTopic(attempts = "3", backoff = @Backoff(delay = 2_000, maxDelay = 10_000, multiplier = 2))
+@KafkaListener(id = "bookings", topics = "bookings", groupId = "ship")
+public void listenBookings(Booking booking){
+    ...
+}
+
+@DltHandler
+public void listenBookingsDlt(Booking booking){
+    LOG.info("Received DLT message: {}", booking);
+}
+    
+....
+
+In this example the `@RetryableTopic` annotation attempts to process a
+received message 3 times. The first retry is done after a delay of 2
+seconds. Each further attempt multiplies the delay by 2 with a max delay
+of 10 seconds. If the message couldn't be processed, it gets send to the
+deadletter topic annotated with `@DltHandler`.
+
+=== Logging
+
+Spring-kafka doesn't log everything that's happening in the applicaiton.
+The usage of Slf4J is recommended to implement further logging. It's
+straightforward yet adaptable, allowing for better readability and
+performance. Sending and receiving messages should be logged
+appropriately. It needs to be implemented manually as spring-kafka
+doesnt create logs of it automatically.
+
+This is a simple example for logging received messages:
+
+....
+LOG.info("Received message: {}", message);
+....
+
+=== Tracing
+
+In microservice architecture, tracing is implemented to monitor
+applications as well as to help identifying where errors or failures
+occur, which may cause poor performance. In applications that may
+contain several services, it is necessary to trace the invocation from
+one service to another.
+
+The Spring Cloud Sleuth library adds tracing to spring-kafka. The
+dependency can be added to a project by adding the following to the
+`pom.xml` file:
+
+....
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${release.train.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
+</dependencies>
+....
+
+For a gradle project add the following to the `build.gradle` file:
+
+....
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.2"
+    }
+}
+
+dependencies{
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+}
+....
+
+This will add a traceId and spanId to the Slf4J logs. If an application
+name is specified in the `application.yml` like in the example, the
+service name will be added to the logs as well.
+
+Further information can be found in the
+https://spring.io/projects/spring-cloud-sleuth[official documentation].
