@@ -1,6 +1,6 @@
 = Implementing Kafka with Spring Boot and Spring Kafka Module
 
-:toc:
+:toc: 
 
 == Abstract
 
@@ -10,7 +10,7 @@ messaging solutions are implemented with Spring Boot. Furthermore, the
 documentation also provides information regarding the implementation of
 logging, tracing, and retry within an application.
 
-Spring Kafka, Docker, and Postman are some of the tools used during the
+Spring Kafka, Docker, and Postman are the tools being used during the
 creation of this document. To run both Kafka message broker and
 Zookeeper, a Docker image is used.
 
@@ -37,7 +37,7 @@ specific topics. This way Kafka can be used as a distributed pub/sub
 messaging system that replaces traditional message brokers like ActiveMQ
 and RabbitMQ.
 
-This solution concentrates on the following aspects:
+This soulution concentrates on the following aspects:
 
 * Configuration
 * Basic functionalities and Retry
@@ -56,30 +56,31 @@ https://kafka.apache.org/uses[https://kafka.apache.org/uses]_), such as:
 * Stream Processing
 * Event Sourcing
 
-The scope of this solution is limited to the implementation of the
-following functionalities in a spring boot application:
+This solution focuses not on the many use cases, it is limited to the
+implementation of the following functionalities in a general spring boot
+application:
 
 * Configuration
 * Basic functionalities and Retry
 * Logging
 * Tracing
 
-The tools that are set and implemented are as follow:
+The tools that are set for this solution are as followed:
 
-* Spring Boot: An extension of the popular Spring frameworks, but it has
+* Spring Boot An extension of the popular Spring frameworks, but it has
 a few unique features that make it ideal for quickly developing web
 applications and microservices.
-* Spring Kafka: Extends the simple and common Spring template programming
+* Spring Kafka Extends the simple and common Spring template programming
 model with a KafkaTemplate as well as Message-driven POJOs via
 @KafkaListener annotation.
 * Java / Kotlin
-* Spring Cloud Sleuth: Provides Spring Boot auto-configuration for
+* Spring Cloud Sleuth Provides Spring Boot auto-configuration for
 distributed tracing (_read more:
 https://spring.io/projects/spring-cloud-sleuth[https://spring.io/projects/spring-cloud-sleuth]_).
 
-== Solution Strategy
+=== Solution Strategy
 
-=== Configuration
+==== Configuration
 
 This provides basic guidelines on how to set up prerequisites before
 implementing spring-kafka, such as defining the necessary dependencies
@@ -136,7 +137,7 @@ To deserialize objects received in json, the specific object needs to be
 added to the trusted packages. In this example all packages of the
 application are trusted through the use of the wildcard `*`.
 
-=== Creating topics
+==== Creating topics
 
 The spring-boot application can create topics automatically:
 
@@ -154,7 +155,7 @@ This creates a topic with the name `bookings` with two partitions and
 compact logging. Further options for `TopicBuilder` can be found
 https://docs.spring.io/spring-kafka/api/org/springframework/kafka/config/TopicBuilder.html[here].
 
-=== Sending messages
+==== Sending messages
 
 The class `KafkaTemplate` simplifies the sending of messages to the
 broker. It can be autowired.
@@ -178,11 +179,12 @@ longTemplate.send(topic, key, message);
 
 This sends a message with a key to the specified topic.
 
-=== Receiving messages
+==== Receiving messages
 
-Receiving messages from a topic is simplified with the
-https://docs.spring.io/spring-kafka/reference/html/#annotation-properties[`@KafkaListener`]
-annotation.
+To receive messages you have to define a listener.
+
+The listener is defined by implementing and annotating a method like in
+the following example:
 
 ....
 @KafkaListener(id = "bookings", topics = "bookings", groupId = "ship")
@@ -191,10 +193,12 @@ public void listenBookings(Booking booking){
 }
 ....
 
-In this example, messages of the type Booking are consumed from the
-`bookings` topic.
+Receiving messages from a topic is simplified with the
+https://docs.spring.io/spring-kafka/reference/html/#annotation-properties[`@KafkaListener`]
+annotation. In this example messages of the type Booking are consumed
+from the `bookings` topic.
 
-=== Retry
+==== Retry
 
 Failures in a distributed system may happen, i.e. failed message
 process, network errors, runtime exceptions. Therefore, the retry logic
@@ -227,14 +231,31 @@ seconds. Each further attempt multiplies the delay by 2 with a max delay
 of 10 seconds. If the message couldn't be processed, it gets send to the
 deadletter topic annotated with `@DltHandler`.
 
-=== Logging
+....
+bookings-retry-5000
+....
+
+Each retry creates a new topic like in the example above.
+
+DLT creates a topic for messages that couldn't get processed. The topic
+gets named like the example below:
+
+....
+bookings-dlt
+....
+
+Further information can be found in the
+https://docs.spring.io/spring-kafka/reference/html/#retry-topic[official
+documentation].
+
+==== Logging
 
 Spring-kafka doesn't log everything that's happening in the applicaiton.
 The usage of Slf4J is recommended to implement further logging. It's
 straightforward yet adaptable, allowing for better readability and
 performance. Sending and receiving messages should be logged
 appropriately. It needs to be implemented manually as spring-kafka
-doesnt create logs of it automatically.
+doesn't create logs of it automatically.
 
 This is a simple example for logging received messages:
 
@@ -242,7 +263,7 @@ This is a simple example for logging received messages:
 LOG.info("Received message: {}", message);
 ....
 
-=== Tracing
+==== Tracing
 
 In microservice architecture, tracing is implemented to monitor
 applications as well as to help identifying where errors or failures
@@ -295,4 +316,52 @@ service name will be added to the logs as well.
 Further information can be found in the
 https://spring.io/projects/spring-cloud-sleuth[official documentation].
 
-=== Health Monitoring
+==== Health Monitoring
+
+Spring-kafka doesn't provide an inbuild health indicator for Kafka as a
+general implementation for all use cases isn't possible. Further
+information and updates on the situation can be found on
+https://github.com/spring-projects/spring-boot/issues/14088#issuecomment-830410907[GitHub].
+
+=== Alternatives
+
+This section presents some alternatives to Apache Kafka as a message
+broker.
+
+==== ActiveMQ
+
+While Kafka is designed to process a high load of data in real-time,
+ActiveMQ is intended to process only a small number of messages with a
+high level of reliability. It can also be used for ETL jobs.
+
+ActiveMQ is a push-based messaging system. The producer has to ensure
+that messages are delivered to the consumers. The acknowlegment of
+messages decreases the throughput and increases the latency. Kafka is
+pull-based and the consumers consume the messages from the topic.
+
+Kafka is a complex system, but it is highly scalable through partitions
+and replicas. ActiveMQ is much simpler to deploy, but the performance
+slows down the more consumers there are.
+
+If big data processing is not required, ActiveMQ is a good alternative
+to Kafka.
+
+==== RabbitMQ
+
+RabbitMQ is a traditional message broker. It's highly flexible,
+supporting many messaging protocols like AMQP, MQTT and STOMP.
+Functionalities can be added through plugins.
+
+Unlike Kafka, RabbitMQ is mainly a push-based system. Consumers define a
+prefetch limit. Messages will be prefetched until this limit is met.
+After messages are processed and acknowleged, more messages can be
+fetched until the limit is met again.
+
+While events are stored in append-only logs in Kafka, RabbitMQ stores
+the events in queues. Messages are retained until they are acknowleged.
+
+RabbitMQ is easier to deploy than Kafka, but it cant reach the
+scalability and performance of Kafka.
+
+If big data processing is not required and a highly flexible message
+broker is required, RabbitMQ is a good alternative to Kafka.
