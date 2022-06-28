@@ -12,8 +12,7 @@ logging, tracing, and retry within an application.
 
 Spring Kafka, Docker, and Postman are some of the tools used during the
 creation of this document. To run both Kafka message broker and
-Zookeeper, Docker image is used. For the app testing, we use Postman by
-sending already defined http requests to examine the expected outputs.
+Zookeeper, a Docker image is used.
 
 == Introduction and Goals
 
@@ -60,10 +59,10 @@ https://kafka.apache.org/uses[https://kafka.apache.org/uses]_), such as:
 The scope of this solution is limited to the implementation of the
 following functionalities in a spring boot application:
 
+* Configuration
+* Basic functionalities and Retry
 * Logging
-* Monitoring
 * Tracing
-* Retry
 
 The tools that are set and implemented are as follow:
 
@@ -295,3 +294,5 @@ service name will be added to the logs as well.
 
 Further information can be found in the
 https://spring.io/projects/spring-cloud-sleuth[official documentation].
+
+=== Health Monitoring
