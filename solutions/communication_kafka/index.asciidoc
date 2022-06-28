@@ -37,7 +37,7 @@ specific topics. This way Kafka can be used as a distributed pub/sub
 messaging system that replaces traditional message brokers like ActiveMQ
 and RabbitMQ.
 
-This soulution concentrates on the following aspects:
+This solution concentrates on the following aspects:
 
 * Configuration
 * Basic functionalities and Retry
@@ -67,14 +67,14 @@ application:
 
 The tools that are set for this solution are as followed:
 
-* Spring Boot An extension of the popular Spring frameworks, but it has
+* Spring Boot: An extension of the popular Spring frameworks, but it has
 a few unique features that make it ideal for quickly developing web
 applications and microservices.
-* Spring Kafka Extends the simple and common Spring template programming
+* Spring Kafka: Extends the simple and common Spring template programming
 model with a KafkaTemplate as well as Message-driven POJOs via
 @KafkaListener annotation.
 * Java / Kotlin
-* Spring Cloud Sleuth Provides Spring Boot auto-configuration for
+* Spring Cloud Sleuth: Provides Spring Boot auto-configuration for
 distributed tracing (_read more:
 https://spring.io/projects/spring-cloud-sleuth[https://spring.io/projects/spring-cloud-sleuth]_).
 
