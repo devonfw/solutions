@@ -1,6 +1,10 @@
-= Implementing Kafka with Spring Boot and Spring Kafka Module
+//Category=Communication;Kafka;Microservice Platforms;Tracing;Logging;Retry;
+//Product=Apache Kafka;Spring Kafka;Spring Cloud Sleuth;Spring Boot;
+//Maturity level=Advanced
 
-:toc: 
+:toc:
+
+= Implementing Kafka with Spring Boot and Spring Kafka Module
 
 == Abstract
 
