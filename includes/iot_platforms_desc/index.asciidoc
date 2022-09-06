@@ -1,0 +1,37 @@
+
+=== IoT Platforms
+
+The **Internet of things (IoT)** describes physical objects (or groups of such objects) with sensors, processing ability, software, and other technologies that connect and exchange data with other devices and systems over the Internet or other local communications networks. The location of the devices is also known as edge. Industrial IoT (IIoT) is a subcategory of IoT. IIoT utilizes the principles of the internet of things in industrial settings or, in short, “the elements are identical, but the usage varies.” IIoT is often used about Industry 4.0, a term that encapsulates the manufacturing industry’s current trend to utilize a combination of IoT, Big Data, cloud, and edge computing.
+
+Broadly conceived, an **IoT platform** is a multi-layer technology that facilitates the provisioning and management of connected devices within the IoT ecosystem consisting of IoT endpoints, edge hardware, networks, and a broader value chain. IoT platforms are often referred to as middleware solutions as they act as the connective tissue between the data collected from edge devices and the end-user applications. According to Gartner: “An IoT platform is an on-premises software suite or a cloud service…that monitors and may manage and control various types of endpoints, often via applications business units deploy on the platform.” The broader value chain consists of the following:
+
+* Sensors, actuators, controllers gathering data
+* A communication network
+* An IoT edge device/gateway that aggregates the data and transmits it across the network
+* Data processing platforms e.g. for transforming, modeling, and visualizing data
+* End-user applications
+Some IoT platforms are less comprehensive than others. Depending on your Applications, you may require an IoT platform that only covers a certain portion of the value chain or needs a complete solution. An end-to-end IoT platform that covers the full IoT development cycle will typically include the following (https://www.iotforall.com/iiot-iot-or-mes-platforms-whats-the-difference):
+* IoT device management
+* Data collection capabilities
+* IoT data modeling, analytics, visualization
+* App development capabilities or a marketplace for IoT apps
+* IoT collaboration enablement, social features
+
+An **IIoT platform** is special case of an IoT platform with a wider scope of offered features, the specific industry focus, and the emphasis on industry-level security standards.
+
+To implementing IoT platforms two major approaches can be distinguished:
+
+* Traditional approach used so far
++
+--
+**MES**, or manufacturing execution systems, have been the traditional way to streamline operations all the way down to the shop floor. They manage industrial assets, collect data, and ensure traceability in an industrial setting, among others. As a more traditional approach to IIoT, MES are centralized solutions. They tend to encounter difficulties when having to perform outside of their main functionalities. MES tend to be vendor-specific and proprietary, so industrial manufacturers can only work with their vendor’s modules. And you can buy the vendor’s apps only. The manufacturers have little control over the applications they develop and deploy. (Source: https://www.iotforall.com/iiot-iot-or-mes-platforms-whats-the-difference)
+--
+* newer (I)IoT platforms
++
+--
+IIoT platforms are more flexible as they tend to be microservice-based and decentralized. They usually consist of communication software for monitoring, troubleshooting, and managing the connected IoT devices, the network, and data flows. On top of that, some IIoT platforms come with advanced analytics capabilities and support for IoT app development.
+--
+
+The picture below summarizes the major actors of a full blown decentralized (I)IoT Platform:
+
+image::iot_platforms_overview.png[alt=(I)IoT Platforms Overview,width=925, height=666]

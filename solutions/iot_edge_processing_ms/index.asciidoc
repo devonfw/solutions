@@ -1,0 +1,257 @@
+//Category=IoT;Edge
+//Product=Azure Stack Family;Azure IoT Edge; Windows IoT;MicroK8s;K3s;KubeEdge
+//Platform=Microsoft
+//Maturity level=Initial
+
+:toc: macro
+toc::[]
+:idprefix:
+
+:idseparator: -
+
+= IoT Edge Data Processing
+== IoT Edge Data Processing Introduction
+=== Context & Problems
+
+The solutions focus is at the data processing part at the edge within IoT platforms. 
+
+include::../../includes/iot_platforms_desc/index.asciidoc[]
+
+=== Standard Problems
+
+The described problems are split in following categories:
+
+* Functional problems
+Focus is the compute capacity that is connected to the device and the cloud.
+* Non-Functional
+Refers to standard non-functional problems such as Monitoring, Provisioning, Business Continuity, Scaling or Security.
+
+The list below describes the standard functional problems in the above scenarios:
+
+* Connectivity (Device <==> Edge Processing)
++
+--
+This might be challenging for various reasons:
+
+** Devices might not support standard protocols such as OPC-UA/ MQTT/ AMQP => might require protocol translation
+** Devices might require small footprint of installed software => requires protocols that don’t need big software packages on device side
+** Device might not support protocols with encryption
+** Connection might be shaky
+
+Typical protocols in that area are:
+
+** HTTPS as fallback if nothing else works
+** MQTT especially for shaky connections and has a smaller footprint compared to AMQP
+** AMQP has a larger footprint but extra features like connection multiplexing
+MQTT/ AMQP use special ports that are normally blocked by firewalls. A common solution is to run MQTT/ AMQP over WebSockets.
+--
+* Connectivity (Edge Processing <==> Cloud)
+Cloud connectivity might be limited so that caching solutions are required.
+* Processing
++
+--
+Processing must be able to handle the incoming frequency of data. If data cannot be processed and forwarded at the incoming speed an overflow of storage might happen.
+
+Device Data Normalization/ Aggregation
+Data received from the devices might differ in various aspects:
+
+** The same logical value such as 100°C might be encoded by a different data type or by a different value
+** The interval by which devices send data might differ
+** Data received from devices is a snapshot at a certain point in time. For processing an average for a certain time window needs to be calculated.
+--
+* Data enrichment
++
+--
+Data received from the devices might need to be enriched with additional metadata. A classic example is the corresponding customer for a rented device such as a container. The sensor only sends a technical identifier and measured values but not the current owner of the container.
+--
+
+The list below describes the standard non-functional problems in the above scenarios:
+
+* **Monitoring:** Major options are between monitoring on-premises within the edge or remotely via cloud. The concrete platform depends heavily on the processing platform.
+* **Provisioning:** The concrete platform depends heavily on the processing platform.
+* **Scaling:** Scaling mechanisms of the processing platform apply if that feature exists out of the box. Otherwise, manual scaling must be implemented if the processing platform is not node aware.
+* Security
++
+--
+Security in transit, at rest and in extreme cases during processing must be ensured. If the device cannot send the data encrypted the transmission must be hardened by additional measures.
+--
+
+== IoT Edge Data Processing Platforms
+=== Microsoft
+==== Overview
+
+The subsequent chapters give an overview about infrastructure services/ components from Microsoft and Third Party to host processing logic within an IoT platform at the edge. Recommendations are given to allow a solution architect to choose an option.
+
+==== Offerings Categories
+
+Various Microsoft offerings use Azure Arc as enabling technology for on-premises/ edge. Azure Arc allows it to move operations of edge resources (VM, Kubernetes based) in the cloud. This includes monitoring and governance by applying security policies. Key component is an agent on the edge resources that establishes a bidirectional communication channel to the cloud. Edge resources appear then in the Azure control plane as cloud hosted service instances. The picture below shows the major idea:
+
+image::azure_arc.png[AKS Overview, width=794, height=568]
+
+The presented offerings fall in the following categories:
+
+* **Private Azure datacenter:** The offering is intended if you create your own on-premises datacenter that is running Azure cloud software and certified hardware from Microsoft.
+* Cluster of nodes 
+* **Pluggable Device:** The device is plugged into the on-premises host to extend its functionality.
+* IoT specialized Operating System (=Single Server)
+* Container based platforms (Software only)
++
+--
+The major options are:
+
+** Non node aware modular platform => This can be combined with Kubernetes for node awareness and scaling
+** Bare metal Kubernetes platforms which can be further split into lightweight platforms especially targeted for IoT or standard Kubernetes options
+--
+
+== IoT Edge Data Processing Solutions
+=== Microsoft
+
+The Microsoft offerings are as follows:
+
+[width="100%",cols="7%,5%,14%,13%,9%,14%,12%,26%",options="header",]
+|===
+|Service |Category |Architecture |Supported OS |Limitations |Additional Functionality |Cloud Integration |Costs
+|*Azure stack HUB* |Cluster (Own Datacenter) |image:tab_arch_azure_stack_hub.png[image] |Windows/ Linux (https://docs.microsoft.com/de-de/azure-stack/operator/azure-stack-supported-os?view=azs-2108&tabs=os1[Detailed Versions]) a|
+Only integrated OEM HW + Azure Microsoft
+
+Minimum 4-16 servers for one scale unit
+
+a|
+Azure general services like Azure Resource Manager + Subset of Azure Services
+
+Connected/ disconnected
+
+Azure Marketplace connection
+
+|Yes (via https://azure.microsoft.com/en-us/updates/azure-iot-hub-on-azure-stack-hub-preview-will-be-retired-and-it-will-not-go-to-ga/[IoT Edge Gateway] in Stack Hub) a|
+Pay-as-you go as in Azure (same subscriptions, Azure Prepayments, and billing tools as Azure)
+
+Discount for reserved instances not possible
+
+|*Azure Stack Edge* |Pluggable device (Intended for AI inference) due to powerful hardware |image:tab_arch_azure_stack_edge.png[image] |Windows/ Linux (https://docs.microsoft.com/en-us/azure/databox-online/azure-stack-edge-pro-r-system-requirements[Detailed Versions]) a|
+Software requirements hosts (OS, protocols device access, storage accounts)
+
+Networking requirements device (Port, protocol)
+
+a|
+Kubernetes
+
+Azure Arc Integration possible
+
+|Yes (via registration in IoT Hub) a|
+https://azure.microsoft.com/en-us/pricing/calculator/?service=azure-stack-edge[monthly subscription] fee for using Azure Stack Edge for a period of thirty (30) calendar days
+
+Shipping and customs will be charged extra
+
+No upfront cost
+
+|*Azure Stack HCI* |Cluster (Not entire datacenter) |image:tab_arch_azure_stack_edge.png[image] |Windows/ Linux (https://azure.microsoft.com/en-gb/products/azure-stack/hci/[Detailed Version]) a|
+Minimum HW: Single node
+
+Validated HW from https://azurestackhcisolutions.azure.microsoft.com/[catalog] (with over 200 entries)
+
+Bought either HW + SW or SW only
+
+a|
+Storage Spaces (Software Defined Storage)
+
+Azure Arc enabled cloud operations incl. Backup, Monitoring, Compliance, deployment target as custom location
+
+|Yes (via registration in IoT Hub) a|
+https://azure.microsoft.com/en-gb/pricing/details/azure-stack/hci/[Usage fee] on a per-core basis on your on-premises serve
+
+Azure subscription
+
+Additional fees for guests
+
+|*AKS on Azure Stack HCI* |Cluster (Not entire datacenter) | a|
+Host can be windows due to windows server
+
+https://docs.microsoft.com/en-us/azure/aks/node-updates-kured[Kubernetes nodes] Linux per default
+
+Windows container require windows nodes
+
+|Many https://docs.microsoft.com/en-us/azure-stack/aks-hci/system-requirements?tabs=allow-table[additional system] requirements on top of HCI (AD, HW, networking, Windows Admin Center, Azure) |AKS |yes a|
+https://docs.microsoft.com/en-gb/azure-stack/aks-hci/pricing[Usage per vCPU] of running worker nodes within workload clusters (If hyperthreading activated only half of the costs)
+
+Billing data sent to Azure
+
+|*Azure IoT Edge* |Container based platform |image:tab_arch_azure_stack_edge.png[image] a|
+Windows container only to windows hosts
+
+Linux containers to windows and Linux hosts
+
+https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/iot-edge/support.md[Supported OS] host
+
+a|
+Assumes Moby-engine as container platform
+
+Minimum assumption https://docs.microsoft.com/en-us/azure/iot-edge/support?view=iotedge-2020-11[regarding host] since Linux/ Windows virtualization platform (e.g. works in Hyper-V, vSphere, IoT Device)
+
+a|
+Integration with IoT Hub
+
+Modul systems with built-in communication
+
+Modules available via Marketplace (Functions, Azure Stream Analytics)
+
+|Yes a|
+Fee per device for Azure Stream Analytics
+
+Costs for IoT Hub (IoT Hub used for device mgmt and services deployed to edge)
+
+|*Windows IoT* |Operating system |image:tab_arch_windows_iot.png[image] |Windows a|
+IoT Core limited windows 10 support (e.g. only Universal Windows Platform)
+
+Runs on any hardware with the "Certified for Windows Server" logo. See the WindowsServerCatalog
+
+|Device Mgmt for supported devices |Yes (integration https://docs.microsoft.com/en-us/windows/iot-core/connect-to-cloud/managedevices[possible]) a|
+IoT Core: Online Licensing Agreement and Embedded OEM Agreements, Royalty-free
+
+IoT Enterprise: Direct and Indirect Embedded OEM Agreements
+
+|===
+
+The following recommendations exist:
+
+* No built-in functionality required such as Azure Arc, device mgmt & IoT Hub, specialized HW, caching or other showstoppers (Know-how, Budget) ,
+** None of the presented options  Whatever you like
+* Hardware constraints new/ existing violated or software only
+** Azure IoT Edge especially when modular systems + IoT Hub. This option is not node aware. To combine this option on Kubernetes Microsoft recommends Virtual Kubes (https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-kubernetes?view=iotedge-2020-11).
+** Windows 10 IoT if modular needed
+** Manual Azure Arc installation if required
+* No HW constraints violations
+** HCI biggest package (Arc, Kubernetes)
+** Special focus AI/ powerful HW  Azure Stack Edge
+** Entire Datacenter  Azure Stack Hub
+
+
+=== Third Party Container Offerings
+
+Bare metal platforms lightweight Kubernetes platforms that might be also installed on the device itself are:
+
+* MiniKube: Downvoted since for testing purposes only (https://www.itprotoday.com/cloud-computing-and-edge-computing/lightweight-kubernetes-showdown-minikube-vs-k3s-vs-microk8s)
+* **MicroK8s:** Conformant "Low Ops" Kubernetes by Canonical (HA support with multiple master nodes has been added recently)
+* **K3s:** Certified Kubernetes distribution built for IoT and edge computing
+* KubeEdge 
++
+--
+
+It assumes control plane in cloud and worker nodes can also be at the https://capgemini-engineering.com/us/en/insight/how-kubernetes-benefits-iot-edge/[edge]. KubEdge can be installed on the device itself (See here for source https://groups.google.com/g/kubeedge/c/VBhKAJSqmDc). The https://www.cncf.io/blog/2022/08/18/kubernetes-on-the-edge-getting-started-with-kubeedge-and-kubernetes-for-edge-computing/[architecture] is shown below (Red boxes mark KubeEdge components): 
+
+image:kubeedge.png[image]
+--
+
+Bare metal platforms standard compute:
+
+* KubeAdm
++
+--
+Kubernetes tool for creating ground-up Kubernetes clusters which is good for standard compute (Linux/Windows) (https://medium.com/@sven_50828/setting-up-a-high-availability-kubernetes-cluster-with-multiple-masters-31eec45701a2). KubeAdm supports multi master Kubernetes clusters. A Kubernetes cluster with a broken single master cannot be administrated anymore e.g., to add new nodes. Running pods will still continue to run.
+
+image:kubeadm.png[image]
+--
+
+The following decision tree can be used. "Low Ops" in the tree refers to the decreased cost of operations when some operational tasks are abstracted or made easier, like auto updates or simplified upgrades:
+
+image:decision_tree_baremetal_k8.png[image]
