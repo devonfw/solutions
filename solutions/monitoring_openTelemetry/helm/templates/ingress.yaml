@@ -2,9 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  annotations:
+    {{- if contains $.Values.application.cloud "AWS" }}
+      {{ toYaml .Values.ingress.aws.annotations | indent 2 }}
+    {{- end }}
+    {{- if contains $.Values.application.cloud "AZURE" }}
+      {{ toYaml .Values.ingress.azure.annotations | indent 2 }}
+    {{- end }}
 spec:
   rules:
-  - host: {{ .Values.ingress.application.host }}
+  - host: {{ template "ingress.application.host" . }} 
     http:
       paths:
       - path: "/"
@@ -14,7 +21,7 @@ spec:
               name: {{ .Values.application.service.name }}
               port:
                 number: {{ .Values.ingress.application.port }}
-  - host: {{ .Values.ingress.jaeger.host }}
+  - host: {{ template "ingress.jaeger.host" . }} 
     http:
       paths:
       - path: "/"
@@ -24,7 +31,7 @@ spec:
               name: jaeger-all-in-one
               port:
                 number: {{ .Values.ingress.jaeger.port }}
-  - host: {{ .Values.ingress.grafana.host }}
+  - host:  {{ template "ingress.grafana.host" . }} 
     http:
       paths:
       - path: "/"

@@ -1,0 +1,64 @@
+== HTTP application routing in Azure: 
+The HTTP application routing add-on is designed to let you quickly create an ingress controller and access your applications. 
+This add-on is not currently designed for use in a production environment and is not recommended for production use. 
+
+Following steps to enable HTTP application routing.
+
+. Enable HTTP routing on existing AKS cluster using the `az aks enable-addons` with the Azure CLI
+
+	az aks enable-addons --resource-group myResourceGroup --name myAKSCluster --addons http_application_routing
+	
+
+. use the `az aks show` command to retrieve the DNS zone name.
+  
+  az aks show --resource-group myResourceGroup --name myAKSCluster --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+	
+. Adding annotations
+
+	annotations:
+		kubernetes.io/ingress.class: addon-http-application-routing
+	
+. Change your ingress host with http application DNS Zone name.  
+
+	host: xxxxx.xxxxxx.xxxx.region.aksapp.io
+	
+== Nginx-ingress-controller-setup:
+
+Install Nginx ingress controller in kubernetes cluster by using helm chart.
+
+* Adding the Helm repository, if you’re installing the chart via the helm repository.
+
+	helm repo add bitnami https://charts.bitnami.com/bitnami
+
+* Upgrading the Chart
+
+	helm repo update
+
+* Nginx-ingress controller: Installing the Helm charts deploy the nginx ingress controller with the following command.
+
+  helm install nginx-ingress bitnami/nginx-ingress-controller --set ingressClassResource.default=true --set containerSecurityContext.allowPrivilegeEscalation=false --namespace nginx-ingress --create-namespace
+
+== Create multiple nginx controller service for multi domain access.
+
+1. Import already existed nginx controller service in to yaml, modify service name and re-deploy service.
+
+    kubectl get svc nginx-ingress-nginx-ingress-controller -n nginx-ingress -o yaml > filename.yml
+
+ Note:  In Azure create Public IP addresses(domain) for nginx ingress service external IP.
+
+2. Redeploy service with minor changes.
+
+   kubectl apply -f nginx_controller_service.yml -n nginx-ingress
+   
+3. Setup ingress host with nginx ingress controller service domain to access application using domain.
+
+    host: xxx.xxx.xx.com
+    
+deploy and access application using domain.
+
+== Examples
+=== Providing Dynamic Values to Helm chart
+When installing Helm charts with the helm install command, the `--set` argument allows you to define value in a values.yaml file, `application.cloud` is deployment  environment(AZURE), `ingress.host` is to set host value.
+
+	helm install otlp ./helm --set application.cloud="AZURE" --set ingress.host="xxx.com"
+
